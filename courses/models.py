@@ -16,10 +16,16 @@ class Week(models.Model):
     short_description = models.TextField(default='')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('number', )
+
 
 class Day(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=256, default='')
-    short_description = models.TextField(efault='')
+    short_description = models.TextField(default='')
     content = tinymce_models.HTMLField(default='')
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('number', )

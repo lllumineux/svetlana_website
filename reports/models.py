@@ -1,7 +1,7 @@
 from django.db import models
 
 from courses.models import Day
-from users.models import BasicUser
+from accounts.models import User
 
 
 class ReportQuestion(models.Model):
@@ -9,14 +9,22 @@ class ReportQuestion(models.Model):
     text = models.CharField(max_length=256, default='')
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ('number', )
+
 
 class Report(models.Model):
     upload_time = models.DateTimeField()
-    user = models.ForeignKey(BasicUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-upload_time', )
 
 
 class ReportItem(models.Model):
     question = models.ForeignKey(ReportQuestion, on_delete=models.CASCADE)
-    number = question.number
     answer = models.TextField(default='')
     report = models.ForeignKey(Report, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('question', )

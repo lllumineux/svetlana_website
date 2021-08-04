@@ -1,5 +1,5 @@
 from django.db import models
-from helpers import models as help_models
+from others.helpers import models as help_models
 
 
 class Number(models.Model):
