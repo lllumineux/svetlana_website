@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'tinymce',
     'rest_framework',
     # Svetlana website apps
-    'accounts',
-    'articles',
-    'courses',
-    'reports',
-    'others',
+    'apps.accounts',
+    'apps.articles',
+    'apps.courses',
+    'apps.reports',
+    'apps.others',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +117,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'UTC'
 
@@ -139,7 +140,24 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# REST-framework settings
+# TinyMCE configurations
+TINYMCE_DEFAULT_CONFIG = {
+    'menubar': 'edit insert format tools',
+    'plugins': (
+        'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code '
+        'fullscreen insertdatetime media table paste code help wordcount spellchecker'
+    ),
+    'toolbar': (
+        'undo redo | bold italic underline strikethrough | fontsizeselect formatselect | alignleft '
+        'aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor '
+        'backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | '
+        'fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | '
+        'a11ycheck ltr rtl | showcomments addcomment code'
+    ),
+}
+
+
+# REST-framework configurations
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -150,7 +168,7 @@ REST_FRAMEWORK = {
 }
 
 
-# Simple-jwt settings
+# Simple-jwt configurations
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),

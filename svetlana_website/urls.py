@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from accounts.urls import router as auth_router
-from articles.urls import router as articles_router
-from courses.urls import router as courses_router
-from reports.urls import router as reports_router
-from others.urls import router as others_router
+from apps.accounts.urls import router as auth_router
+from apps.articles.urls import router as articles_router
+from apps.courses.urls import router as courses_router
+from apps.reports.urls import router as reports_router
+from apps.others.urls import router as others_router
 
 
 router = routers.DefaultRouter()
@@ -34,6 +34,6 @@ router.registry.extend(others_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'api/auth/', include('accounts.urls')),
+    path(r'api/auth/', include('apps.accounts.urls')),
     path(r'api/', include(router.urls))
 ]
