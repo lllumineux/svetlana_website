@@ -1,5 +1,5 @@
 from rest_framework import routers
-from apps.others import views
+from apps.stuff import views
 
 router = routers.DefaultRouter()
 router.register('numbers', views.NumberViewSet)

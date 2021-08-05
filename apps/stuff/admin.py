@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.others import models
+from apps.stuff import models
 
 admin.site.register(models.Number)
 admin.site.register(models.Screenshot)

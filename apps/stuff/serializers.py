@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.others import models
+from apps.stuff import models
 
 
 class NumberSerializer(serializers.ModelSerializer):

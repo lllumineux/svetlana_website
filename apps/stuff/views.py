@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from apps.others import serializers, models
+from apps.stuff import serializers, models
 
 
 class NumberViewSet(viewsets.ModelViewSet):

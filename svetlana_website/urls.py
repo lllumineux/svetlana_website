@@ -21,7 +21,7 @@ from apps.accounts.urls import router as auth_router
 from apps.articles.urls import router as articles_router
 from apps.courses.urls import router as courses_router
 from apps.reports.urls import router as reports_router
-from apps.others.urls import router as others_router
+from apps.stuff.urls import router as others_router
 
 
 router = routers.DefaultRouter()

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from apps.accounts import models
 from apps.accounts import serializers
 
