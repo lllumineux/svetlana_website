@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development ./apps/frontend/src/index.js --output-path ./apps/frontend/static/",
+    "build": "webpack --mode production ./apps/frontend/src/index.js --output-path ./apps/frontend/static/"
   },
   "repository": {
     "type": "git",
@@ -23,12 +24,21 @@
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^6.2.0",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.2.0",
+    "style-loader": "^3.2.1",
     "webpack": "^5.48.0",
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
   }
 }

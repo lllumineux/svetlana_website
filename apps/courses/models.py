@@ -1,5 +1,9 @@
+import os
+
 from django.db import models
 from tinymce import models as tinymce_models
+
+from apps.courses.helpers.functions import UploadToPathAndRename
 
 
 class Course(models.Model):
@@ -8,7 +12,7 @@ class Course(models.Model):
     full_description = tinymce_models.HTMLField()
     price1 = models.IntegerField(default=0)
     price2 = models.IntegerField(default=0)
-    background_img = models.ImageField(upload_to='general_files')
+    background_img = models.ImageField(upload_to=UploadToPathAndRename(str(os.path.join('apps', 'frontend', 'static'))))
 
 
 class Week(models.Model):
