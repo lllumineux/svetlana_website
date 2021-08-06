@@ -1,0 +1,53 @@
+@use "../common/base"
+
+.courses
+  margin-top: 50px
+
+  .course:nth-child(2n)
+    margin-left: 42px
+
+  .course:nth-child(n+3)
+    margin-top: 35px
+
+  .course
+    display: inline-block
+    border: 2px solid base.$light-gray-color
+    border-radius: 30px
+    vertical-align: top
+    width: 433px
+    padding: 29px 43px
+
+    .description
+      color: base.$dark-gray-color
+      height: 171px
+      margin-top: 13px
+
+    .action-buttons
+      *:nth-child(n+2)
+        margin-left: 37px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+
+    hr
+      background-color: base.$light-gray-color
+      border: none
+      width: 100%
+      height: 2px
+      margin: 29px 0
+
+  .add-course-button
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 295px
+
+    img
+      width: 51px
+
+    div
+      color: base.$dark-gray-color
+      margin-top: 10px

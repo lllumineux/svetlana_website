@@ -1,4 +1,4 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     module: {
@@ -11,17 +11,18 @@ module.exports = {
                 }
             },
             {
-                test: /\.(css)$/,
+                test: /\.(sass)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader'
+                    "css-loader",
+                    "sass-loader"
                 ],
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
-                        loader: 'file-loader',
+                        loader: "file-loader"
                     },
                 ],
             },

@@ -1,0 +1,77 @@
+@use "base"
+
+/* Fonts import */
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 400
+  src: url("../../fonts/Montserrat-Regular.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 500
+  src: url("../../fonts/Montserrat-Medium.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: italic
+  font-weight: 500
+  src: url("../../fonts/Montserrat-MediumItalic.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 600
+  src: url("../../fonts/Montserrat-SemiBold.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 700
+  src: url("../../fonts/Montserrat-Bold.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 800
+  src: url("../../fonts/Montserrat-ExtraBold.ttf")
+
+
+/* Common CSS */
+*
+  outline: none
+  text-decoration: none
+  border: none
+  background-color: transparent
+  padding: 0
+  margin: 0
+
+  font-family: "Montserrat", sans-serif
+  font-weight: 500
+  font-size: base.$p1-size
+  color: base.$black-color
+
+button
+  border: none
+  cursor: pointer
+
+h2
+  font-weight: 800
+  font-size: base.$h2-size
+
+h3
+  font-weight: 700
+  font-size: base.$h4-size
+
+.content
+  width: 1088px
+  padding: 100px 0
+  margin: auto
+
+.hover-animation
+  cursor: pointer
+  transition: all 0.25s ease-out
+
+.hover-animation:hover
+  opacity: .65

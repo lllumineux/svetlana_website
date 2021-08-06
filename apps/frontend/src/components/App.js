@@ -13,7 +13,9 @@ class App extends Component {
             <Provider store={store}>
                 <Fragment>
                     <Header />
-                    <Courses />
+                    <div className="content">
+                        <Courses />
+                    </div>
                 </Fragment>
             </Provider>
         )

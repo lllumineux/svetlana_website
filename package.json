@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./apps/frontend/src/index.js --output-path ./apps/frontend/static/",
+    "dev": "webpack --mode development --watch ./apps/frontend/src/index.js --output-path ./apps/frontend/static/",
     "build": "webpack --mode production ./apps/frontend/src/index.js --output-path ./apps/frontend/static/"
   },
   "repository": {
@@ -27,8 +27,10 @@
     "css-loader": "^6.2.0",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.2.0",
+    "sass": "^1.37.5",
+    "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
-    "webpack": "^5.48.0",
+    "webpack": "^5.49.0",
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {

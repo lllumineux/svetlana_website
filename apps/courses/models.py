@@ -13,6 +13,7 @@ class Course(models.Model):
     price1 = models.IntegerField(default=0)
     price2 = models.IntegerField(default=0)
     background_img = models.ImageField(upload_to=UploadToPathAndRename(str(os.path.join('apps', 'frontend', 'static'))))
+    is_hidden = models.BooleanField(default=True)
 
 
 class Week(models.Model):

@@ -1,0 +1,30 @@
+@use "../common/base"
+
+.header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 28px 69px 0
+
+.header
+    *
+        font-size: base.$p3-size
+
+    .admin-nav a
+        color: #000
+        text-decoration: none
+        margin-right: 53px
+
+    .profile-nav
+        display: flex
+        align-items: center
+
+        .user-nickname
+            font-weight: 700
+            margin-right: 26px
+
+        .logout
+            color: base.$red-color
+            background: base.$light-gray-color
+            border-radius: 100px
+            padding: 5px 26px
