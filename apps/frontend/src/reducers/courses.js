@@ -9,7 +9,7 @@ export default function (state= initialState, action) {
     case GET_COURSES:
       return {
         ...state,
-        leads: action.payload,
+        courses: action.payload,
       };
     default:
       return state;
