@@ -8,7 +8,7 @@ from apps.courses.helpers.functions import UploadToPathAndRename
 
 class Course(models.Model):
     name = models.CharField(max_length=256, default='')
-    short_description = models.TextField(default='')
+    short_description = models.CharField(max_length=340, default='')
     full_description = tinymce_models.HTMLField()
     price1 = models.IntegerField(default=0)
     price2 = models.IntegerField(default=0)

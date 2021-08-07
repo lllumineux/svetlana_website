@@ -1,4 +1,4 @@
-import { GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY } from "../actions/types";
+import {GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY, ADD_COURSE} from "../actions/types";
 
 const initialState = {
   courses: []
@@ -23,6 +23,11 @@ export default function (state= initialState, action) {
           course.is_hidden = (course.id === action.payload) ? !course.is_hidden : course.is_hidden;
           return course;
         })
+      };
+    case ADD_COURSE:
+      return {
+        ...state,
+        courses: [...state.courses, action.payload]
       };
     default:
       return state;

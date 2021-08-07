@@ -1,8 +1,6 @@
 @use "../common/base"
 
 .courses
-  margin-top: 50px
-
   .course:nth-child(2n)
     margin-left: 42px
 
@@ -16,6 +14,10 @@
     vertical-align: top
     width: 433px
     padding: 29px 43px
+
+    h3
+      font-weight: 700
+      font-size: base.$h4-size
 
     .description
       color: base.$dark-gray-color
@@ -39,7 +41,7 @@
       margin: 29px 0
 
   .add-course-button
-    display: flex
+    display: inline-flex
     flex-direction: column
     justify-content: center
     align-items: center

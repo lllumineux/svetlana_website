@@ -1,23 +1,30 @@
 import React, { Component, Fragment } from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import store from "../store";
+
 
 import Header from "./layout/Header";
-
-import { Provider } from "react-redux";
-import store from "../store";
-import Courses from "./courses/Courses";
+import Courses from "./courses_page/Courses";
+import AddCourse from "./add_course_page/AddCourse";
 
 class App extends Component {
     render() {
         return (
-            <Provider store={store}>
-                <Fragment>
-                    <Header />
-                    <div className="content">
-                        <Courses />
-                    </div>
-                </Fragment>
-            </Provider>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <Fragment>
+                        <Header />
+                        <div className="content">
+                            <Switch>
+                                <Route exact path="/courses/" component={Courses}/>
+                                <Route exact path="/courses/add/" component={AddCourse}/>
+                            </Switch>
+                        </div>
+                    </Fragment>
+                </Provider>
+            </BrowserRouter>
         )
     }
 }

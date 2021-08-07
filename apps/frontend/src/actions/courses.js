@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY } from "./types";
+import {GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY, ADD_COURSE} from "./types";
 
 
 // GET COURSES
@@ -39,4 +39,22 @@ export const invertCourseVisibility = (id) => (dispatch) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+// INVERT_COURSE_VISIBILITY
+export const addCourse = (course, callback_func) => (dispatch) => {
+  axios
+    .post(`/api/courses/`, course, {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    })
+    .then(res => {
+      dispatch({
+        type: ADD_COURSE,
+        payload: res.data
+      });
+    })
+    .catch((err) => console.log(err))
+    .then(callback_func());
 };

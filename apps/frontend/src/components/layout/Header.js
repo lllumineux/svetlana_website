@@ -1,16 +1,17 @@
 import React, { Component } from "react";
+import {Link} from "react-router-dom";
 
 export class Header extends Component {
     render() {
         return (
             <header className="header">
                 <div className="admin-nav">
-                    <a href="../courses" className="hover-animation">Курсы</a>
-                    <a href="../users" className="hover-animation">Пользователи</a>
-                    <a href="../reports" className="hover-animation">Отчёты</a>
-                    <a href="../articles" className="hover-animation">Статьи</a>
-                    <a href="../general_info" className="hover-animation">Редактирование общей информации</a>
-                    <a href="../numbers" className="hover-animation">Номера</a>
+                    <Link to="/courses/" className="hover-animation">Курсы</Link>
+                    <Link to="/users/" className="hover-animation">Пользователи</Link>
+                    <Link to="/reports/" className="hover-animation">Отчёты</Link>
+                    <Link to="/articles/" className="hover-animation">Статьи</Link>
+                    <Link to="/general_info/" className="hover-animation">Редактирование общей информации</Link>
+                    <Link to="/numbers/" className="hover-animation">Номера</Link>
                 </div>
                 <div className="profile-nav">
                     <div className="user-nickname">admin</div>
