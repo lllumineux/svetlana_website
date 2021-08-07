@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {addCourse} from "../../actions/courses";
-import { Editor } from '@tinymce/tinymce-react';
+import TinyEditor from "../common/TinyEditor";
 
 export class AddCourse extends Component {
     state = {
@@ -54,17 +54,7 @@ export class AddCourse extends Component {
                     </div>
                     <div className="input-form">
                         <h5>Полное описание</h5>
-                        <Editor apiKey="ljh5ud1t395iha2irxyvff2cdnjehwnubw3gpufxv7a9z2pw" init={{
-                            selector: "#myTextarea",
-                            menubar: "edit insert format tools",
-                            plugins: "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code " +
-                                "fullscreen insertdatetime media table paste code help wordcount spellchecker",
-                            toolbar: "undo redo | bold italic underline strikethrough | fontsizeselect formatselect | alignleft " +
-                                "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor " +
-                                "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | " +
-                                "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | " +
-                                "a11ycheck ltr rtl | showcomments addcomment code"
-                        }} onChange={this.onEditorChange}/>
+                        <TinyEditor onChange={this.onEditorChange}/>
                     </div>
                     <div className="input-form">
                         <h5>Цена за материалы</h5>
@@ -80,7 +70,6 @@ export class AddCourse extends Component {
                             <label htmlFor="file" id="file-input-label" className="hover-animation">Выберите файл...</label>
                             <input type="file" id="file" accept="image/png, image/jpeg" name="background_img" onChange={this.onFileChange}/>
                         </div>
-
                     </div>
                     <button type="submit" className="hover-animation">Добавить курс</button>
                 </form>
