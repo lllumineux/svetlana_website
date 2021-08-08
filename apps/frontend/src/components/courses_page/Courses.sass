@@ -12,19 +12,23 @@
     border: 2px solid base.$light-gray-color
     border-radius: 30px
     vertical-align: top
-    width: 433px
-    padding: 29px 43px
+    width: 519px
+    padding: 0 0 29px
 
     h3
       font-weight: 700
       font-size: base.$h4-size
+      padding: 29px 43px 0
 
     .description
       color: base.$dark-gray-color
       height: 171px
+      padding: 0 43px 29px
       margin-top: 13px
 
     .action-buttons
+      padding: 0 43px
+
       *:nth-child(n+2)
         margin-left: 37px
 
@@ -38,14 +42,17 @@
       border: none
       width: 100%
       height: 2px
-      margin: 29px 0
+      margin: 0 0 29px
+
+  .course:hover
+    box-shadow: 0 0 10px #eee
 
   .add-course-button
     display: inline-flex
     flex-direction: column
     justify-content: center
     align-items: center
-    height: 295px
+    height: 324px
 
     img
       width: 51px

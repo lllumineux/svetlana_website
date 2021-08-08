@@ -1,18 +1,25 @@
 @use "base"
 
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+  -webkit-appearance: none
+  margin: 0
+
+input[type=number]
+  -moz-appearance: textfield
+
 .input-forms
   .input-form
     display: flex
     flex-direction: column
     margin-top: 50px
 
-    h5
-      font-size: base.$h5-size
+    h4
+      font-size: base.$h4-size
       font-weight: 600
 
     input[type="text"], input[type="number"], .file-input-form, textarea, *[role="application"]
       border: 2px solid base.$light-gray-color
-      font-size: base.$p3-size
+      font-size: base.$p2-size
       border-radius: 100px
       box-sizing: border-box
       width: 100%
@@ -20,7 +27,7 @@
       margin-top: 9px
 
       label
-        font-size: base.$p3-size
+        font-size: base.$p2-size
 
       // Invisible
       input[type="file"]

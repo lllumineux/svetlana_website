@@ -23,8 +23,10 @@ export class Courses extends Component {
                 <div className="courses">
                     { this.props.courses.map(course => (
                         <div className="course" key={course.name + course.id}>
-                            <h3>{course.name}</h3>
-                            <div className="description">{course.short_description}</div>
+                            <Link to={`/courses/${course.id}`}>
+                                <h3>{course.name}</h3>
+                                <div className="description">{course.short_description}</div>
+                            </Link>
                             <hr/>
                             <div className="action-buttons">
                                 <button onClick={this.props.deleteCourse.bind(this, course.id)} className="hover-animation">Удалить</button>
@@ -35,7 +37,7 @@ export class Courses extends Component {
                             </div>
                         </div>
                     )) }
-                    <Link to="/courses/add/" className="course add-course-button hover-animation">
+                    <Link to="/courses/add/" className="course add-course-button">
                         <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iNTEiIGhlaWdodD0iNTEiIHZpZXdCb3g9IjAgMCA1MSA1MSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMjQiIHk9IjE0IiB3aWR0aD0iMyIgaGVpZ2h0PSIyMyIgcng9IjEuNSIgZmlsbD0iIzg4ODg4OCIvPgo8cmVjdCB4PSIzNyIgeT0iMjQiIHdpZHRoPSIzIiBoZWlnaHQ9IjIzIiByeD0iMS41IiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAzNyAyNCkiIGZpbGw9IiM4ODg4ODgiLz4KPGNpcmNsZSBjeD0iMjUuNSIgY3k9IjI1LjUiIHI9IjI0IiBzdHJva2U9IiM4ODg4ODgiIHN0cm9rZS13aWR0aD0iMyIvPgo8L3N2Zz4K" alt="Add course icon"/>
                         <div>Добавить курс</div>
                     </Link>

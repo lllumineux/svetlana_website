@@ -1,7 +1,15 @@
-import {GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY, ADD_COURSE} from "../actions/types";
+import {
+  GET_COURSES,
+  DELETE_COURSE,
+  INVERT_COURSE_VISIBILITY,
+  ADD_COURSE,
+  GET_COURSE,
+  UPDATE_COURSE
+} from "../actions/types";
 
 const initialState = {
-  courses: []
+  courses: [],
+  course: {"name": "", "short_description": "", "full_description": "", "price1": "", "price2": "", "background_img": "", "is_hidden": ""}
 };
 
 export default function (state= initialState, action) {
@@ -11,10 +19,20 @@ export default function (state= initialState, action) {
         ...state,
         courses: action.payload,
       };
+    case GET_COURSE:
+      return {
+        ...state,
+        course: action.payload,
+      };
     case DELETE_COURSE:
       return {
         ...state,
         courses: state.courses.filter(course => course.id !== action.payload)
+      };
+    case UPDATE_COURSE:
+      return {
+        ...state,
+        courses: state.courses.filter(course => course.id === action.payload.id)[0] = action.payload
       };
     case INVERT_COURSE_VISIBILITY:
       return {

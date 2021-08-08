@@ -9,6 +9,7 @@ import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Courses from "./courses_page/Courses";
 import AddCourse from "./add_course_page/AddCourse";
+import EditCourse from "./edit_course_page/EditCourse";
 
 class App extends Component {
     render() {
@@ -21,6 +22,7 @@ class App extends Component {
                             <Switch>
                                 <Route exact path="/courses/" component={Courses}/>
                                 <Route exact path="/courses/add/" component={AddCourse}/>
+                                <Route path="/courses/edit/" component={EditCourse}/>
                             </Switch>
                         </div>
                         <Footer />
