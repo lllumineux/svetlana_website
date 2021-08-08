@@ -13,3 +13,7 @@ class UploadToPathAndRename(object):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(uuid4().hex, ext)
         return os.path.join(self.sub_path, filename)
+
+
+def process_number(number):
+    return ''.join([sym if sym in "0123456789" else "" for sym in number])

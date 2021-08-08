@@ -6,6 +6,7 @@ import store from "../store";
 
 
 import Header from "./layout/Header";
+import Footer from "./layout/Footer";
 import Courses from "./courses_page/Courses";
 import AddCourse from "./add_course_page/AddCourse";
 
@@ -22,6 +23,7 @@ class App extends Component {
                                 <Route exact path="/courses/add/" component={AddCourse}/>
                             </Switch>
                         </div>
+                        <Footer />
                     </Fragment>
                 </Provider>
             </BrowserRouter>

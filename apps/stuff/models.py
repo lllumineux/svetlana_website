@@ -4,6 +4,7 @@ from django.db import models
 
 from apps.courses.helpers.functions import UploadToPathAndRename
 from apps.stuff.helpers import models as help_models
+from apps.stuff.helpers.functions import process_number
 
 
 class Number(models.Model):
@@ -20,4 +21,12 @@ class GeneralInfo(help_models.SingletonModel):
     psychological_consultation_description = models.TextField(default='')
     whatsapp_number = models.CharField(max_length=32, default='')
     instagram_alias = models.CharField(max_length=32, default='')
-    main_page_numbers_form_label = models.TextField(default='')
+    main_page_numbers_form_text = models.TextField(default='')
+
+    @property
+    def whatsapp_link(self):
+        return f"https://wa.me/{process_number(self.whatsapp_number)}/"
+
+    @property
+    def instagram_link(self):
+        return f"https://www.instagram.com/{self.instagram_alias}/"

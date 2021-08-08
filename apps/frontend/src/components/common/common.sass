@@ -63,7 +63,15 @@ button
 .hover-animation:hover
   opacity: .65
 
+html, body, #app
+  height: 100%
+
+#app
+  display: flex
+  flex-direction: column
+
 .content
+  flex: 1 0 auto
   width: 1088px
   padding: 100px 0
   margin: auto
@@ -72,3 +80,6 @@ button
   font-weight: 800
   font-size: base.$h2-size
   margin-bottom: 50px
+
+.footer
+  flex-shrink: 0
