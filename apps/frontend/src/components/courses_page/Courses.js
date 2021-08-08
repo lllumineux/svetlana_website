@@ -19,18 +19,18 @@ export class Courses extends Component {
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Курсы</h2>
+                <h2 className="content-title">Редактирование курсов</h2>
                 <div className="courses">
                     { this.props.courses.map(course => (
                         <div className="course" key={course.name + course.id}>
-                            <Link to={`/courses/${course.id}`}>
+                            <Link to={`/courses/${course.id}/`}>
                                 <h3>{course.name}</h3>
                                 <div className="description">{course.short_description}</div>
                             </Link>
                             <hr/>
                             <div className="action-buttons">
                                 <button onClick={this.props.deleteCourse.bind(this, course.id)} className="hover-animation">Удалить</button>
-                                <Link to={`/courses/edit/${course.id}`} className="hover-animation">Редактировать</Link>
+                                <Link to={`/courses/edit/${course.id}/`} className="hover-animation">Редактировать</Link>
                                 <button onClick={this.props.invertCourseVisibility.bind(this, course.id)} className="hover-animation">
                                     {course.is_hidden ? ("Показать") : ("Скрыть")}
                                 </button>

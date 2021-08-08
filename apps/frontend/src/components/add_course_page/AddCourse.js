@@ -37,6 +37,7 @@ export class AddCourse extends Component {
         formData.append('price1', parseInt(this.state.price1, 10));
         formData.append('price2', parseInt(this.state.price2, 10));
         formData.append('background_img', this.state.background_img, this.state.background_img.name);
+        formData.append('is_hidden', true);
         this.props.addCourse(formData, () => window.location.replace("/courses/"));
     };
 

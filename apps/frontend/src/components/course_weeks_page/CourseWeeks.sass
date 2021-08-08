@@ -1,18 +1,14 @@
 @use "../common/base"
 
-.courses
-  .course:nth-child(2n)
-    margin-left: 42px
+.weeks
+  .week:nth-child(n+1)
+    margin-top: 20px
 
-  .course:nth-child(n+3)
-    margin-top: 35px
-
-  .course
-    display: inline-block
+  .week
     border: 2px solid base.$light-gray-color
     border-radius: 30px
     vertical-align: top
-    width: 519px
+    width: 100%
     padding: 0 0 29px
 
     h3
@@ -22,7 +18,6 @@
 
     .description
       color: base.$dark-gray-color
-      height: 171px
       padding: 0 43px 29px
       margin-top: 13px
 
@@ -36,30 +31,10 @@
     .action-buttons
       padding: 0 43px
 
-      *:nth-child(n+2)
-        margin-left: 37px
-
       *
         background-color: transparent
         color: base.$dark-gray-color
         font-size: base.$p2-size
 
-
-
-  .course:hover
+  .week:hover
     box-shadow: 0 0 10px #eee
-
-  .add-course-button
-    display: inline-flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    height: 357px
-    padding: 0
-
-    img
-      width: 51px
-
-    div
-      color: base.$dark-gray-color
-      margin-top: 10px

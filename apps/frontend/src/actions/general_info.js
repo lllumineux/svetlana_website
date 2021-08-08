@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ADD_COURSE, GET_CONTACT_INFO} from "./types";
+import {GET_CONTACT_INFO} from "./types";
 
 // GET_CONTACT_INFO
 export const getContactInfo = () => (dispatch) => {

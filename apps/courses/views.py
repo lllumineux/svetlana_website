@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.core import serializers as django_serializer
 
 from apps.courses import serializers
 from apps.courses import models
-from apps.courses.models import Course
+from apps.courses.models import Course, Week
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -13,10 +14,23 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     @action(methods=['PATCH'], detail=True, url_path='invert_visibility')
     def invert_course_visibility(self, request, pk=None):
-        obj = Course.objects.get(pk=pk)
-        obj.is_hidden = not obj.is_hidden
-        obj.save()
+        course = Course.objects.get(pk=pk)
+        course.is_hidden = not course.is_hidden
+        course.save()
         return Response({'status': 'course visibility changed'})
+
+    @action(methods=['GET'], detail=True)
+    def week_list(self, request, pk=None):
+        course = Course.objects.get(pk=pk)
+        weeks = Week.objects.filter(course=course)
+        return Response(
+            {
+                'id': week.pk,
+                'number': week.number,
+                'short_description': week.short_description,
+                'course': week.course.id,
+            } for week in weeks
+        )
 
 
 class WeekViewSet(viewsets.ModelViewSet):

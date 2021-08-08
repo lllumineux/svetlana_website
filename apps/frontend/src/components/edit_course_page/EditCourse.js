@@ -31,9 +31,7 @@ export class EditCourse extends Component {
     };
 
     componentDidMount() {
-        const url = this.props.location.pathname
-        const course_id = parseInt(url.substring(url.lastIndexOf('/') + 1), 10)
-        this.props.getCourse(course_id);
+        this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
 
     // Input form changes listeners
