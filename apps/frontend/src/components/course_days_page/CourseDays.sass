@@ -1,0 +1,83 @@
+@use "../common/base"
+
+.content-header
+  display: flex
+  justify-content: space-between
+  align-items: center
+
+.content-controls
+  display: flex
+  margin-bottom: 50px
+
+  div:nth-child(1)
+    margin-right: 5px
+
+    img
+      padding-right: 2px
+
+  div:nth-child(2) img
+      padding-left: 2px
+
+  div
+    display: flex
+    justify-content: center
+    align-items: center
+    background-color: base.$black-color
+    border-radius: 100px
+    width: 30px
+    height: 30px
+
+    img
+      width: 12px
+
+.days
+  .day:not(:last-child)::after
+    display: block
+    content: ""
+    border-bottom: 2px solid base.$light-gray-color
+    width: 100%
+
+  .day
+    border-radius: 30px
+    width: 100%
+
+    .day-info-wrapper
+      display: flex
+      padding-bottom: 29px
+
+      h3
+        margin-top: 29px
+        font-weight: 700
+        font-size: base.$h4-size
+        min-width: 100px
+
+      .day-info-inner
+        box-sizing: border-box
+        width: 100%
+        margin: 29px 43px 0
+
+        h4
+          font-weight: 700
+          font-size: base.$h6-size
+
+        .description
+          color: base.$dark-gray-color
+          margin-top: 4px
+
+    hr
+      box-sizing: border-box
+      background-color: base.$light-gray-color
+      border: none
+      width: auto
+      height: 2px
+      margin-bottom: 29px
+      margin-left: 143px
+
+    .action-buttons
+      margin-left: 143px
+      margin-bottom: 29px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size

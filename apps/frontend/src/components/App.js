@@ -11,8 +11,8 @@ import Courses from "./courses_page/Courses";
 import AddCourse from "./add_course_page/AddCourse";
 import EditCourse from "./edit_course_page/EditCourse";
 import CourseWeeks from "./course_weeks_page/CourseWeeks";
+import CourseDays from "./course_days_page/CourseDays";
 import EditCourseWeek from "./edit_course_week_page/EditCourseWeek";
-import CourseWeek from "./course_week_page/CourseWeek";
 
 class App extends Component {
     render() {
@@ -23,11 +23,11 @@ class App extends Component {
                         <Header />
                         <div className="content">
                             <Switch>
-                                <Route exact path="/courses/" component={Courses}/>
-                                <Route exact path="/courses/add/" component={AddCourse}/>
-                                <Route exact path="/courses/:pk/" component={CourseWeeks}/>
-                                <Route exact path="/courses/edit/:pk/" component={EditCourse}/>
-                                <Route exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseWeek {...props}/>} />
+                                <Route exact path="/courses/" component={Courses} />
+                                <Route exact path="/courses/add/" component={AddCourse} />
+                                <Route exact path="/courses/:pk/" component={CourseWeeks} />
+                                <Route exact path="/courses/edit/:pk/" component={EditCourse} />
+                                <Route exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseDays {...props}/>} />
                                 <Route exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
                             </Switch>
                         </div>

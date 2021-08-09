@@ -9,7 +9,7 @@ class CourseSerializer(serializers.ModelSerializer):
         for i in range(1, 5):
             week = Week.objects.create(number=i, course=response)
             for c in range(1, 8):
-                Day.objects.create(number=i, week=week)
+                Day.objects.create(number=c, week=week)
         return response
 
     class Meta:

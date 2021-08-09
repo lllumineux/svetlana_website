@@ -1,11 +1,10 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.core import serializers as django_serializer
 
 from apps.courses import serializers
 from apps.courses import models
-from apps.courses.models import Course, Week
+from apps.courses.models import Course, Week, Day
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -36,6 +35,21 @@ class CourseViewSet(viewsets.ModelViewSet):
 class WeekViewSet(viewsets.ModelViewSet):
     queryset = models.Week.objects.all()
     serializer_class = serializers.WeekSerializer
+
+    @action(methods=['GET'], detail=True)
+    def day_list(self, request, pk=None):
+        week = Week.objects.get(pk=pk)
+        days = Day.objects.filter(week=week)
+        return Response(
+            {
+                'id': day.pk,
+                'number': day.number,
+                'name': day.name,
+                'short_description': day.short_description,
+                'content': day.content,
+                'week': day.week.id
+            } for day in days
+        )
 
 
 class DayViewSet(viewsets.ModelViewSet):

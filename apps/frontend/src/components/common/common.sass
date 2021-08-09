@@ -63,6 +63,9 @@ button
 .hover-animation:hover
   opacity: .65
 
+.disabled
+  opacity: .45
+
 html, body, #app
   height: 100%
 
@@ -76,10 +79,13 @@ html, body, #app
   padding: 100px 0
   margin: auto
 
-.content-title
+.content-title, .content-title *
   font-weight: 800
   font-size: base.$h2-size
   margin-bottom: 50px
+
+  .gray
+    color: base.$light-gray-color
 
 .footer
   flex-shrink: 0
