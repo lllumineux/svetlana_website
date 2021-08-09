@@ -24,13 +24,13 @@ export class CourseWeeks extends Component {
                 <div className="weeks">
                     { this.props.course_weeks.map(week => (
                         <div className="week" key={week.id}>
-                            <Link to={{pathname: `/courses/${this.props.course.id}/weeks/${week.number}/`, state: {week_id: week.id}}}>
+                            <Link to={{pathname: `/courses/${this.props.course.id}/weeks/${week.number}/`, state: { week: {id: week.id, number: week.number}}}}>
                                 <h3>Неделя {week.number}</h3>
                                 <div className="description">{week.short_description}</div>
                             </Link>
                             <hr/>
                             <div className="action-buttons">
-                                <Link to={{pathname: `/courses/${this.props.course.id}/weeks/edit/${week.number}/`, state: {week_id: week.id}}} className="hover-animation">Редактировать</Link>
+                                <Link to={{pathname: `/courses/${this.props.course.id}/weeks/edit/${week.number}/`, state: { week: {id: week.id, number: week.number}}}} className="hover-animation">Редактировать</Link>
                             </div>
                         </div>
                     )) }

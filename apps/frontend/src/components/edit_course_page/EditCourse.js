@@ -64,7 +64,7 @@ export class EditCourse extends Component {
         if (this.state.background_img !== "") {
             formData.append('background_img', this.state.background_img, this.state.background_img.name);
         }
-        this.props.updateCourse(this.props.course.id, formData, () => window.location.replace("/courses/"));
+        this.props.updateCourse(this.props.course.id, formData, () => {this.props.history.push({ pathname: `/courses/` }); location.reload();});
     };
 
     render() {

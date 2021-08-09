@@ -2,7 +2,7 @@ import {GET_COURSE_WEEK, GET_COURSE_WEEKS, UPDATE_COURSE_WEEK} from "../actions/
 
 const initialState = {
   course_weeks: [],
-  course_week: {"number": "", "short_description": ""}
+  course_week: {"id": "", "number": "", "short_description": "", "course": ""}
 };
 
 export default function (state= initialState, action) {
@@ -20,7 +20,8 @@ export default function (state= initialState, action) {
     case UPDATE_COURSE_WEEK:
       return {
         ...state,
-        course_week: state.course_weeks.filter(course_week => course_week.id === action.payload.id)[0] = action.payload
+        course_weeks: [],
+        course_week: action.payload
       };
     default:
       return state;

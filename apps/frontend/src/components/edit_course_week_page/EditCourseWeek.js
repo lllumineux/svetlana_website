@@ -20,7 +20,7 @@ export class EditCourseWeek extends Component {
     };
 
     componentDidMount() {
-        this.props.getCourseWeek(this.props.location.state.week_id);
+        this.props.getCourseWeek(this.props.location.state.week.id);
     }
 
     // Input form changes listeners
@@ -34,9 +34,14 @@ export class EditCourseWeek extends Component {
             formData.append('short_description', this.state.short_description);
         }
         this.props.updateCourseWeek(
-            this.props.location.state.week_id,
+            this.props.location.state.week.id,
             formData,
-            () => window.location.replace(`/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}`)
+            () => {
+                this.props.history.push({
+                    pathname: `/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}`
+                });
+                location.reload();
+            }
         );
     };
 

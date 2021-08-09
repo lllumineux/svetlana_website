@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   courses: [],
-  course: {"name": "", "short_description": "", "full_description": "", "price1": "", "price2": "", "background_img": "", "is_hidden": ""}
+  course: {"id": "", "name": "", "short_description": "", "full_description": "", "price1": "", "price2": "", "background_img": "", "is_hidden": ""}
 };
 
 export default function (state= initialState, action) {

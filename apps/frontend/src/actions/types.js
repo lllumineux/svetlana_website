@@ -16,3 +16,5 @@ export const UPDATE_COURSE_WEEK = "UPDATE_COURSE_WEEK";
 
 // Days
 export const GET_COURSE_DAYS = "GET_COURSE_DAYS";
+export const GET_COURSE_DAY = "GET_COURSE_DAY";
+export const UPDATE_COURSE_DAY = "UPDATE_COURSE_DAY";
