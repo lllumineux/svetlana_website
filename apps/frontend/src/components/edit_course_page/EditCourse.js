@@ -35,7 +35,7 @@ export class EditCourse extends Component {
     }
 
     // Input form changes listeners
-    onChange = e => {this.setState({ [e.target.name]: e.target.value });}
+    onChange = e => this.setState({ [e.target.name]: e.target.value });
     onFileChange = e => {
         this.setState({ background_img: e.target.files[0] });
         document.getElementById("file-input-label").innerHTML = e.target.files[0].name;
@@ -45,8 +45,6 @@ export class EditCourse extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
-        const url = this.props.location.pathname
-        const course_id = parseInt(url.substring(url.lastIndexOf('/') + 1), 10)
         const formData = new FormData();
         if (this.state.name !== "") {
             formData.append('name', this.state.name);
@@ -66,7 +64,7 @@ export class EditCourse extends Component {
         if (this.state.background_img !== "") {
             formData.append('background_img', this.state.background_img, this.state.background_img.name);
         }
-        this.props.updateCourse(course_id, formData, () => window.location.replace("/courses/"));
+        this.props.updateCourse(this.props.course.id, formData, () => window.location.replace("/courses/"));
     };
 
     render() {

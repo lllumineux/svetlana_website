@@ -19,7 +19,7 @@ export class Courses extends Component {
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Редактирование курсов</h2>
+                <h2 className="content-title">Курсы</h2>
                 <div className="courses">
                     { this.props.courses.map(course => (
                         <div className="course" key={course.name + course.id}>

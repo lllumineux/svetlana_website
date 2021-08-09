@@ -18,7 +18,7 @@ class Course(models.Model):
 
 class Week(models.Model):
     number = models.IntegerField()
-    short_description = models.TextField(default='Короткое описание недели')
+    short_description = models.TextField(default='Краткое описание недели')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     class Meta:
@@ -28,7 +28,7 @@ class Week(models.Model):
 class Day(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=256, default='Название занятия')
-    short_description = models.TextField(default='Короткое описание занятия')
+    short_description = models.TextField(default='Краткое описание занятия')
     content = tinymce_models.HTMLField(default='')
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
 

@@ -11,3 +11,5 @@ export const UPDATE_COURSE = "ADD_COURSE";
 
 // Weeks
 export const GET_COURSE_WEEKS = "GET_COURSE_WEEKS";
+export const GET_COURSE_WEEK = "GET_COURSE_WEEK";
+export const UPDATE_COURSE_WEEK = "UPDATE_COURSE_WEEK";

@@ -3,31 +3,34 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {getCourseWeeks} from "../../actions/course_weeks";
+import {getCourse} from "../../actions/courses";
 
 export class CourseWeeks extends Component {
     static propTypes = {
         course_weeks: PropTypes.array.isRequired,
-        getCourseWeeks: PropTypes.func.isRequired
+        getCourseWeeks: PropTypes.func.isRequired,
+        getCourse: PropTypes.func.isRequired
     };
 
     componentDidMount() {
         this.props.getCourseWeeks(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
+        this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
 
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Недели</h2>
+                <h2 className="content-title">Курс: {this.props.course.name}</h2>
                 <div className="weeks">
                     { this.props.course_weeks.map(week => (
-                        <div className="week " key={week.id}>
-                            <Link to={`/weeks/${week.id}/`}>
+                        <div className="week" key={week.id}>
+                            <Link to={{pathname: `/courses/${this.props.course.id}/weeks/${week.number}/`, state: {week_id: week.id}}}>
                                 <h3>Неделя {week.number}</h3>
                                 <div className="description">{week.short_description}</div>
                             </Link>
                             <hr/>
                             <div className="action-buttons">
-                                <Link to={`/weeks/edit/${week.id}`} className="hover-animation">Редактировать</Link>
+                                <Link to={{pathname: `/courses/${this.props.course.id}/weeks/edit/${week.number}/`, state: {week_id: week.id}}} className="hover-animation">Редактировать</Link>
                             </div>
                         </div>
                     )) }
@@ -39,6 +42,7 @@ export class CourseWeeks extends Component {
 
 const mapStateToProps = (state) => ({
     course_weeks: state.course_weeks.course_weeks,
+    course: state.courses.course
 });
 
-export default connect(mapStateToProps, { getCourseWeeks })(CourseWeeks);
+export default connect(mapStateToProps, { getCourse, getCourseWeeks })(CourseWeeks);
