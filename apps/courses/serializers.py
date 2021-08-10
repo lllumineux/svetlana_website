@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from apps.courses import models
 from apps.courses.models import Week, Day
+from apps.reports.models import ReportQuestion
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -9,7 +10,9 @@ class CourseSerializer(serializers.ModelSerializer):
         for i in range(1, 5):
             week = Week.objects.create(number=i, course=response)
             for c in range(1, 8):
-                Day.objects.create(number=c, week=week)
+                day = Day.objects.create(number=c, week=week)
+                for z in range(1, 6):
+                    ReportQuestion.objects.create(number=z, day=day)
         return response
 
     class Meta:

@@ -12,3 +12,4 @@ import InputFormsStyles from "./components/common/InputForms.sass"
 import AddCourseStyles from "./components/add_course_page/AddCourse.sass"
 import CourseWeeksStyles from "./components/course_weeks_page/CourseWeeks.sass";
 import CourseDaysStyles from "./components/course_days_page/CourseDays.sass";
+import CourseDayStyles from "./components/course_day_page/CourseDay.sass";

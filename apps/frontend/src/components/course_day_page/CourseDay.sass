@@ -1,0 +1,51 @@
+@use "../common/base"
+
+.day-content *
+  font-family: "Rubik", sans-serif
+
+.report
+  border: 2px solid base.$light-gray-color
+  border-radius: 30px
+  padding: 45px 55px
+  margin-top: 50px
+
+  h4
+    font-size: base.$h5-size
+    font-weight: 700
+
+  .warning
+    font-size: base.$p3-size
+    color: base.$accent-color
+    margin-top: 6px
+
+.report-forms
+  display: flex
+  flex-direction: column
+  margin-top: 45px
+
+  .report-question-form
+    margin-top: 20px
+
+    h5
+      font-weight: 600
+
+    input
+      background-color: base.$light-gray-color
+      font-size: base.$p2-size
+      border-radius: 100px
+      box-sizing: border-box
+      width: 100%
+      padding: 11px 15px
+      margin-top: 5px
+
+  .submit-button-wrapper
+    align-self: flex-end
+
+    button
+      background-color: base.$black-color
+      color: base.$white-color
+      font-size: base.$p3-size
+      font-weight: 400
+      border-radius: 100px
+      padding: 11px 72px
+      margin-top: 45px

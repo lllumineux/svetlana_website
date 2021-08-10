@@ -1,5 +1,6 @@
 import axios from "axios";
 import {GET_COURSE_DAY, GET_COURSE_DAYS, UPDATE_COURSE_DAY} from "./types";
+import {updateReportQuestion, updateReportQuestions, updateReportQuestionsByDayId} from "./reports";
 
 // GET_COURSE_DAYS
 export const getCourseDays = (id) => (dispatch) => {
@@ -28,9 +29,12 @@ export const getCourseDay = (id) => (dispatch) => {
 };
 
 // UPDATE_COURSE_DAY
-export const updateCourseDay = (id, data, callback_func) => (dispatch) => {
+export const updateCourseDay = (id, data1, data2_list, callback_func) => (dispatch) => {
   axios
-    .patch(`/api/days/${id}/`, data)
+    .patch(`/api/days/${id}/`, data1)
+    .then(() => {
+        data2_list.map(data => updateReportQuestion(data))
+    })
     .then(res => {
       dispatch({
         type: UPDATE_COURSE_DAY,

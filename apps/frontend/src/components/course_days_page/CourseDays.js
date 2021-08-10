@@ -13,7 +13,6 @@ export class CourseDays extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props.location.state.week);
         this.props.getCourseDays(this.props.location.state.week.id);
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "")[1]);
     }
@@ -74,14 +73,13 @@ export class CourseDays extends Component {
                         }
                     </div>
                 </div>
-
                 <div className="days">
                     { this.props.course_days.map(day => (
                         <div className="day" key={day.id}>
                             <Link
                                 to={{
                                     pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${day.number}/`,
-                                    state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id}}
+                                    state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id, number: day.number, name: day.name}}
                                 }}>
                                 <div className="day-info-wrapper hover-animation">
                                     <h3>День {day.number}</h3>
