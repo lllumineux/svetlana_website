@@ -16,12 +16,12 @@ export class EditCourseDay extends Component {
 
     static propTypes = {
         course_day: PropTypes.shape({
-            id: PropTypes.number,
-            number: PropTypes.number,
-            name: PropTypes.string,
-            short_description: PropTypes.string,
-            content: PropTypes.string
-        }),
+            id: PropTypes.number.isRequired,
+            number: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            short_description: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired
+        }).isRequired,
         report_questions: PropTypes.array,
         getCourseDay: PropTypes.func.isRequired,
         updateCourseDay: PropTypes.func.isRequired,

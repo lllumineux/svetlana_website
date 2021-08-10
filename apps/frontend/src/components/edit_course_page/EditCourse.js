@@ -17,14 +17,14 @@ export class EditCourse extends Component {
 
     static propTypes = {
         course: PropTypes.shape({
-            id: PropTypes.number,
-            name: PropTypes.string,
-            short_description: PropTypes.string,
-            full_description: PropTypes.string,
-            price1: PropTypes.any,
-            price2: PropTypes.any,
-            background_img: PropTypes.string,
-            is_hidden: PropTypes.any
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            short_description: PropTypes.string.isRequired,
+            full_description: PropTypes.string.isRequired,
+            price1: PropTypes.any.isRequired,
+            price2: PropTypes.any.isRequired,
+            background_img: PropTypes.string.isRequired,
+            is_hidden: PropTypes.any.isRequired
         }),
         getCourse: PropTypes.func.isRequired,
         updateCourse: PropTypes.func.isRequired
@@ -93,14 +93,14 @@ export class EditCourse extends Component {
                         <input type="number" name="price2" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.course.price2}/>
                     </div>
                     <div className="input-form">
-                        <h4 >Фоновое фото курса на главной странице</h4>
+                        <h4>Фоновое фото курса на главной странице</h4>
                         <div className="file-input-form">
                             <label htmlFor="file" id="file-input-label" className="hover-animation">
                                 {(this.props.course.background_img !== "") ? (
                                     this.props.course.background_img.substring(this.props.course.background_img.lastIndexOf('/') + 1)
                                 ) :"Выберите файл..."}
                             </label>
-                            <input type="file" id="file" accept="image/png, image/jpeg" name="background_img" onChange={this.onFileChange}/>
+                            <input type="file" id="file" accept="image/*" name="background_img" onChange={this.onFileChange}/>
                         </div>
                     </div>
                     <button type="submit" className="hover-animation">Сохранить изменения</button>

@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
+    # Courses
     path('courses/', views.index),
     path('courses/add/', views.index),
     path('courses/edit/<pk>/', views.index),
@@ -10,5 +11,8 @@ urlpatterns = [
     path('courses/<pk>/weeks/<num>/', views.index),
     path('courses/<pk>/weeks/edit/<num>/', views.index),
     path('courses/<pk>/weeks/<num1>/days/<num2>/', views.index),
-    path('courses/<pk>/weeks/<num1>/days/edit/<num2>/', views.index)
+    path('courses/<pk>/weeks/<num1>/days/edit/<num2>/', views.index),
+
+    # Numbers
+    path('numbers/', views.index)
 ]

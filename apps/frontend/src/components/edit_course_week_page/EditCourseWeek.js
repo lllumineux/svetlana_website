@@ -11,9 +11,9 @@ export class EditCourseWeek extends Component {
 
     static propTypes = {
         course_week: PropTypes.shape({
-            id: PropTypes.number,
-            number: PropTypes.any,
-            short_description: PropTypes.string
+            id: PropTypes.number.isRequired,
+            number: PropTypes.any.isRequired,
+            short_description: PropTypes.string.isRequired
         }),
         getCourseWeek: PropTypes.func.isRequired,
         updateCourseWeek: PropTypes.func.isRequired

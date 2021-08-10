@@ -1,4 +1,6 @@
 // General info
+export const GET_GENERAL_INFO = "GET_GENERAL_INFO";
+export const UPDATE_GENERAL_INFO = "UPDATE_GENERAL_INFO";
 export const GET_CONTACT_INFO = "GET_CONTACT_INFO";
 
 // Courses
@@ -21,3 +23,6 @@ export const UPDATE_COURSE_DAY = "UPDATE_COURSE_DAY";
 
 // Reports
 export const GET_REPORT_QUESTIONS = "GET_REPORT_QUESTIONS";
+
+// Numbers
+export const GET_NUMBERS = "GET_NUMBERS";
