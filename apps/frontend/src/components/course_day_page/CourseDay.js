@@ -13,7 +13,7 @@ export class CourseDay extends Component {
 
     static propTypes = {
         report_questions: PropTypes.array.isRequired,
-        course_day: PropTypes.array.isRequired,
+        course_day: PropTypes.any.isRequired,
         getCourseDay: PropTypes.func.isRequired,
         getCourse: PropTypes.func.isRequired,
         getReportQuestionsByDayId: PropTypes.func.isRequired
@@ -107,7 +107,7 @@ export class CourseDay extends Component {
                         }
                     </div>
                 </div>
-                <div className="day-content" dangerouslySetInnerHTML={{__html: this.props.course_day.content}}/>
+                <div className="editor-rendered-content" dangerouslySetInnerHTML={{__html: this.props.course_day.content}}/>
                 <div className="report">
                     <h4>Отчёт по занятию</h4>
                     <div className="warning">Будьте внимательны при написании отчёта - после его отправки у вас не будет возможности изменить данные!</div>

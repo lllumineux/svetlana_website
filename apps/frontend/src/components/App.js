@@ -20,6 +20,7 @@ import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
 import Articles from "./articles_page/Articles";
 import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
+import Article from "./article_page/Article";
 
 class App extends Component {
     render() {
@@ -42,8 +43,10 @@ class App extends Component {
 
                                 {/* Articles */}
                                 <Route exact path="/articles/" component={Articles} />
-                                <Route exact path="/articles/edit/:pk/" component={EditArticle} />
                                 <Route exact path="/articles/add/" component={AddArticle} />
+                                <Route exact path="/articles/:pk/" component={Article} />
+                                <Route exact path="/articles/edit/:pk/" component={EditArticle} />
+
 
                                 {/* General Info */}
                                 <Route exact path="/general_info/" component={EditGeneralInfo} />

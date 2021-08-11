@@ -18,5 +18,6 @@ import CourseDayStyles from "./components/course_day_page/CourseDay.sass";
 
 import ArticlesStyles from "./components/articles_page/Articles.sass";
 import EditArticleStyles from "./components/edit_article_page/EditArticle.sass";
+import AddArticleStyles from "./components/add_article_page/AddArticle.sass";
 
 import NumbersStyles from "./components/numbers_page/Numbers.sass";
