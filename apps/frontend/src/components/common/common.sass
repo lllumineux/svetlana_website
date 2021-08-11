@@ -105,13 +105,54 @@ html, body, #app
   padding: 100px 0
   margin: auto
 
-.content-title, .content-title *
-  font-weight: 800
-  font-size: base.$h2-size
-  margin-bottom: 50px
+  .content-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 50px
 
-  .gray
-    color: base.$light-gray-color
+    .title
+      font-weight: 800
+      font-size: base.$h2-size
+
+    .content-controls
+      display: flex
+      align-items: center
+
+      .addition
+        display: flex
+        justify-content: center
+        align-items: center
+        font-size: base.$p2-size
+        color: base.$dark-gray-color
+        background-color: base.$light-gray-color
+        border-radius: 100px
+        height: 24px
+        padding: 0 31px
+        margin-right: 26px
+
+      .current_week, .current_day
+        text-align: center
+        font-size: base.$p2-size
+        margin: 0 12px
+
+      .current_week
+        width: 72px
+
+      .current_day
+        width: 53px
+
+      .control-button
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: base.$black-color
+        border-radius: 100px
+        width: 24px
+        height: 24px
+
+        img
+          width: 10px
 
 .footer
   flex-shrink: 0

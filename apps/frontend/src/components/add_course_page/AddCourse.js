@@ -44,7 +44,7 @@ export class AddCourse extends Component {
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Добавление курса</h2>
+                <div className="content-header"><h2 className="title">Добавление курса</h2></div>
                 <form onSubmit={this.onSubmit} className="input-forms">
                     <div className="input-form">
                         <h4>Название</h4>

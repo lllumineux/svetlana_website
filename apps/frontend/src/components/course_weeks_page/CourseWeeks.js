@@ -20,7 +20,7 @@ export class CourseWeeks extends Component {
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Курс: {this.props.course.name}</h2>
+                <div className="content-header"><h2 className="title">Курс: {this.props.course.name}</h2></div>
                 <div className="weeks">
                     { this.props.course_weeks.map(week => (
                         <div className="week" key={week.id}>

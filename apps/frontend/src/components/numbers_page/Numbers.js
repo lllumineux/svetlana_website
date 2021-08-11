@@ -46,7 +46,7 @@ export class Numbers extends Component {
     render() {
         return (
             <Fragment>
-                <h2 className="content-title">Номера</h2>
+                <div className="content-header"><h2 className="title">Номера</h2></div>
                 <form onSubmit={this.onSubmit} className="input-forms">
                     <div className="input-form">
                         <h4>Текст на главной странице</h4>
