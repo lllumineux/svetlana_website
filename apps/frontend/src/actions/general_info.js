@@ -19,15 +19,18 @@ export const getGeneralInfo = () => (dispatch) => {
 export const updateGeneralInfo = (general_info_id, data, callback_func) => (dispatch) => {
     axios
         .patch(`/api/general_info/${general_info_id}/`, data, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
         })
         .then(res => {
             dispatch({
                 type: UPDATE_GENERAL_INFO,
-                payload: res.data[0]
+                payload: res.data
             });
+            callback_func();
         })
         .catch((err) => console.log(err))
-        .then(callback_func())
 };
 
 // GET_CONTACT_INFO

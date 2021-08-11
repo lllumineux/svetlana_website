@@ -14,11 +14,14 @@ input[type=number]
     margin-top: 50px
 
     h4
+      display: flex
+      align-items: center
       font-size: base.$h4-size
       font-weight: 600
 
       .gray
         color: base.$dark-gray-color
+        margin: 6px
 
     input[type="text"], input[type="number"], .file-input-form, textarea, *[role="application"]
       border: 2px solid base.$light-gray-color
@@ -40,6 +43,14 @@ input[type=number]
         overflow: hidden
         position: absolute
         z-index: -1
+
+    .file-input-form
+      display: flex
+      justify-content: space-between
+
+      button
+        font-size: base.$p2-size
+        color: base.$dark-gray-color
 
     textarea, *[role="application"]
       resize: vertical

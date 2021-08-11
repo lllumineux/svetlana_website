@@ -41,9 +41,9 @@ export const addCourse = (course, callback_func) => (dispatch) => {
         type: ADD_COURSE,
         payload: res.data
       });
+      callback_func();
     })
     .catch((err) => console.log(err))
-    .then(callback_func());
 };
 
 // DELETE COURSE
@@ -72,9 +72,9 @@ export const updateCourse = (id, course, callback_func) => (dispatch) => {
         type: UPDATE_COURSE,
         payload: res.data
       });
+      callback_func();
     })
     .catch((err) => console.log(err))
-    .then(callback_func());
 };
 
 // INVERT_COURSE_VISIBILITY

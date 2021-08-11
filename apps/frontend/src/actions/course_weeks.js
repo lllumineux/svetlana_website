@@ -37,7 +37,7 @@ export const updateCourseWeek = (id, course_week, callback_func) => (dispatch) =
         type: UPDATE_COURSE_WEEK,
         payload: res.data,
       });
+      callback_func();
     })
     .catch((err) => console.log(err))
-    .then(callback_func());
 };

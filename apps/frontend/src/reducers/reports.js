@@ -1,4 +1,4 @@
-import {GET_CONTACT_INFO, GET_REPORT_QUESTIONS} from "../actions/types";
+import {GET_REPORT_QUESTIONS} from "../actions/types";
 
 const initialState = {
   report_questions: []

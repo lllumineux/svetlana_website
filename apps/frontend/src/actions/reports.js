@@ -27,6 +27,7 @@ export const createReport = (data, callback_func) => {
     axios
         .post(`/api/days/${course_day_id}/report_questions_list/`, data, {
         })
+        .then(res => callback_func())
         .catch((err) => console.log(err))
-        .then(callback_func())
+
 };

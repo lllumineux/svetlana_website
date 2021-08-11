@@ -16,6 +16,7 @@ import EditCourseWeek from "./edit_course_week_page/EditCourseWeek";
 import EditCourseDay from "./edit_course_day_page/EditCourseDay";
 import CourseDay from "./course_day_page/CourseDay";
 import Numbers from "./numbers_page/Numbers";
+import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
 
 class App extends Component {
     render() {
@@ -35,6 +36,9 @@ class App extends Component {
                                 <Route exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
                                 <Route exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
                                 <Route exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
+
+                                {/*General Info*/}
+                                <Route exact path="/general_info/" component={EditGeneralInfo} />
 
                                 {/*Numbers*/}
                                 <Route exact path="/numbers/" component={Numbers} />

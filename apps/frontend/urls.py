@@ -13,6 +13,9 @@ urlpatterns = [
     path('courses/<pk>/weeks/<num1>/days/<num2>/', views.index),
     path('courses/<pk>/weeks/<num1>/days/edit/<num2>/', views.index),
 
+    # General Info
+    path('general_info/', views.index),
+
     # Numbers
-    path('numbers/', views.index)
+    path('numbers/', views.index),
 ]

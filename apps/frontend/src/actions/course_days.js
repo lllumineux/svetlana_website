@@ -40,7 +40,7 @@ export const updateCourseDay = (id, data1, data2_list, callback_func) => (dispat
         type: UPDATE_COURSE_DAY,
         payload: res.data,
       });
+      callback_func();
     })
     .catch((err) => console.log(err))
-    .then(callback_func);
 };
