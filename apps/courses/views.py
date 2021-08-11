@@ -17,7 +17,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = Course.objects.get(pk=pk)
         course.is_hidden = not course.is_hidden
         course.save()
-        return Response({'status': 'course visibility changed'})
+        return Response()
 
     @action(methods=['GET'], detail=True)
     def week_list(self, request, pk=None):

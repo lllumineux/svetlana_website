@@ -16,4 +16,6 @@ import CourseWeeksStyles from "./components/course_weeks_page/CourseWeeks.sass";
 import CourseDaysStyles from "./components/course_days_page/CourseDays.sass";
 import CourseDayStyles from "./components/course_day_page/CourseDay.sass";
 
+import ArticlesStyles from "./components/articles_page/Articles.sass";
+
 import NumbersStyles from "./components/numbers_page/Numbers.sass";

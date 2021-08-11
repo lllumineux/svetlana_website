@@ -6,6 +6,7 @@ import course_days from "./course_days";
 import reports from "./reports";
 import numbers from "./numbers";
 import screenshots from "./screenshots";
+import articles from "./articles";
 
 export default combineReducers({
     courses,
@@ -14,5 +15,6 @@ export default combineReducers({
     course_days,
     reports,
     numbers,
-    screenshots
+    screenshots,
+    articles
 });

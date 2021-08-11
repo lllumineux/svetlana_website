@@ -17,6 +17,7 @@ import EditCourseDay from "./edit_course_day_page/EditCourseDay";
 import CourseDay from "./course_day_page/CourseDay";
 import Numbers from "./numbers_page/Numbers";
 import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
+import Articles from "./articles_page/Articles";
 
 class App extends Component {
     render() {
@@ -27,7 +28,7 @@ class App extends Component {
                         <Header />
                         <div className="content">
                             <Switch>
-                                {/*Courses*/}
+                                {/* Courses */}
                                 <Route exact path="/courses/" component={Courses} />
                                 <Route exact path="/courses/add/" component={AddCourse} />
                                 <Route exact path="/courses/:pk/" component={CourseWeeks} />
@@ -37,10 +38,13 @@ class App extends Component {
                                 <Route exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
                                 <Route exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
 
-                                {/*General Info*/}
+                                {/* Articles */}
+                                <Route exact path="/articles/" component={Articles} />
+
+                                {/* General Info */}
                                 <Route exact path="/general_info/" component={EditGeneralInfo} />
 
-                                {/*Numbers*/}
+                                {/* Numbers */}
                                 <Route exact path="/numbers/" component={Numbers} />
                             </Switch>
                         </div>

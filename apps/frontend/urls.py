@@ -13,6 +13,12 @@ urlpatterns = [
     path('courses/<pk>/weeks/<num1>/days/<num2>/', views.index),
     path('courses/<pk>/weeks/<num1>/days/edit/<num2>/', views.index),
 
+    # Articles
+    path('articles/', views.index),
+    path('articles/add/', views.index),
+    path('articles/edit/<pk>/', views.index),
+    path('articles/<pk>/', views.index),
+
     # General Info
     path('general_info/', views.index),
 

@@ -1,0 +1,37 @@
+@use "../common/base"
+
+.articles
+  .article
+    margin-top: 20px
+
+    h3
+      display: inline-block
+      font-size: base.$h5-size
+
+    .action-buttons
+      display: inline-block
+
+      *:nth-child(n+2)
+        margin-left: 37px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+
+    hr
+      background-color: base.$light-gray-color
+      border: none
+      height: 2px
+      margin: 6px 0
+
+  .add-article-button
+    background-color: base.$black-color
+    border-radius: 100px
+    padding: 11px 72px
+    margin-top: 50px
+
+    *
+      color: base.$white-color
+      font-size: base.$p3-size
+      font-weight: 400
