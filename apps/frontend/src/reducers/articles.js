@@ -44,7 +44,7 @@ export default function (state= initialState, action) {
     case ADD_ARTICLE:
       return {
         ...state,
-        articles: [action.payload, ...state.articles]
+        articles: [...state.articles, action.payload]
       };
     default:
       return state;

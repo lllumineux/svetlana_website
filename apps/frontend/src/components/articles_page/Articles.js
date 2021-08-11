@@ -38,7 +38,7 @@ export class Articles extends Component {
                             </div>
                         </div>
                     )) }
-                    <button className="add-article-button hover-animation"><Link to="/articles/add/">Добавить статью</Link></button>
+                    <Link to="/articles/add/"><button className="add-article-button hover-animation">Добавить статью</button></Link>
                 </div>
             </Fragment>
         );

@@ -18,6 +18,8 @@ import CourseDay from "./course_day_page/CourseDay";
 import Numbers from "./numbers_page/Numbers";
 import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
 import Articles from "./articles_page/Articles";
+import EditArticle from "./edit_article_page/EditArticle";
+import AddArticle from "./add_article_page/AddArticle";
 
 class App extends Component {
     render() {
@@ -40,6 +42,8 @@ class App extends Component {
 
                                 {/* Articles */}
                                 <Route exact path="/articles/" component={Articles} />
+                                <Route exact path="/articles/edit/:pk/" component={EditArticle} />
+                                <Route exact path="/articles/add/" component={AddArticle} />
 
                                 {/* General Info */}
                                 <Route exact path="/general_info/" component={EditGeneralInfo} />

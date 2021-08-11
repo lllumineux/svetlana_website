@@ -22,7 +22,7 @@ export const getArticles = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// GET COURSE
+// GET_ARTICLE
 export const getArticle = (id) => (dispatch) => {
   axios
     .get(`/api/articles/${id}/`)
@@ -35,7 +35,7 @@ export const getArticle = (id) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// ADD_COURSE
+// ADD_ARTICLE
 export const addArticle = (data, callback_func) => (dispatch) => {
   axios
     .post(`/api/articles/`, data, {
@@ -50,7 +50,7 @@ export const addArticle = (data, callback_func) => (dispatch) => {
     .catch((err) => console.log(err))
 };
 
-// DELETE COURSE
+// DELETE_ARTICLE
 export const deleteArticle = (id) => (dispatch) => {
   axios
     .delete(`/api/articles/${id}/`)
@@ -63,7 +63,7 @@ export const deleteArticle = (id) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// UPDATE_COURSE
+// UPDATE_ARTICLE
 export const updateArticle = (id, data, callback_func) => (dispatch) => {
   axios
     .patch(`/api/articles/${id}/`, data, {
@@ -78,7 +78,7 @@ export const updateArticle = (id, data, callback_func) => (dispatch) => {
     .catch((err) => console.log(err))
 };
 
-// INVERT_COURSE_VISIBILITY
+// INVERT_ARTICLE_VISIBILITY
 export const invertArticleVisibility = (id) => (dispatch) => {
   axios
     .patch(`/api/articles/${id}/invert_visibility/`)
