@@ -7,6 +7,8 @@ import reports from "./reports";
 import numbers from "./numbers";
 import screenshots from "./screenshots";
 import articles from "./articles";
+import errors from "./errors";
+import messages from "./messages";
 
 export default combineReducers({
     courses,
@@ -16,5 +18,7 @@ export default combineReducers({
     reports,
     numbers,
     screenshots,
-    articles
+    articles,
+    errors,
+    messages
 });

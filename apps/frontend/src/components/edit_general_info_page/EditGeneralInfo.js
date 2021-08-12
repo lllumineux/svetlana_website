@@ -63,7 +63,7 @@ export class EditGeneralInfo extends Component {
             formData.append('about_me_list', this.state.about_me_list);
         }
         if (this.state.greeting_video !== "") {
-            formData.append('greeting_video', this.state.greeting_video, this.state.greeting_video.name);
+            formData.append('greeting_video', this.state.greeting_video);
         }
         if (this.state.psychological_consultation_description !== "") {
             formData.append('psychological_consultation_description', this.state.psychological_consultation_description);

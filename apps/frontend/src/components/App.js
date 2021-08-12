@@ -3,10 +3,21 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import store from "../store";
+import {Provider as AlertProvider} from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+// Alert options
+const alertOptions = {
+    timeout: 3000,
+    position: "top center"
+}
 
 
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
+import Alerts from "./layout/Alerts"
+
+
 import Courses from "./courses_page/Courses";
 import AddCourse from "./add_course_page/AddCourse";
 import EditCourse from "./edit_course_page/EditCourse";
@@ -15,8 +26,11 @@ import CourseDays from "./course_days_page/CourseDays";
 import EditCourseWeek from "./edit_course_week_page/EditCourseWeek";
 import EditCourseDay from "./edit_course_day_page/EditCourseDay";
 import CourseDay from "./course_day_page/CourseDay";
+
 import Numbers from "./numbers_page/Numbers";
+
 import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
+
 import Articles from "./articles_page/Articles";
 import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
@@ -26,38 +40,41 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Provider store={store}>
-                    <Fragment>
-                        <Header />
-                        <div className="content">
-                            <Switch>
-                                {/* Courses */}
-                                <Route exact path="/courses/" component={Courses} />
-                                <Route exact path="/courses/add/" component={AddCourse} />
-                                <Route exact path="/courses/:pk/" component={CourseWeeks} />
-                                <Route exact path="/courses/edit/:pk/" component={EditCourse} />
-                                <Route exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseDays {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
+                <AlertProvider template={AlertTemplate} {...alertOptions}>
+                    <Provider store={store}>
+                        <Fragment>
+                            <Header />
+                            <Alerts />
+                            <div className="content">
+                                <Switch>
+                                    {/* Courses */}
+                                    <Route exact path="/courses/" component={Courses} />
+                                    <Route exact path="/courses/add/" component={AddCourse} />
+                                    <Route exact path="/courses/:pk/" component={CourseWeeks} />
+                                    <Route exact path="/courses/edit/:pk/" component={EditCourse} />
+                                    <Route exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseDays {...props}/>} />
+                                    <Route exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
+                                    <Route exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
+                                    <Route exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
 
-                                {/* Articles */}
-                                <Route exact path="/articles/" component={Articles} />
-                                <Route exact path="/articles/add/" component={AddArticle} />
-                                <Route exact path="/articles/:pk/" component={Article} />
-                                <Route exact path="/articles/edit/:pk/" component={EditArticle} />
+                                    {/* Articles */}
+                                    <Route exact path="/articles/" component={Articles} />
+                                    <Route exact path="/articles/add/" component={AddArticle} />
+                                    <Route exact path="/articles/:pk/" component={Article} />
+                                    <Route exact path="/articles/edit/:pk/" component={EditArticle} />
 
 
-                                {/* General Info */}
-                                <Route exact path="/general_info/" component={EditGeneralInfo} />
+                                    {/* General Info */}
+                                    <Route exact path="/general_info/" component={EditGeneralInfo} />
 
-                                {/* Numbers */}
-                                <Route exact path="/numbers/" component={Numbers} />
-                            </Switch>
-                        </div>
-                        <Footer />
-                    </Fragment>
-                </Provider>
+                                    {/* Numbers */}
+                                    <Route exact path="/numbers/" component={Numbers} />
+                                </Switch>
+                            </div>
+                            <Footer />
+                        </Fragment>
+                    </Provider>
+                </AlertProvider>
             </BrowserRouter>
         )
     }

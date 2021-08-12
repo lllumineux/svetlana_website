@@ -1,5 +1,15 @@
 import axios from "axios";
-import {GET_COURSES, DELETE_COURSE, INVERT_COURSE_VISIBILITY, ADD_COURSE, GET_COURSE, UPDATE_COURSE} from "./types";
+import {createMessage} from "./messages";
+
+import {
+    GET_COURSES,
+    DELETE_COURSE,
+    INVERT_COURSE_VISIBILITY,
+    ADD_COURSE,
+    GET_COURSE,
+    UPDATE_COURSE,
+    GET_ERRORS
+} from "./types";
 
 
 // GET COURSES
@@ -43,7 +53,16 @@ export const addCourse = (course, callback_func) => (dispatch) => {
       });
       callback_func();
     })
-    .catch((err) => console.log(err))
+    .catch(err => {
+        const errors = {
+            msg: err.response.data,
+            status: err.response.status
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
 };
 
 // DELETE COURSE
@@ -51,6 +70,7 @@ export const deleteCourse = (id) => (dispatch) => {
   axios
     .delete(`/api/courses/${id}/`)
     .then(res => {
+      dispatch(createMessage({deleteCourse: "Курс удалён"}));
       dispatch({
         type: DELETE_COURSE,
         payload: id
