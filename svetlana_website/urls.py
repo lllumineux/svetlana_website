@@ -34,7 +34,7 @@ router.registry.extend(others_router.registry)
 
 urlpatterns = [
     path('', include('apps.frontend.urls')),
+    path('', include('apps.accounts.urls')),
     path('admin/', admin.site.urls),
-    path(r'api/auth/', include('apps.accounts.urls')),
     path(r'api/', include(router.urls))
 ]
