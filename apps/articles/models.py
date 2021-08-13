@@ -3,6 +3,6 @@ from tinymce import models as tinymce_models
 
 
 class Article(models.Model):
-    name = models.CharField(max_length=256, default='')
+    name = models.CharField(max_length=256, default='', blank=True)
     content = tinymce_models.HTMLField()
     is_hidden = models.BooleanField(default=True)

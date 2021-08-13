@@ -31,7 +31,6 @@ export const deleteScreenshot = (screenshot_id) => (dispatch) => {
 
 // ADD_SCREENSHOT
 export const addScreenshot = (data) => (dispatch) => {
-    console.log('noob');
     axios
         .post(`/api/screenshots/`, data, {
         })

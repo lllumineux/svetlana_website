@@ -63,7 +63,6 @@ class App extends Component {
                                     <Route exact path="/articles/:pk/" component={Article} />
                                     <Route exact path="/articles/edit/:pk/" component={EditArticle} />
 
-
                                     {/* General Info */}
                                     <Route exact path="/general_info/" component={EditGeneralInfo} />
 

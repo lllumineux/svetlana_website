@@ -242,3 +242,5 @@ cython_debug/
 
 /node_modules/
 /apps/frontend/static/
+/apps/frontend/uploads/*
+!/apps/frontend/uploads/.gitkeep

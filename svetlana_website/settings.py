@@ -173,6 +173,12 @@ REST_FRAMEWORK = {
     ),
 }
 
+# REST-knox configurations
+
 REST_KNOX = {
   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
+
+# Files upload path
+
+FILE_UPLOAD_PATH = BASE_DIR / 'apps' / 'frontend' / 'src' / 'uploads'

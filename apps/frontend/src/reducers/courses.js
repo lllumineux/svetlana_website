@@ -32,7 +32,7 @@ export default function (state= initialState, action) {
     case UPDATE_COURSE:
       return {
         ...state,
-        courses: state.courses.filter(course => course.id === action.payload.id)[0] = action.payload
+        courses: [...state.courses.filter(course => course.id !== action.payload.id), action.payload]
       };
     case INVERT_COURSE_VISIBILITY:
       return {

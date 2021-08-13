@@ -32,14 +32,14 @@ export const getCourseDay = (id) => (dispatch) => {
 export const updateCourseDay = (id, data1, data2_list, callback_func) => (dispatch) => {
   axios
     .patch(`/api/days/${id}/`, data1)
-    .then(() => {
-        data2_list.map(data => updateReportQuestion(data))
-    })
     .then(res => {
       dispatch({
         type: UPDATE_COURSE_DAY,
         payload: res.data,
       });
+    })
+    .then(() => {
+      data2_list.map(data => updateReportQuestion(data))
       callback_func();
     })
     .catch((err) => console.log(err))

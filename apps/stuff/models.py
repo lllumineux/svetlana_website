@@ -5,23 +5,24 @@ from django.db import models
 from apps.courses.helpers.functions import UploadToPathAndRename
 from apps.stuff.helpers import models as help_models
 from apps.stuff.helpers.functions import process_number
+from svetlana_website.settings import FILE_UPLOAD_PATH
 
 
 class Number(models.Model):
-    text = models.CharField(max_length=32, default='')
+    text = models.CharField(max_length=32)
 
 
 class Screenshot(models.Model):
-    content = models.ImageField(upload_to=UploadToPathAndRename(str(os.path.join('apps', 'frontend', 'static'))))
+    content = models.ImageField(upload_to=UploadToPathAndRename(FILE_UPLOAD_PATH))
 
 
 class GeneralInfo(help_models.SingletonModel):
-    about_me_list = models.TextField(default='')  # string format: text1;text2;text3;...
-    greeting_video = models.FileField(upload_to=UploadToPathAndRename(str(os.path.join('apps', 'frontend', 'static'))))
-    psychological_consultation_description = models.TextField(default='')
-    whatsapp_number = models.CharField(max_length=32, default='')
-    instagram_alias = models.CharField(max_length=32, default='')
-    main_page_numbers_form_text = models.TextField(default='')
+    about_me_list = models.TextField(default='', blank=True)  # string format: text1;text2;text3;...
+    greeting_video = models.FileField(upload_to=UploadToPathAndRename(FILE_UPLOAD_PATH), null=True)
+    psychological_consultation_description = models.TextField(default='', blank=True)
+    whatsapp_number = models.CharField(max_length=32, default='', blank=True)
+    instagram_alias = models.CharField(max_length=32, default='', blank=True)
+    main_page_numbers_form_text = models.TextField(default='', blank=True)
 
     @property
     def whatsapp_link(self):
