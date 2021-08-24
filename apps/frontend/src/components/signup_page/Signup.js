@@ -2,16 +2,18 @@ import React, { Component, Fragment } from "react";
 import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {login} from "../../actions/auth";
+import {signup} from "../../actions/auth";
+import {createMessage} from "../../actions/messages";
 
-export class Login extends Component {
+export class Signup extends Component {
     state = {
         username: "",
-        password: ""
+        password: "",
+        password_confirmation: ""
     };
 
     static propTypes = {
-        login: PropTypes.func.isRequired,
+        signup: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
     }
 
@@ -21,25 +23,33 @@ export class Login extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        if (this.state.password !== this.state.password_confirmation) {
+            this.props.createMessage({ passwordNotMatch: "Пароли не совпадают" });
+        }
+        else {
+            const newUser = {username: this.state.username, password: this.state.password};
+            this.props.signup(newUser);
+        }
     }
 
     render() {
         if (this.props.isAuthenticated) {
-            return <Redirect to="/"/>
+            return <Redirect to="/" />
         }
+
         return (
             <Fragment>
                 <form onSubmit={this.onSubmit} className="auth-forms">
-                    <h2 className="auth-forms-header">Вход</h2>
+                    <h2 className="auth-forms-header">Регистрация</h2>
                     <div className="auth-forms-content">
                         <input type="text" name="username" placeholder="Ник" onChange={this.onChange}/>
                         <input type="password" name="password" placeholder="Пароль" onChange={this.onChange}/>
+                        <input type="password" name="password_confirmation" placeholder="Повтор пароля" onChange={this.onChange}/>
                     </div>
                     <div className="auth-forms-controls">
-                        <button type="submit" className="hover-animation">Войти</button>
+                        <button type="submit" className="hover-animation">Зарегистрироваться</button>
                         <div className="second-btn-wrapper">
-                            <Link to="/signup/" className="hover-animation">Зарегистрироваться</Link>
+                            <Link to="/login/" className="hover-animation">Войти</Link>
                         </div>
                     </div>
                 </form>
@@ -52,4 +62,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { signup, createMessage })(Signup)

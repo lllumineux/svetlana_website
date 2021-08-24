@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import auth from "./auth";
 import courses from "./courses";
 import general_info from "./general_info"
 import course_weeks from "./course_weeks";
@@ -11,6 +12,7 @@ import errors from "./errors";
 import messages from "./messages";
 
 export default combineReducers({
+    auth,
     courses,
     general_info,
     course_weeks,

@@ -5,12 +5,13 @@ import App from "./components/App";
 // Styles import
 import BaseStyles from "./components/common/base.sass"
 import CommonStyles from "./components/common/common.sass"
+import InputFormsStyles from "./components/common/InputForms.sass"
+import AuthFormsStyles from "./components/common/AuthForms.sass"
 
 import HeaderStyles from "./components/layout/Header.sass"
 import FooterStyles from "./components/layout/Footer.sass"
 
 import CoursesStyles from "./components/courses_page/Courses.sass"
-import InputFormsStyles from "./components/common/InputForms.sass"
 import AddCourseStyles from "./components/add_course_page/AddCourse.sass"
 import CourseWeeksStyles from "./components/course_weeks_page/CourseWeeks.sass";
 import CourseDaysStyles from "./components/course_days_page/CourseDays.sass";

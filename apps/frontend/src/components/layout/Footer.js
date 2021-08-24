@@ -31,7 +31,7 @@ export class Footer extends Component {
                         <a href={this.props.contact_info.instagram_link} target="_blank">{this.props.contact_info.instagram_alias}</a>
                     </div>
                 </div>
-                <div>© Светлана Ганиева {new Date().getFullYear()}</div>
+                <div>&copy; Светлана Ганиева {new Date().getFullYear()}</div>
                 <a href="https://suleimanoff.me/" target="_blank" className="website_developer">made by lllumineux</a>
             </footer>
         )

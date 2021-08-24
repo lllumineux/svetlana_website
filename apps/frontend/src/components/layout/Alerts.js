@@ -12,6 +12,11 @@ export class Alerts extends Component {
     componentDidUpdate(prevProps) {
         const { error, alert, message } = this.props;
         if (error !== prevProps.error) {
+            // Auth
+            if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
+            if (error.msg.username) alert.error(error.msg.username.join());
+
+            // Course
             if (error.msg.name) alert.error(`Название: ${error.msg.name.join()}`);
             if (error.msg.short_description) alert.error(`Краткое описание: ${error.msg.short_description.join()}`);
             if (error.msg.full_description) alert.error(`Полное описание: ${error.msg.full_description.join()}`);
@@ -22,6 +27,7 @@ export class Alerts extends Component {
 
         if (message !== prevProps.message) {
             if (message.deleteCourse) alert.success(message.deleteCourse);
+            if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
         }
     }
 

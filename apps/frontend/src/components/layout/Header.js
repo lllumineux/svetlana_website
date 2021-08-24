@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {logout} from "../../actions/auth";
 
 export class Header extends Component {
+    static propTypes = {
+        auth: PropTypes.object.isRequired,
+        logout: PropTypes.func.isRequired
+    }
+
     render() {
         return (
             <header className="header">
@@ -15,11 +23,15 @@ export class Header extends Component {
                 </div>
                 <div className="profile-nav">
                     <div className="user-nickname">admin</div>
-                    <button className="logout hover-animation">Выйти</button>
+                    <button className="logout hover-animation" onClick={this.props.logout}>Выйти</button>
                 </div>
             </header>
         )
     }
 }
 
-export default Header
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, { logout })(Header)
