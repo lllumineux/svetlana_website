@@ -22,7 +22,7 @@ export class Header extends Component {
                     <Link to="/numbers/" onClick={() => window.location.replace("/numbers/")} className="hover-animation">Номера</Link>
                 </div>
                 <div className="profile-nav">
-                    <div className="user-nickname">admin</div>
+                    <div className="user-nickname">{this.props.auth.user.username}</div>
                     <button className="logout hover-animation" onClick={this.props.logout}>Выйти</button>
                 </div>
             </header>

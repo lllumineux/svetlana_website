@@ -60,7 +60,7 @@ const Main = withRouter(({location}) => {
                                 <Route exact path="/signup/" component={Signup} />
 
                                 {/* Courses */}
-                                <PrivateRoute exact path="/courses/" component={Courses} />
+                                <Route exact path="/courses/" component={Courses} />
                                 <Route exact path="/courses/add/" component={AddCourse} />
                                 <Route exact path="/courses/:pk/" component={CourseWeeks} />
                                 <Route exact path="/courses/edit/:pk/" component={EditCourse} />

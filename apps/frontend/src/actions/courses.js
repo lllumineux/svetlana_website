@@ -10,12 +10,13 @@ import {
     UPDATE_COURSE,
     GET_ERRORS
 } from "./types";
+import {tokenConfig} from "./auth";
 
 
 // GET COURSES
-export const getCourses = () => (dispatch) => {
+export const getCourses = () => (dispatch, getState) => {
   axios
-    .get("/api/courses/")
+    .get("/api/courses/", tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_COURSES,
