@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
         fields = ('id', 'username', 'is_staff')
+        extra_kwargs = {'is_staff': {'read_only': True}}
 
 
 class RegisterSerializer(serializers.ModelSerializer):

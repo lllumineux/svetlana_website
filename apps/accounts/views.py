@@ -1,6 +1,8 @@
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.accounts import models, serializers
+from apps.courses import models as courses_models
 from apps.courses.serializers import CourseSerializer
 
 
@@ -21,6 +23,20 @@ class UserViewSet(viewsets.ModelViewSet):
 class UserCourseViewSet(viewsets.ModelViewSet):
     queryset = models.UserCourse.objects.all()
     serializer_class = serializers.UserCourseSerializer
+
+    @action(methods=['POST'], detail=False, url_path='invert_access')
+    def invert_course_access(self, request):
+        course = courses_models.Course.objects.get(pk=request.data["course_id"])
+        user = models.User.objects.get(pk=request.data["user_id"])
+        user_courses = models.UserCourse.objects.filter(course=course, user=user)
+        if user_courses:
+            user_courses[0].delete()
+        else:
+            new_user_course = models.UserCourse(course=course, user=user)
+            new_user_course.save()
+        user_serialized = serializers.UserSerializer(user).data
+        user_serialized["courses"] = [CourseSerializer(obj.course).data for obj in models.UserCourse.objects.filter(user=user)]
+        return Response(user_serialized)
 
 
 class UserWeekViewSet(viewsets.ModelViewSet):

@@ -50,6 +50,10 @@ export const GET_REPORT_QUESTIONS = "GET_REPORT_QUESTIONS";
 // Numbers
 export const GET_NUMBERS = "GET_NUMBERS";
 
+// Users
+export const GET_USERS = "GET_USERS";
+export const INVERT_USER_COURSE_ACCESS = "INVERT_USER_COURSE_ACCESS";
+
 // Screenshots
 export const GET_SCREENSHOTS = "GET_SCREENSHOTS";
 export const DELETE_SCREENSHOT = "DELETE_SCREENSHOT";

@@ -28,4 +28,7 @@ urlpatterns = [
 
     # Numbers
     path('numbers/', views.index),
+
+    # Users
+    path('users/', views.index),
 ]

@@ -22,3 +22,5 @@ import EditArticleStyles from "./components/edit_article_page/EditArticle.sass";
 import AddArticleStyles from "./components/add_article_page/AddArticle.sass";
 
 import NumbersStyles from "./components/numbers_page/Numbers.sass";
+
+import UsersStyles from "./components/users_page/Users.sass";

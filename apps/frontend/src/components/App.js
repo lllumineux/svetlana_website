@@ -38,6 +38,8 @@ import CourseDay from "./course_day_page/CourseDay";
 
 import Numbers from "./numbers_page/Numbers";
 
+import Users from "./users_page/Users";
+
 import EditGeneralInfo from "./edit_general_info_page/EditGeneralInfo";
 
 import Articles from "./articles_page/Articles";
@@ -80,6 +82,9 @@ const Main = withRouter(({location}) => {
 
                                 {/* Numbers */}
                                 <Route exact path="/numbers/" component={Numbers} />
+
+                                {/* Users */}
+                                <Route exact path="/users/" component={Users} />
                             </Switch>
                         </div>
                         {!componentSettings.noFooterPathNames.includes(location.pathname) ? <Footer/> : ''}
