@@ -41,12 +41,13 @@ export class CourseDay extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
-
-        const formData = new FormData();
-        formData.append('report_answers', this.state.report_answers)
-
-        createReport (formData, () => {location.reload()},
-        );
+        const empty_report_answers = [];
+        this.props.report_questions.forEach(question => {
+            if (this.state.report_answers.filter(obj => obj.report_question_id === question.id).length === 0) {
+               empty_report_answers.push({report_question_id: question.id, text: ""})
+            }
+        })
+        this.props.createReport(this.state.report_answers.concat(empty_report_answers), () => {});
     };
 
     render() {
@@ -132,4 +133,4 @@ const mapStateToProps = (state) => ({
     report_questions: state.reports.report_questions
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDayId })(CourseDay);
+export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDayId, createReport })(CourseDay);

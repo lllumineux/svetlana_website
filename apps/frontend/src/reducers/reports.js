@@ -1,4 +1,4 @@
-import {GET_REPORT_QUESTIONS} from "../actions/types";
+import {CREATE_REPORT, GET_REPORT_QUESTIONS} from "../actions/types";
 
 const initialState = {
   report_questions: []
@@ -10,6 +10,10 @@ export default function (state= initialState, action) {
       return {
         ...state,
         report_questions: action.payload,
+      };
+    case CREATE_REPORT:
+      return {
+        ...state
       };
     default:
       return state;
