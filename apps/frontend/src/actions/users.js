@@ -1,5 +1,6 @@
 import axios from "axios";
 import {GET_USERS, INVERT_USER_COURSE_ACCESS} from "./types";
+import {createMessage} from "./messages";
 
 // GET_USERS
 export const getUsers = () => (dispatch) => {
@@ -21,6 +22,7 @@ export const invertUserCourseAccess = (user_id, course_id) => (dispatch) => {
         .post("/api/users_courses/invert_access/", { user_id, course_id }, {
         })
         .then(res => {
+            dispatch(createMessage({invertUserCourseAccess: "Изменения сохранены"}));
             dispatch({
                 type: INVERT_USER_COURSE_ACCESS,
                 payload: res.data

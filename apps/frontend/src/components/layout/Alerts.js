@@ -26,8 +26,14 @@ export class Alerts extends Component {
         }
 
         if (message !== prevProps.message) {
-            if (message.deleteCourse) alert.success(message.deleteCourse);
+            // Auth
             if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
+
+            // Course
+            if (message.deleteCourse) alert.success(message.deleteCourse);
+
+            // Users
+            if (message.invertUserCourseAccess) alert.success(message.invertUserCourseAccess);
         }
     }
 
