@@ -24,3 +24,5 @@ import AddArticleStyles from "./components/add_article_page/AddArticle.sass";
 import NumbersStyles from "./components/numbers_page/Numbers.sass";
 
 import UsersStyles from "./components/users_page/Users.sass";
+
+import ReportsStyles from "./components/reports_page/Reports.sass";

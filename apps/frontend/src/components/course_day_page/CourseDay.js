@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import {getCourse} from "../../actions/courses";
 import {getCourseDay} from "../../actions/course_days";
 import {Link} from "react-router-dom";
-import {createReport, getReportQuestionsByDayId} from "../../actions/reports";
+import {
+    createReport,
+    getReportByDayId,
+    getReportQuestionsByDayId
+} from "../../actions/reports";
 
 export class CourseDay extends Component {
     state = {
@@ -16,13 +20,15 @@ export class CourseDay extends Component {
         course_day: PropTypes.any.isRequired,
         getCourseDay: PropTypes.func.isRequired,
         getCourse: PropTypes.func.isRequired,
-        getReportQuestionsByDayId: PropTypes.func.isRequired
+        getReportQuestionsByDayId: PropTypes.func.isRequired,
+        getReportByDayId: PropTypes.func.isRequired
     };
 
     componentDidMount() {
         this.props.getCourseDay(this.props.location.state.day.id);
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "")[1]);
-        this.props.getReportQuestionsByDayId(this.props.location.state.day.id)
+        this.props.getReportQuestionsByDayId(this.props.location.state.day.id);
+        this.props.getReportByDayId(this.props.location.state.day.id);
     }
 
     // Input form changes listeners
@@ -47,8 +53,15 @@ export class CourseDay extends Component {
                empty_report_answers.push({report_question_id: question.id, text: ""})
             }
         })
-        this.props.createReport(this.state.report_answers.concat(empty_report_answers), () => {});
+        const formData = new FormData();
+        formData.append("day_id", this.props.location.state.day.id)
+        this.props.createReport(this.state.report_answers.concat(empty_report_answers), formData, () => {window.location.reload()});
     };
+
+    isEmpty = obj => {
+        for (let i in obj) { return false;}
+        return true;
+    }
 
     render() {
         return (
@@ -112,15 +125,30 @@ export class CourseDay extends Component {
                 <div className="report">
                     <h4>Отчёт по занятию</h4>
                     <div className="warning">Будьте внимательны при написании отчёта - после его отправки у вас не будет возможности изменить данные!</div>
-                <form onSubmit={this.onSubmit} className="report-forms">
-                    {this.props.report_questions.map(report_question => (
-                        <div className="report-question-form" key={`report-question-form_${report_question.id}`}>
-                            <h5>{report_question.text}</h5>
-                            <input type="text" name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
+                    <form onSubmit={this.onSubmit} className="report-forms">
+                        {(!this.isEmpty(this.props.report)) ? (
+                            this.props.report.items.map(report_item => (
+                                <div className="report-question-form report-question-form-disabled" key={`report-question-form_${report_item.id}`}>
+                                    <h5>{report_item.question.text}</h5>
+                                    <input type="text" defaultValue={report_item.answer} disabled/>
+                                </div>
+                            ))
+                        ) : (
+                            this.props.report_questions.map(report_question => (
+                                <div className="report-question-form" key={`report-question-form_${report_question.id}`}>
+                                    <h5>{report_question.text}</h5>
+                                    <input type="text" name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
+                                </div>
+                            ))
+                        )}
+                        <div className="submit-button-wrapper">
+                            {(!this.isEmpty(this.props.report) ? (
+                                <button disabled>Отправить</button>
+                            ) : (
+                               <button type="submit" className="hover-animation">Отправить</button>
+                            ))}
                         </div>
-                    ))}
-                    <div className="submit-button-wrapper"><button type="submit" className="hover-animation">Отправить</button></div>
-                </form>
+                    </form>
                 </div>
             </Fragment>
         );
@@ -130,7 +158,8 @@ export class CourseDay extends Component {
 const mapStateToProps = (state) => ({
     course_day: state.course_days.course_day,
     course: state.courses.course,
-    report_questions: state.reports.report_questions
+    report_questions: state.reports.report_questions,
+    report: state.reports.report
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDayId, createReport })(CourseDay);
+export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDayId, createReport, getReportByDayId })(CourseDay);

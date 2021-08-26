@@ -9,6 +9,8 @@ class ReportQuestionSerializer(serializers.ModelSerializer):
 
 
 class ReportSerializer(serializers.ModelSerializer):
+    upload_time = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+
     class Meta:
         model = models.Report
         fields = '__all__'

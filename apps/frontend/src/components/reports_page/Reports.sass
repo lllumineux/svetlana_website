@@ -1,0 +1,44 @@
+@use "../common/base"
+
+.reports
+  .report:nth-child(n+2)
+    margin-top: 50px
+
+  .report
+    border: 2px solid base.$light-gray-color
+    border-radius: 30px
+    padding: 45px 55px
+
+    .report-info
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+      .author-username
+        font-weight: 700
+
+      .upload-time
+        color: base.$dark-gray-color
+        font-size: base.$p3-size
+
+  .report-forms-disabled
+    display: flex
+    flex-direction: column
+    margin-top: 29px
+
+    .report-question-form-disabled:nth-child(n+2)
+      margin-top: 20px
+
+    .report-question-form-disabled
+      h5
+        font-weight: 600
+
+      input:disabled
+        background-color: base.$light-gray-color
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+        border-radius: 100px
+        box-sizing: border-box
+        width: 100%
+        padding: 11px 15px
+        margin-top: 5px

@@ -16,6 +16,7 @@ class ReportQuestion(models.Model):
 class Report(models.Model):
     upload_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ('-upload_time', )

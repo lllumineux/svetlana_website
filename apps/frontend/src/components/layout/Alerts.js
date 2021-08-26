@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import {withAlert} from "react-alert";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {success} from "webpack-cli/lib/utils/logger";
 
 export class Alerts extends Component {
     static propTypes = {
@@ -34,6 +35,9 @@ export class Alerts extends Component {
 
             // Users
             if (message.invertUserCourseAccess) alert.success(message.invertUserCourseAccess);
+
+            // Reports
+            if (message.sendReport) alert.success(message.sendReport);
         }
     }
 

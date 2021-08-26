@@ -31,4 +31,7 @@ urlpatterns = [
 
     # Users
     path('users/', views.index),
+
+    # Reports
+    path('reports/', views.index),
 ]

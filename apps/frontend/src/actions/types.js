@@ -47,6 +47,8 @@ export const UPDATE_ARTICLE = "UPDATE_ARTICLE";
 // Reports
 export const GET_REPORT_QUESTIONS = "GET_REPORT_QUESTIONS";
 export const CREATE_REPORT = "CREATE_REPORT";
+export const GET_REPORTS = "GET_REPORTS";
+export const GET_REPORT_BY_DAY_ID = "GET_REPORT_BY_DAY_ID";
 
 // Numbers
 export const GET_NUMBERS = "GET_NUMBERS";
