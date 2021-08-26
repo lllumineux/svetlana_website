@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -48,6 +50,18 @@ class WeekViewSet(viewsets.ModelViewSet):
 class DayViewSet(viewsets.ModelViewSet):
     queryset = models.Day.objects.all()
     serializer_class = serializers.DaySerializer
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+
+        for key, val in request.data.items():
+            if "report_question" in key:
+                report_question = json.loads(val)
+                report_question_to_update = ReportQuestion.objects.get(pk=report_question["id"])
+                report_question_to_update.text = report_question["text"]
+                report_question_to_update.save()
+
+        return response
 
     @action(methods=['GET'], detail=True)
     def report_questions_list(self, request, pk=None):

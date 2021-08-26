@@ -55,7 +55,13 @@ export class CourseDay extends Component {
         })
         const formData = new FormData();
         formData.append("day_id", this.props.location.state.day.id)
-        this.props.createReport(this.state.report_answers.concat(empty_report_answers), formData, () => {window.location.reload()});
+        this.state.report_answers.concat(empty_report_answers).forEach((report_answer, index) => {
+            formData.append(`report_item_${index}`, JSON.stringify({
+                "question_id": report_answer.report_question_id,
+                "answer_text": report_answer.text
+            }))
+        })
+        this.props.createReport(formData);
     };
 
     isEmpty = obj => {

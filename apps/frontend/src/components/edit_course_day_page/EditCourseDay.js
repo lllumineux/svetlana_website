@@ -52,34 +52,31 @@ export class EditCourseDay extends Component {
     onSubmit = e => {
         e.preventDefault();
 
-        const formData1 = new FormData();
+        const formData = new FormData();
         if (this.state.name !== "") {
-            formData1.append('name', this.state.name);
+            formData.append('name', this.state.name);
         }
         if (this.state.short_description !== "") {
-            formData1.append('short_description', this.state.short_description);
+            formData.append('short_description', this.state.short_description);
         }
         if (this.state.content !== "") {
-            formData1.append('content', this.state.content);
+            formData.append('content', this.state.content);
         }
 
-        this.state.report_questions.map((report_question) => {
-            const formData = new FormData();
-            formData.append('report_question', report_question);
+        this.state.report_questions.map((report_question, index) => {
+            formData.append(`report_question_${index}`, JSON.stringify({
+                "id": report_question.id,
+                "text": report_question.text
+            }));
         })
 
-        this.props.updateCourseDay(
-            this.props.course_day.id,
-            formData1,
-            this.state.report_questions,
-            () => {
-                this.props.history.push({
-                    pathname: `/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}/weeks/${this.props.course_day.number}/`,
-                    state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}}
-                });
-                location.reload();
-            },
-        );
+        this.props.updateCourseDay(this.props.course_day.id, formData, () => {
+            this.props.history.push({
+                pathname: `/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}/weeks/${this.props.course_day.number}/`,
+                state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}}
+            });
+            location.reload();
+        });
     };
 
     render() {

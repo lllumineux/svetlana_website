@@ -19,7 +19,8 @@ export default function (state= initialState, action) {
       };
     case CREATE_REPORT:
       return {
-        ...state
+        ...state,
+        report: action.payload
       };
     case GET_REPORTS:
       return {

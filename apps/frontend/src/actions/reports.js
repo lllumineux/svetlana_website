@@ -22,40 +22,16 @@ export const getReportQuestionsByDayId = (course_day_id) => (dispatch) => {
         .catch((err) => console.log(err))
 };
 
-// UPDATE_REPORT_QUESTION
-export const updateReportQuestion = (data) => {
-    axios
-        .patch(`/api/report_questions/${data.id}/`, data, {})
-        .catch((err) => console.log(err));
-};
-
 // CREATE_REPORT
-export const createReport = (report_answers, data, callback_func) => (dispatch, getstate) => {
+export const createReport = (data) => (dispatch, getstate) => {
     axios
         .post("/api/reports/", data, tokenConfig(getstate))
         .then(res => {
-            report_answers.forEach((report_answer, index) => {
-                const formData = new FormData();
-                formData.append("question_id", report_answer.report_question_id)
-                formData.append("answer_text", report_answer.text)
-                formData.append("report_id", res.data.id)
-                createReportItem(formData, (index === report_answers.length - 1) ? callback_func : () => {})
-            });
             dispatch(createMessage({sendReport: "Отчёт отправлен"}));
             dispatch({
                 type: CREATE_REPORT,
                 payload: res.data
             });
-        })
-        .catch((err) => console.log(err))
-};
-
-// CREATE_REPORT_ITEM
-export const createReportItem = (data, callback_func) => {
-    axios
-        .post("/api/report_items/", data, {})
-        .then(res => {
-            callback_func()
         })
         .catch((err) => console.log(err))
 };
