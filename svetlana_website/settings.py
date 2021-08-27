@@ -137,7 +137,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# Files upload path
+FILE_UPLOAD_PATH = BASE_DIR / 'apps' / 'frontend' / 'src' / 'uploads'
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (FILE_UPLOAD_PATH,)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -178,7 +183,3 @@ REST_FRAMEWORK = {
 REST_KNOX = {
   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
-
-# Files upload path
-
-FILE_UPLOAD_PATH = BASE_DIR / 'apps' / 'frontend' / 'src' / 'uploads'

@@ -1,0 +1,146 @@
+@use "../common/base"
+
+.main-body
+  background-color: base.$black-color
+
+  #app .content
+    width: 100%!important
+    padding: 0!important
+
+    .main-content-header
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 1)), url(../../images/main_page_header_bg.jpg) no-repeat center top
+      background-size: cover
+      height: 100vh
+
+      .main-content-header-controls
+        display: flex
+        justify-content: flex-end
+        padding: 28px 69px
+
+        .main-login-btn
+          color: base.$white-color
+          font-size: base.$p3-size
+          font-weight: 400
+
+      .main-content-header-info
+        margin-top: 60px
+        margin-left: 139px
+
+        h1
+          color: base.$white-color
+          font-size: base.$h1-size
+          font-weight: 700
+
+        p
+          color: base.$white-color
+          font-size: base.$h4-size
+          font-weight: 400
+
+        ul
+          margin-top: 10px
+
+          li
+            color: base.$white-color
+            font-size: base.$h6-size
+            font-weight: 300
+            margin-left: 19px
+
+    .scroll-down-icon
+      position: absolute
+      bottom: 35px
+      left: 50%
+      width: 30px
+      height: 30px
+      margin-left: -10px
+
+  .greeting-video-wrapper
+    display: flex
+    justify-content: center
+    margin-top: 200px
+
+  .main-menu-item.psychological-consultation
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url(../../images/psychological_consultation_btn_bg.jpg) no-repeat center center
+    background-size: cover
+
+  .main-menu-item.reviews
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url(../../images/reviews_btn_bg.jpg) no-repeat center center
+    background-size: cover
+
+  .main-menu-item.interesting
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url(../../images/interesting_btn_bg.jpg) no-repeat center center
+    background-size: cover
+
+  .main-menu-item
+    box-sizing: border-box
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+    border-radius: 50px
+    width: 500px
+    height: 500px
+    padding: 30px
+    margin: 200px auto 0
+
+    .main-menu-item-info
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      h4
+        text-align: center
+        color: base.$accent-color
+        font-size: base.$h2-size
+        font-weight: 700
+        max-width: 400px
+
+      p
+        text-align: center
+        color: base.$white-color
+        font-size: base.$h6-size
+        font-weight: 300
+        max-width: 400px
+        margin-top: 10px
+
+    a
+      display: block
+      border: 1px solid base.$white-color
+      border-radius: 100px
+      color: base.$white-color
+      font-size: base.$p3-size
+      padding: 11px 72px
+
+  .main-number-input-form
+    border: 2px solid base.$super-dark-gray-color
+    border-radius: 30px
+    box-sizing: border-box
+    width: 80vw
+    padding: 45px 55px
+    margin: 200px auto
+
+    .number-input-form-description
+      color: base.$white-color
+      font-size: base.$h6-size
+
+    .number-input-form-content
+      display: flex
+      margin-top: 45px
+
+      input
+        background-color: base.$super-dark-gray-color
+        color: base.$white-color
+        font-size: base.$p2-size
+        border-radius: 100px
+        box-sizing: border-box
+        width: 100%
+        padding: 11px 15px
+        margin-right: 27px
+
+      button
+        display: block
+        background-color: base.$accent-color
+        border-radius: 100px
+        color: base.$white-color
+        font-size: base.$p3-size
+        padding: 11px 72px
+

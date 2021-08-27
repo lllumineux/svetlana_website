@@ -3,6 +3,10 @@ from . import views
 
 
 urlpatterns = [
+    # Unauthorized user pages
+    path('', views.main),
+    path('course_description/<pk>/', views.index),
+
     # Login/Signup
     path('login/', views.index),
     path('signup/', views.index),

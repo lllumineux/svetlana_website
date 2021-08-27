@@ -14,8 +14,16 @@ const alertOptions = {
 }
 
  const componentSettings = {
-    noHeaderPathNames: ["/login/", "/signup/"],
-    noFooterPathNames: ["/login/", "/signup/"]
+    noHeaderPathNames: [
+        new RegExp(/^(\/)$/),
+        new RegExp(/^(\/login\/)$/),
+        new RegExp(/^(\/signup\/)$/),
+        new RegExp(/^(\/course_description\/\d+\/)$/)
+    ],
+     noFooterPathNames: [
+        new RegExp(/^(\/login\/)$/),
+        new RegExp(/^(\/signup\/)$/)
+    ]
 };
 
 import PrivateRoute from "./common/PrivateRoute";
@@ -23,6 +31,8 @@ import PrivateRoute from "./common/PrivateRoute";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Alerts from "./layout/Alerts"
+
+import Main from "./main_page/Main"
 
 import Login from "./login_page/Login";
 import Signup from "./signup_page/Signup";
@@ -48,17 +58,22 @@ import Articles from "./articles_page/Articles";
 import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
 import Article from "./article_page/Article";
+import CourseDescription from "./course_description_page/CourseDescription";
 
-const Main = withRouter(({location}) => {
+const AppContent = withRouter(({location}) => {
     return (
         <BrowserRouter>
             <AlertProvider template={AlertTemplate} {...alertOptions}>
                 <Provider store={store}>
                     <Fragment>
-                        {!componentSettings.noHeaderPathNames.includes(location.pathname) ? <Header/> : ''}
+                        {componentSettings.noHeaderPathNames.filter(pathNameRegEx => pathNameRegEx.test(location.pathname)).length === 0 ? <Header/> : ""}
                         <Alerts />
                         <div className="content">
                             <Switch>
+                                {/* Unauthorized user pages */}
+                                <Route exact path="/" component={Main} />
+                                <Route exact path="/course_description/:pk/" component={CourseDescription} />
+
                                 {/* Login/Signup */}
                                 <Route exact path="/login/" component={Login} />
                                 <Route exact path="/signup/" component={Signup} />
@@ -92,7 +107,7 @@ const Main = withRouter(({location}) => {
                                 <Route exact path="/reports/" component={Reports} />
                             </Switch>
                         </div>
-                        {!componentSettings.noFooterPathNames.includes(location.pathname) ? <Footer/> : ''}
+                        {componentSettings.noFooterPathNames.filter(pathNameRegEx => pathNameRegEx.test(location.pathname)).length === 0 ? <Footer/> : ''}
                     </Fragment>
                 </Provider>
             </AlertProvider>
@@ -108,7 +123,7 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <Main />
+                <AppContent />
             </BrowserRouter>
         )
     }

@@ -11,6 +11,9 @@ import AuthFormsStyles from "./components/common/AuthForms.sass"
 import HeaderStyles from "./components/layout/Header.sass"
 import FooterStyles from "./components/layout/Footer.sass"
 
+import MainStyles from "./components/main_page/Main.sass"
+import CourseDescriptionStyles from "./components/course_description_page/CourseDescription.sass"
+
 import CoursesStyles from "./components/courses_page/Courses.sass"
 import AddCourseStyles from "./components/add_course_page/AddCourse.sass"
 import CourseWeeksStyles from "./components/course_weeks_page/CourseWeeks.sass";

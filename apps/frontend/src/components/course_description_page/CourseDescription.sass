@@ -1,0 +1,96 @@
+@use "../common/base"
+
+.course-full-description
+  border: 2px solid base.$light-gray-color
+  border-radius: 30px
+  padding: 45px 55px
+
+.course-description-price-table
+  border-collapse: collapse
+  margin-top: 50px
+
+  tr:nth-child(-n+2)
+    border-bottom: 2px solid base.$light-gray-color
+
+  tr
+    th
+      text-align: left
+      font-weight: 700
+      padding: 22px 80px
+
+    td
+      text-align: center
+      vertical-align: middle
+      padding: 22px 75px
+
+      img
+        width: 27px
+        height: 27px
+
+    td.price-td
+      color: base.$dark-gray-color
+      font-style: italic
+
+  .course-description-buy-btn
+    display: block
+    background-color: base.$black-color
+    color: base.$white-color
+    font-size: base.$p3-size
+    font-weight: 400
+    border-radius: 100px
+    padding: 11px 72px
+    margin: auto
+
+.course-description-promotion-banner
+  display: flex
+  border: 2px solid base.$accent-color
+  border-radius: 30px
+  margin-top: 50px
+
+  .promotion-info
+    box-sizing: border-box
+    width: 50%
+    padding: 45px 55px
+
+    h3
+      color: base.$accent-color
+      font-size: base.$h5-size
+      font-weight: 800
+
+    p
+      margin-top: 22px
+
+  .promotion-offers
+    display: flex
+    justify-content: space-between
+    width: 50%
+    padding: 45px 55px
+
+    hr
+      background-color: base.$light-gray-color
+      width: 2px
+
+    .promotion-offer
+      width: 41%
+
+      .promotion-offer-name
+        font-weight: 700
+
+      .promotion-offer-price
+        color: base.$dark-gray-color
+        font-style: italic
+        margin-top: 22px
+
+        strike
+          color: base.$accent-color
+
+      .promotion-offer-buy-btn
+        display: block
+        background-color: base.$black-color
+        color: base.$white-color
+        font-size: base.$p3-size
+        font-weight: 400
+        border-radius: 100px
+        width: 100%
+        padding: 11px 0
+        margin-top: 22px

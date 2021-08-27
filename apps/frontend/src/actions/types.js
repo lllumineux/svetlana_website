@@ -52,6 +52,7 @@ export const GET_REPORT_BY_DAY_ID = "GET_REPORT_BY_DAY_ID";
 
 // Numbers
 export const GET_NUMBERS = "GET_NUMBERS";
+export const ADD_NUMBER = "ADD_NUMBER";
 
 // Users
 export const GET_USERS = "GET_USERS";

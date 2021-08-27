@@ -27,6 +27,9 @@ export class Alerts extends Component {
         }
 
         if (message !== prevProps.message) {
+            // Unauthorized user messages
+            if (message.addNumber) alert.success(message.addNumber);
+
             // Auth
             if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
 
