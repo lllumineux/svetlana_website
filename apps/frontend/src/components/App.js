@@ -18,7 +18,8 @@ const alertOptions = {
         new RegExp(/^(\/)$/),
         new RegExp(/^(\/login\/)$/),
         new RegExp(/^(\/signup\/)$/),
-        new RegExp(/^(\/course_description\/\d+\/)$/)
+        new RegExp(/^(\/course_description\/\d+\/)$/),
+        new RegExp(/^(\/psychological_consultation_description\/)$/),
     ],
      noFooterPathNames: [
         new RegExp(/^(\/login\/)$/),
@@ -33,6 +34,8 @@ import Footer from "./layout/Footer";
 import Alerts from "./layout/Alerts"
 
 import Main from "./main_page/Main"
+import CourseDescription from "./course_description_page/CourseDescription";
+import PsychologicalConsultationDescription from "./pscychological_consultation_description_page/PsychologicalConsultationDescription";
 
 import Login from "./login_page/Login";
 import Signup from "./signup_page/Signup";
@@ -58,7 +61,6 @@ import Articles from "./articles_page/Articles";
 import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
 import Article from "./article_page/Article";
-import CourseDescription from "./course_description_page/CourseDescription";
 
 const AppContent = withRouter(({location}) => {
     return (
@@ -73,6 +75,7 @@ const AppContent = withRouter(({location}) => {
                                 {/* Unauthorized user pages */}
                                 <Route exact path="/" component={Main} />
                                 <Route exact path="/course_description/:pk/" component={CourseDescription} />
+                                <Route exact path="/psychological_consultation_description/" component={PsychologicalConsultationDescription} />
 
                                 {/* Login/Signup */}
                                 <Route exact path="/login/" component={Login} />

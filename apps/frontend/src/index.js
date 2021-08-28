@@ -13,6 +13,8 @@ import FooterStyles from "./components/layout/Footer.sass"
 
 import MainStyles from "./components/main_page/Main.sass"
 import CourseDescriptionStyles from "./components/course_description_page/CourseDescription.sass"
+import PsychologicalConsultationDescriptionStyles from "./components/pscychological_consultation_description_page/PsychologicalConsultationDescription.sass"
+import PopupWindowStyles from "./components/common/PopupWindow.sass"
 
 import CoursesStyles from "./components/courses_page/Courses.sass"
 import AddCourseStyles from "./components/add_course_page/AddCourse.sass"

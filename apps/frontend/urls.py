@@ -6,6 +6,7 @@ urlpatterns = [
     # Unauthorized user pages
     path('', views.main),
     path('course_description/<pk>/', views.index),
+    path('psychological_consultation_description/', views.index),
 
     # Login/Signup
     path('login/', views.index),

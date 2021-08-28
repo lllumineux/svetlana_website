@@ -96,7 +96,7 @@ export class Main extends Component {
                         <h4>Психологическая консультация</h4>
                         <p>Запись на индивидуальную онлайн встречу</p>
                     </div>
-                    <Link to="/" className="hover-animation">Подробнее</Link>
+                    <Link to="/psychological_consultation_description/" className="hover-animation">Подробнее</Link>
                 </div>
                 <div className="main-menu-item reviews">
                     <div/>
