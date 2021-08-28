@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {getGeneralInfo} from "../../actions/general_info";
+import {getContactInfo, getGeneralInfo} from "../../actions/general_info";
 import {PopupWindow} from "../common/PopupWindow";
 
 export class PsychologicalConsultationDescription extends Component {
@@ -19,7 +19,14 @@ export class PsychologicalConsultationDescription extends Component {
             whatsapp_number: PropTypes.string.isRequired,
             instagram_alias: PropTypes.string.isRequired,
             main_page_numbers_form_text: PropTypes.string.isRequired,
-        }).isRequired
+        }).isRequired,
+        getContactInfo: PropTypes.func.isRequired,
+        contact_info: PropTypes.shape({
+            whatsapp_number: PropTypes.string,
+            whatsapp_link: PropTypes.string,
+            instagram_alias: PropTypes.string,
+            instagram_link: PropTypes.string
+        })
     };
 
     componentDidMount() {
@@ -33,11 +40,18 @@ export class PsychologicalConsultationDescription extends Component {
     render() {
         return (
             <Fragment>
-                {(this.state.isPopupShown) ? <PopupWindow title="Запись на консультацию" content={<div>хуй</div>} hidePopup={this.hidePopup} /> : ""}
+                {(this.state.isPopupShown) ?
+                    <PopupWindow
+                        title="Запись на консультацию"
+                        content={
+                            <div className="psychological-consultation-description-popup-window-content">Для записи на консультацию, свяжитесь со мной любым удобным способом: через <strong>WhatsApp</strong> по номеру <strong><u><a href={this.props.contact_info.whatsapp_link} target="_blank">{this.props.contact_info.whatsapp_number}</a></u></strong>, либо через <strong>Instagram</strong> по нику <strong><u><a href={this.props.contact_info.instagram_link} target="_blank">{this.props.contact_info.instagram_alias}</a></u></strong></div>
+                        }
+                        hidePopup={this.hidePopup}
+                    /> : ""}
                 <div className="content-header"><h2 className="title">Психологическая консультация</h2></div>
                 <div className="editor-rendered-content psychological-consultation-description" dangerouslySetInnerHTML={{__html: this.props.general_info.psychological_consultation_description}}/>
                 <button className="book-btn" onClick={this.showPopup}>Записаться</button>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                {this.state.isPopupShown ? <style>{"html {overflow: hidden;}"}</style> : ""}
             </Fragment>
         );
     }
@@ -45,6 +59,7 @@ export class PsychologicalConsultationDescription extends Component {
 
 const mapStateToProps = (state) => ({
     general_info: state.general_info.general_info,
+    contact_info: state.general_info.contact_info
 });
 
-export default connect(mapStateToProps, { getGeneralInfo })(PsychologicalConsultationDescription);
+export default connect(mapStateToProps, { getGeneralInfo, getContactInfo })(PsychologicalConsultationDescription);
