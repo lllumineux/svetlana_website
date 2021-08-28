@@ -7,10 +7,15 @@ import {getGeneralInfo} from "../../actions/general_info";
 import ReactPlayer from 'react-player';
 import {STATIC_FILES_PATH} from '../../config';
 import {getCourses} from "../../actions/courses";
+import {PopupWindow} from "../common/PopupWindow";
+import {getScreenshots} from "../../actions/screenshots";
+
+import Carousel, { arrowsPlugin, slidesToShowPlugin } from '@brainhubeu/react-carousel';
 
 export class Main extends Component {
     state = {
-        number: ""
+        number: "",
+        isPopupShown: false
     }
 
     static propTypes = {
@@ -25,12 +30,15 @@ export class Main extends Component {
             instagram_alias: PropTypes.string.isRequired,
             main_page_numbers_form_text: PropTypes.string.isRequired,
         }).isRequired,
-        getCourses: PropTypes.func.isRequired
+        getCourses: PropTypes.func.isRequired,
+        getScreenshots: PropTypes.func.isRequired,
+        screenshots: PropTypes.array.isRequired
     };
 
     componentDidMount() {
         this.props.getGeneralInfo();
         this.props.getCourses();
+        this.props.getScreenshots();
     }
 
     onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -42,9 +50,44 @@ export class Main extends Component {
         this.props.addNumber(formData);
     }
 
+    showPopup = () => {this.setState({isPopupShown: true})}
+    hidePopup = () => {this.setState({isPopupShown: false})}
+
     render() {
         return (
             <Fragment>
+                {(this.state.isPopupShown) ?
+                    <PopupWindow
+                        title="Отзывы"
+                        content={
+                            <div className="main-popup-window-content">
+                                <p>Интересно, а какие процессы запустятся у тебя?</p>
+                                <Carousel plugins={[
+                                    'infinite',
+                                    {
+                                        resolve: arrowsPlugin,
+                                        options: {
+                                          arrowLeft: <button className="hover-animation"><img style={{width: "25px", height: "25px"}} src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAyNSAyNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik01Ljk4MjM3IDEzLjM5MjNMMTcuMjI0OCAyNC42MzFDMTcuNzE4MSAyNS4xMjMgMTguNTE3MyAyNS4xMjMgMTkuMDExOSAyNC42MzFDMTkuNTA1MiAyNC4xMzg5IDE5LjUwNTIgMjMuMzM5NyAxOS4wMTE5IDIyLjg0NzZMOC42NjEyIDEyLjUwMDdMMTkuMDEwNiAyLjE1Mzc2QzE5LjUwMzkgMS42NjE3IDE5LjUwMzkgMC44NjI0NTcgMTkuMDEwNiAwLjM2OTE0OEMxOC41MTczIC0wLjEyMjkxMyAxNy43MTY4IC0wLjEyMjkxNCAxNy4yMjM1IDAuMzY5MTQ4TDUuOTgxMTIgMTEuNjA3OEM1LjQ5NTI5IDEyLjA5NDggNS40OTUyOSAxMi45MDY2IDUuOTgyMzcgMTMuMzkyM1oiIGZpbGw9IiM4ODg4ODgiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSIyNSIgaGVpZ2h0PSIyNSIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI1IDI1KSByb3RhdGUoLTE4MCkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Left Carousel Arrow"/></button>,
+                                          arrowRight: <button className="hover-animation"><img style={{width: "25px", height: "25px"}} src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjUiIHZpZXdCb3g9IjAgMCAyNSAyNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE5LjAxNzYgMTEuNjA3N0w3Ljc3NTI1IDAuMzY5MDQ3QzcuMjgxOTQgLTAuMTIzMDE2IDYuNDgyNyAtMC4xMjMwMTYgNS45ODgxNSAwLjM2OTA0N0M1LjQ5NDg0IDAuODYxMTEgNS40OTQ4NCAxLjY2MDM1IDUuOTg4MTUgMi4xNTI0MUwxNi4zMzg4IDEyLjQ5OTNMNS45ODkzOSAyMi44NDYyQzUuNDk2MDggMjMuMzM4MyA1LjQ5NjA4IDI0LjEzNzUgNS45ODkzOSAyNC42MzA5QzYuNDgyNyAyNS4xMjI5IDcuMjgzMTggMjUuMTIyOSA3Ljc3NjQ5IDI0LjYzMDlMMTkuMDE4OSAxMy4zOTIyQzE5LjUwNDcgMTIuOTA1MiAxOS41MDQ3IDEyLjA5MzQgMTkuMDE3NiAxMS42MDc3WiIgZmlsbD0iIzg4ODg4OCIvPgo8L3N2Zz4K" alt="Right Carousel Arrow"/></button>,
+                                          addArrowClickHandler: true
+                                        }
+                                    },
+                                    {
+                                        resolve: slidesToShowPlugin,
+                                        options: {
+                                            numberOfSlides: 1
+                                        }
+                                    },
+                                ]}>
+                                    {this.props.screenshots.map((screenshot, index) => (
+                                        <img className="main-popup-window-content-image" src={STATIC_FILES_PATH + screenshot.content.split("/").pop()} alt={`Course Image ${index}`} key={`course_image_${index}`} />
+                                    ))}
+                                </Carousel>
+                            </div>
+                        }
+                        hidePopup={this.hidePopup}
+                    /> : ""
+                }
                 <div className="main-content-header">
                     <div className="main-content-header-controls">
                         <Link className="main-login-btn hover-animation" to="/login/">Войти</Link>
@@ -104,7 +147,7 @@ export class Main extends Component {
                         <h4>Отзывы</h4>
                         <p>Что получают люди от консультаций</p>
                     </div>
-                    <Link to="/" className="hover-animation">Смотреть</Link>
+                    <button onClick={this.showPopup} className="hover-animation">Смотреть</button>
                 </div>
                 <div className="main-menu-item interesting">
                     <div/>
@@ -112,7 +155,7 @@ export class Main extends Component {
                         <h4>Интересное</h4>
                         <p>Статьи, запускающие внутренние трансформации</p>
                     </div>
-                    <Link to="/" className="hover-animation">Читать</Link>
+                    <Link to="/articles/" className="hover-animation">Читать</Link>
                 </div>
                 <form onSubmit={this.onSubmit} className="main-number-input-form">
                     <p className="number-input-form-description">{this.props.general_info.main_page_numbers_form_text}</p>
@@ -128,6 +171,7 @@ export class Main extends Component {
                         <button type="submit" className="hover-animation">Получить</button>
                     </div>
                 </form>
+                {this.state.isPopupShown ? <style>{"html {overflow: hidden;}"}</style> : ""}
             </Fragment>
         )
     }
@@ -135,7 +179,8 @@ export class Main extends Component {
 
 const mapStateToProps = (state) => ({
     general_info: state.general_info.general_info,
-    courses: state.courses.courses
+    courses: state.courses.courses,
+    screenshots: state.screenshots.screenshots
 });
 
-export default connect(mapStateToProps, { addNumber, getGeneralInfo, getCourses })(Main);
+export default connect(mapStateToProps, { addNumber, getGeneralInfo, getCourses, getScreenshots })(Main);

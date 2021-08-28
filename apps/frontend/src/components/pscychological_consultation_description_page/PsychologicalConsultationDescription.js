@@ -47,7 +47,8 @@ export class PsychologicalConsultationDescription extends Component {
                             <div className="psychological-consultation-description-popup-window-content">Для записи на консультацию, свяжитесь со мной любым удобным способом: через <strong>WhatsApp</strong> по номеру <strong><u><a href={this.props.contact_info.whatsapp_link} target="_blank">{this.props.contact_info.whatsapp_number}</a></u></strong>, либо через <strong>Instagram</strong> по нику <strong><u><a href={this.props.contact_info.instagram_link} target="_blank">{this.props.contact_info.instagram_alias}</a></u></strong></div>
                         }
                         hidePopup={this.hidePopup}
-                    /> : ""}
+                    /> : ""
+                }
                 <div className="content-header"><h2 className="title">Психологическая консультация</h2></div>
                 <div className="editor-rendered-content psychological-consultation-description" dangerouslySetInnerHTML={{__html: this.props.general_info.psychological_consultation_description}}/>
                 <button className="book-btn" onClick={this.showPopup}>Записаться</button>

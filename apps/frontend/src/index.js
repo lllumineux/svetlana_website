@@ -1,6 +1,8 @@
 // Apps import
 import App from "./components/App";
 
+// Plugins
+import CarouselStyles from '@brainhubeu/react-carousel/lib/style.css';
 
 // Styles import
 import BaseStyles from "./components/common/base.sass"
