@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # Unauthorized user pages
-    path('', views.main),
+    path('', views.index),
     path('course_description/<pk>/', views.index),
     path('psychological_consultation_description/', views.index),
 

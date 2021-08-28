@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {getCourseWeeks} from "../../actions/course_weeks";
 import {getCourse} from "../../actions/courses";
+import {loadUser} from "../../actions/auth";
 
 export class CourseWeeks extends Component {
     static propTypes = {
@@ -28,10 +29,14 @@ export class CourseWeeks extends Component {
                                 <h3>Неделя {week.number}</h3>
                                 <div className="description">{week.short_description}</div>
                             </Link>
-                            <hr/>
-                            <div className="action-buttons">
-                                <Link to={{pathname: `/courses/${this.props.course.id}/weeks/edit/${week.number}/`, state: { week: {id: week.id, number: week.number}}}} className="hover-animation">Редактировать</Link>
-                            </div>
+                            {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
+                                <Fragment>
+                                    <hr/>
+                                    <div className="action-buttons">
+                                        <Link to={{pathname: `/courses/${this.props.course.id}/weeks/edit/${week.number}/`, state: { week: {id: week.id, number: week.number}}}} className="hover-animation">Редактировать</Link>
+                                    </div>
+                                </Fragment>
+                            ) : ""}
                         </div>
                     )) }
                 </div>
@@ -42,7 +47,8 @@ export class CourseWeeks extends Component {
 
 const mapStateToProps = (state) => ({
     course_weeks: state.course_weeks.course_weeks,
-    course: state.courses.course
+    course: state.courses.course,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getCourse, getCourseWeeks })(CourseWeeks);

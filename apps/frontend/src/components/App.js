@@ -1,33 +1,15 @@
 import React, {Component, Fragment} from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
+import {connect, Provider} from "react-redux";
 import {BrowserRouter, Switch, Route, withRouter} from "react-router-dom";
 import store from "../store";
 import {Provider as AlertProvider} from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import {loadUser} from "../actions/auth";
 
-// Alert options
-const alertOptions = {
-    timeout: 3000,
-    position: "top center"
-}
-
- const componentSettings = {
-    noHeaderPathNames: [
-        new RegExp(/^(\/)$/),
-        new RegExp(/^(\/login\/)$/),
-        new RegExp(/^(\/signup\/)$/),
-        new RegExp(/^(\/course_description\/\d+\/)$/),
-        new RegExp(/^(\/psychological_consultation_description\/)$/),
-    ],
-     noFooterPathNames: [
-        new RegExp(/^(\/login\/)$/),
-        new RegExp(/^(\/signup\/)$/)
-    ]
-};
-
-import PrivateRoute from "./common/PrivateRoute";
+import OnlyAuthorizedRoute from "./common/OnlyAuthorizedRoute";
+import OnlyAdminRoute from "./common/OnlyAdminRoute"
+import OnlyUnauthorizedRoute from "./common/OnlyUnauthorizedRoute"
 
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
@@ -62,61 +44,27 @@ import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
 import Article from "./article_page/Article";
 
-const AppContent = withRouter(({location}) => {
-    return (
-        <BrowserRouter>
-            <AlertProvider template={AlertTemplate} {...alertOptions}>
-                <Provider store={store}>
-                    <Fragment>
-                        {componentSettings.noHeaderPathNames.filter(pathNameRegEx => pathNameRegEx.test(location.pathname)).length === 0 ? <Header/> : ""}
-                        <Alerts />
-                        <div className="content">
-                            <Switch>
-                                {/* Unauthorized user pages */}
-                                <Route exact path="/" component={Main} />
-                                <Route exact path="/course_description/:pk/" component={CourseDescription} />
-                                <Route exact path="/psychological_consultation_description/" component={PsychologicalConsultationDescription} />
+const alertOptions = {
+    timeout: 3000,
+    position: "top center"
+}
 
-                                {/* Login/Signup */}
-                                <Route exact path="/login/" component={Login} />
-                                <Route exact path="/signup/" component={Signup} />
+ const headerSettings = {
+    noHeaderPathNames: [
+        new RegExp(/^(\/)$/),
+        new RegExp(/^(\/login\/)$/),
+        new RegExp(/^(\/signup\/)$/),
+        new RegExp(/^(\/course_description\/\d+\/)$/),
+        new RegExp(/^(\/psychological_consultation_description\/)$/),
+    ],
+};
 
-                                {/* Courses */}
-                                <Route exact path="/courses/" component={Courses} />
-                                <Route exact path="/courses/add/" component={AddCourse} />
-                                <Route exact path="/courses/:pk/" component={CourseWeeks} />
-                                <Route exact path="/courses/edit/:pk/" component={EditCourse} />
-                                <Route exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseDays {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
-                                <Route exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
-
-                                {/* Articles */}
-                                <Route exact path="/articles/" component={Articles} />
-                                <Route exact path="/articles/add/" component={AddArticle} />
-                                <Route exact path="/articles/:pk/" component={Article} />
-                                <Route exact path="/articles/edit/:pk/" component={EditArticle} />
-
-                                {/* General Info */}
-                                <Route exact path="/general_info/" component={EditGeneralInfo} />
-
-                                {/* Numbers */}
-                                <Route exact path="/numbers/" component={Numbers} />
-
-                                {/* Users */}
-                                <Route exact path="/users/" component={Users} />
-
-                                {/* Reports */}
-                                <Route exact path="/reports/" component={Reports} />
-                            </Switch>
-                        </div>
-                        {componentSettings.noFooterPathNames.filter(pathNameRegEx => pathNameRegEx.test(location.pathname)).length === 0 ? <Footer/> : ''}
-                    </Fragment>
-                </Provider>
-            </AlertProvider>
-        </BrowserRouter>
-    )
-})
+ const footerSettings = {
+     noFooterPathNames: [
+        new RegExp(/^(\/login\/)$/),
+        new RegExp(/^(\/signup\/)$/)
+    ]
+};
 
 class App extends Component {
     componentDidMount() {
@@ -126,7 +74,56 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <AppContent />
+                <AlertProvider template={AlertTemplate} {...alertOptions}>
+                    <Provider store={store}>
+                        <Fragment>
+                            {(location.pathname === "/") ? <style>{"body {background: #000;} #app .content {width: 100%!important; padding: 0!important;}"}</style> : ""}
+                            <Header settings={headerSettings}/>
+                            <Alerts />
+                            <div className="content">
+                                <Switch>
+                                    {/* Unauthorized user pages */}
+                                    <OnlyUnauthorizedRoute exact path="/" component={Main} />
+                                    <OnlyUnauthorizedRoute exact path="/course_description/:pk/" component={CourseDescription} />
+                                    <Route exact path="/psychological_consultation_description/" component={PsychologicalConsultationDescription} />
+
+                                    {/* Login/Signup */}
+                                    <OnlyUnauthorizedRoute exact path="/login/" component={Login} />
+                                    <OnlyUnauthorizedRoute exact path="/signup/" component={Signup} />
+
+                                    {/* Courses */}
+                                    <OnlyAuthorizedRoute exact path="/courses/" component={Courses} />
+                                    <OnlyAdminRoute exact path="/courses/add/" component={AddCourse} />
+                                    <OnlyAuthorizedRoute exact path="/courses/:pk/" component={CourseWeeks} />
+                                    <OnlyAdminRoute exact path="/courses/edit/:pk/" component={EditCourse} />
+                                    <OnlyAuthorizedRoute exact path="/courses/:pk/weeks/:num/" component={(props) => <CourseDays {...props}/>} />
+                                    <OnlyAdminRoute exact path="/courses/:pk/weeks/edit/:num/" component={(props) => <EditCourseWeek {...props}/>} />
+                                    <OnlyAuthorizedRoute exact path="/courses/:pk/weeks/:num1/days/:num2/" component={(props) => <CourseDay {...props}/>} />
+                                    <OnlyAdminRoute exact path="/courses/:pk/weeks/:num1/days/edit/:num2/" component={(props) => <EditCourseDay {...props}/>} />
+
+                                    {/* Articles */}
+                                    <Route exact path="/articles/" component={Articles} />
+                                    <OnlyAdminRoute exact path="/articles/add/" component={AddArticle} />
+                                    <Route exact path="/articles/:pk/" component={Article} />
+                                    <OnlyAdminRoute exact path="/articles/edit/:pk/" component={EditArticle} />
+
+                                    {/* General Info */}
+                                    <OnlyAdminRoute exact path="/general_info/" component={EditGeneralInfo} />
+
+                                    {/* Numbers */}
+                                    <OnlyAdminRoute exact path="/numbers/" component={Numbers} />
+
+                                    {/* Users */}
+                                    <OnlyAdminRoute exact path="/users/" component={Users} />
+
+                                    {/* Reports */}
+                                    <OnlyAdminRoute exact path="/reports/" component={Reports} />
+                                </Switch>
+                            </div>
+                            <Footer settings={footerSettings} />
+                        </Fragment>
+                    </Provider>
+                </AlertProvider>
             </BrowserRouter>
         )
     }

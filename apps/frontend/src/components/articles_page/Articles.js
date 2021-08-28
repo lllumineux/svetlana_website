@@ -9,7 +9,7 @@ export class Articles extends Component {
         articles: PropTypes.array.isRequired,
         getArticles: PropTypes.func.isRequired,
         deleteArticle: PropTypes.func.isRequired,
-        invertArticleVisibility: PropTypes.func.isRequired
+        invertArticleVisibility: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -24,22 +24,24 @@ export class Articles extends Component {
                     { this.props.articles.map(article => (
                         <div className="article" key={`article_${article.id}`}>
                             <Link to={`/articles/${article.id}/`}><h3 className="hover-animation">{article.name}</h3></Link>
-                            <hr/>
-                            <div className="action-buttons">
-                                <button onClick={this.props.deleteArticle.bind(this, article.id)}
-                                        className="hover-animation">Удалить
-                                </button>
-                                <Link to={`/articles/edit/${article.id}/`}
-                                      className="hover-animation">Редактировать</Link>
-                                <button onClick={this.props.invertArticleVisibility.bind(this, article.id)}
-                                        className="hover-animation">
-                                    {article.is_hidden ? ("Показать") : ("Скрыть")}
-                                </button>
-                            </div>
+                            {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
+                                <Fragment>
+                                    <hr/>
+                                    <div className="action-buttons">
+                                        <button onClick={this.props.deleteArticle.bind(this, article.id)} className="hover-animation">Удалить</button>
+                                        <Link to={`/articles/edit/${article.id}/`} className="hover-animation">Редактировать</Link>
+                                        <button onClick={this.props.invertArticleVisibility.bind(this, article.id)} className="hover-animation">
+                                            {article.is_hidden ? ("Показать") : ("Скрыть")}
+                                        </button>
+                                    </div>
+                                </Fragment>
+                            ) : ""}
                         </div>
                     )) }
-                    <Link to="/articles/add/"><button className="add-article-button hover-animation">Добавить статью</button></Link>
-                </div>
+                    {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
+                        <Link to="/articles/add/"><button className="add-article-button hover-animation">Добавить статью</button></Link>
+                    ) : ""}
+                    </div>
             </Fragment>
         );
     }
@@ -47,6 +49,7 @@ export class Articles extends Component {
 
 const mapStateToProps = (state) => ({
     articles: state.articles.articles,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getArticles, deleteArticle, invertArticleVisibility })(Articles);

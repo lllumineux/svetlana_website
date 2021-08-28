@@ -9,7 +9,7 @@ export class CourseDays extends Component {
     static propTypes = {
         course_days: PropTypes.array.isRequired,
         getCourseDays: PropTypes.func.isRequired,
-        getCourse: PropTypes.func.isRequired
+        getCourse: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -90,15 +90,19 @@ export class CourseDays extends Component {
                                     </div>
                                 </div>
                             </Link>
-                            <hr/>
-                            <div className="action-buttons">
-                                <Link
-                                    to={{
-                                        pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/edit/${day.number}/`,
-                                        state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id}}
-                                    }} className="hover-animation">Редактировать
-                                </Link>
-                            </div>
+                            {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
+                                <Fragment>
+                                    <hr/>
+                                    <div className="action-buttons">
+                                        <Link
+                                            to={{
+                                                pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/edit/${day.number}/`,
+                                                state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id}}
+                                            }} className="hover-animation">Редактировать
+                                        </Link>
+                                    </div>
+                                </Fragment>
+                            ) : ""}
                         </div>
                     )) }
                 </div>
@@ -109,7 +113,8 @@ export class CourseDays extends Component {
 
 const mapStateToProps = (state) => ({
     course_days: state.course_days.course_days,
-    course: state.courses.course
+    course: state.courses.course,
+    auth: state.auth
 });
 
 export default connect(mapStateToProps, { getCourse, getCourseDays })(CourseDays);
