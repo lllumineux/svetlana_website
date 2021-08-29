@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -10,15 +10,36 @@ class NumberViewSet(viewsets.ModelViewSet):
     queryset = models.Number.objects.all()
     serializer_class = serializers.NumberSerializer
 
+    def get_permissions(self):
+        if self.action in ['create']:
+            permission_classes = (permissions.AllowAny,)
+        else:
+            permission_classes = (permissions.IsAdminUser,)
+        return [permission() for permission in permission_classes]
+
 
 class ScreenshotViewSet(viewsets.ModelViewSet):
     queryset = models.Screenshot.objects.all()
     serializer_class = serializers.ScreenshotSerializer
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            permission_classes = (permissions.AllowAny,)
+        else:
+            permission_classes = (permissions.IsAdminUser,)
+        return [permission() for permission in permission_classes]
+
 
 class GeneralInfoViewSet(viewsets.ModelViewSet):
     queryset = models.GeneralInfo.objects.all()
     serializer_class = serializers.GeneralInfoSerializer
+
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            permission_classes = (permissions.IsAdminUser,)
+        else:
+            permission_classes = (permissions.AllowAny,)
+        return [permission() for permission in permission_classes]
 
     @action(methods=['GET'], detail=False)
     def contact_info(self, request):

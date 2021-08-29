@@ -7,12 +7,13 @@ import {
     INVERT_ARTICLE_VISIBILITY,
     UPDATE_ARTICLE
 } from "./types";
+import {tokenConfig} from "./auth";
 
 
 // GET_ARTICLES
-export const getArticles = () => (dispatch) => {
+export const getArticles = () => (dispatch, getState) => {
   axios
-    .get("/api/articles/")
+    .get("/api/articles/", tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_ARTICLES,
@@ -23,9 +24,9 @@ export const getArticles = () => (dispatch) => {
 };
 
 // GET_ARTICLE
-export const getArticle = (id) => (dispatch) => {
+export const getArticle = (id) => (dispatch, getState) => {
   axios
-    .get(`/api/articles/${id}/`)
+    .get(`/api/articles/${id}/`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_ARTICLE,
@@ -36,10 +37,9 @@ export const getArticle = (id) => (dispatch) => {
 };
 
 // ADD_ARTICLE
-export const addArticle = (data, callback_func) => (dispatch) => {
+export const addArticle = (data, callback_func) => (dispatch, getState) => {
   axios
-    .post(`/api/articles/`, data, {
-    })
+    .post(`/api/articles/`, data, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: ADD_ARTICLE,
@@ -51,9 +51,9 @@ export const addArticle = (data, callback_func) => (dispatch) => {
 };
 
 // DELETE_ARTICLE
-export const deleteArticle = (id) => (dispatch) => {
+export const deleteArticle = (id) => (dispatch, getState) => {
   axios
-    .delete(`/api/articles/${id}/`)
+    .delete(`/api/articles/${id}/`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: DELETE_ARTICLE,
@@ -64,10 +64,9 @@ export const deleteArticle = (id) => (dispatch) => {
 };
 
 // UPDATE_ARTICLE
-export const updateArticle = (id, data, callback_func) => (dispatch) => {
+export const updateArticle = (id, data, callback_func) => (dispatch, getState) => {
   axios
-    .patch(`/api/articles/${id}/`, data, {
-    })
+    .patch(`/api/articles/${id}/`, data, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: UPDATE_ARTICLE,
@@ -79,9 +78,9 @@ export const updateArticle = (id, data, callback_func) => (dispatch) => {
 };
 
 // INVERT_ARTICLE_VISIBILITY
-export const invertArticleVisibility = (id) => (dispatch) => {
+export const invertArticleVisibility = (id) => (dispatch, getState) => {
   axios
-    .patch(`/api/articles/${id}/invert_visibility/`)
+    .patch(`/api/articles/${id}/invert_visibility/`, {}, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: INVERT_ARTICLE_VISIBILITY,

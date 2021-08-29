@@ -27,7 +27,7 @@ export default function (state= initialState, action) {
         screenshots: (() => {
           const array = [...state.screenshots.filter(screenshot => screenshot.id !== action.payload.id), action.payload];
           const arrayIds = array.map(obj => obj.id);
-          arrayIds.sort()
+          arrayIds.sort((a, b) => a - b)
           const newArray = [];
           arrayIds.forEach(objId => newArray.push(array.find(obj => obj.id === objId)));
           return newArray;

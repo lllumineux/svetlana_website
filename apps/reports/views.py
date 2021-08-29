@@ -1,25 +1,40 @@
 import json
 
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.courses import models as courses_models
-from apps.accounts import serializers as accounts_serializers
 from apps.reports import serializers, models
+from apps.accounts import models as accounts_models
 from apps.reports.helpers.functions import get_full_report_serialized
 
 
 class ReportQuestionViewSet(viewsets.ModelViewSet):
     queryset = models.ReportQuestion.objects.all()
     serializer_class = serializers.ReportQuestionSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = models.Report.objects.all()
     serializer_class = serializers.ReportSerializer
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve', 'update', 'partial_update', 'destroy']:
+            permission_classes = (permissions.IsAdminUser,)
+        else:
+            permission_classes = (permissions.IsAuthenticated,)
+        return [permission() for permission in permission_classes]
+
     def create(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            if not accounts_models.UserCourse.objects.filter(
+                user=request.user,
+                course=courses_models.Course.objects.get(pk=request.data["course_id"])
+            ):
+                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+
         new_report = models.Report(user=request.user, day=courses_models.Day.objects.get(pk=request.data["day_id"]))
         new_report.save()
 
@@ -40,8 +55,11 @@ class ReportViewSet(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=False)
     def report_by_day_id(self, request):
         report_day = courses_models.Day.objects.get(pk=request.query_params["day_id"])
-        reports = models.Report.objects.filter(user=request.user, day=report_day)
+        if not request.user.is_staff:
+            if not accounts_models.UserCourse.objects.filter(user=request.user, course=report_day.week.course) or report_day.week.course.is_hidden:
+                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
 
+        reports = models.Report.objects.filter(user=request.user, day=report_day)
         if not reports:
             return Response({})
 
@@ -51,10 +69,4 @@ class ReportViewSet(viewsets.ModelViewSet):
 class ReportItemViewSet(viewsets.ModelViewSet):
     queryset = models.ReportItem.objects.all()
     serializer_class = serializers.ReportItemSerializer
-
-    def create(self, request, *args, **kwargs):
-        report_question = models.ReportQuestion(pk=request.data["question_id"])
-        report = models.Report(pk=request.data["report_id"])
-        new_report_item = models.ReportItem(question=report_question, answer=request.data["answer_text"], report=report)
-        new_report_item.save()
-        return Response()
+    permission_classes = (permissions.IsAdminUser,)

@@ -45,7 +45,6 @@ export class EditGeneralInfo extends Component {
     }
     onEditorChange = e => this.setState({ psychological_consultation_description: e.target.getContent() });
     onAddScreenshot = e => {
-        console.log('waign9piwag');
         const formData = new FormData();
         formData.append('content', e.target.files[0]);
         this.props.addScreenshot(formData);

@@ -1,11 +1,11 @@
 import axios from "axios";
 import {ADD_SCREENSHOT, DELETE_SCREENSHOT, GET_SCREENSHOTS, UPDATE_SCREENSHOT} from "./types";
+import {tokenConfig} from "./auth";
 
 // GET_SCREENSHOTS
-export const getScreenshots = () => (dispatch) => {
+export const getScreenshots = () => (dispatch, getState) => {
     axios
-        .get("/api/screenshots/", {
-        })
+        .get("/api/screenshots/", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_SCREENSHOTS,
@@ -16,10 +16,9 @@ export const getScreenshots = () => (dispatch) => {
 };
 
 // DELETE_SCREENSHOT
-export const deleteScreenshot = (screenshot_id) => (dispatch) => {
+export const deleteScreenshot = (screenshot_id) => (dispatch, getState) => {
     axios
-        .delete(`/api/screenshots/${screenshot_id}/`, {
-        })
+        .delete(`/api/screenshots/${screenshot_id}/`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: DELETE_SCREENSHOT,
@@ -30,10 +29,9 @@ export const deleteScreenshot = (screenshot_id) => (dispatch) => {
 };
 
 // ADD_SCREENSHOT
-export const addScreenshot = (data) => (dispatch) => {
+export const addScreenshot = (data) => (dispatch, getState) => {
     axios
-        .post(`/api/screenshots/`, data, {
-        })
+        .post(`/api/screenshots/`, data, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: ADD_SCREENSHOT,
@@ -44,10 +42,9 @@ export const addScreenshot = (data) => (dispatch) => {
 };
 
 // UPDATE_SCREENSHOT
-export const updateScreenshot = (screenshot_id, data) => (dispatch) => {
+export const updateScreenshot = (screenshot_id, data) => (dispatch, getState) => {
     axios
-        .patch(`/api/screenshots/${screenshot_id}/`, data,  {
-        })
+        .patch(`/api/screenshots/${screenshot_id}/`, data,  tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: UPDATE_SCREENSHOT,

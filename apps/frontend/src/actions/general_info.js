@@ -1,11 +1,11 @@
 import axios from "axios";
 import {GET_CONTACT_INFO, GET_GENERAL_INFO, UPDATE_GENERAL_INFO} from "./types";
+import {tokenConfig} from "./auth";
 
 // GET_GENERAL_INFO
-export const getGeneralInfo = () => (dispatch) => {
+export const getGeneralInfo = () => (dispatch, getState) => {
     axios
-        .get("/api/general_info/", {
-        })
+        .get("/api/general_info/", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_GENERAL_INFO,
@@ -16,13 +16,9 @@ export const getGeneralInfo = () => (dispatch) => {
 };
 
 // UPDATE_GENERAL_INFO
-export const updateGeneralInfo = (general_info_id, data, callback_func) => (dispatch) => {
+export const updateGeneralInfo = (general_info_id, data, callback_func) => (dispatch, getState) => {
     axios
-        .patch(`/api/general_info/${general_info_id}/`, data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
+        .patch(`/api/general_info/${general_info_id}/`, data, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: UPDATE_GENERAL_INFO,
@@ -34,10 +30,9 @@ export const updateGeneralInfo = (general_info_id, data, callback_func) => (disp
 };
 
 // GET_CONTACT_INFO
-export const getContactInfo = () => (dispatch) => {
+export const getContactInfo = () => (dispatch, getState) => {
     axios
-        .get("/api/general_info/contact_info/", {
-        })
+        .get("/api/general_info/contact_info/", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_CONTACT_INFO,

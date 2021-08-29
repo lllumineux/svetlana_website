@@ -9,10 +9,9 @@ import {tokenConfig} from "./auth";
 import {createMessage} from "./messages";
 
 // GET_REPORT_QUESTIONS
-export const getReportQuestionsByDayId = (course_day_id) => (dispatch) => {
+export const getReportQuestionsByDayId = (course_day_id) => (dispatch, getState) => {
     axios
-        .get(`/api/days/${course_day_id}/report_questions_list/`, {
-        })
+        .get(`/api/days/${course_day_id}/report_questions_list/`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_REPORT_QUESTIONS,
@@ -23,9 +22,9 @@ export const getReportQuestionsByDayId = (course_day_id) => (dispatch) => {
 };
 
 // CREATE_REPORT
-export const createReport = (data) => (dispatch, getstate) => {
+export const createReport = (data) => (dispatch, getState) => {
     axios
-        .post("/api/reports/", data, tokenConfig(getstate))
+        .post("/api/reports/", data, tokenConfig(getState))
         .then(res => {
             dispatch(createMessage({sendReport: "Отчёт отправлен"}));
             dispatch({
@@ -37,9 +36,9 @@ export const createReport = (data) => (dispatch, getstate) => {
 };
 
 // GET_REPORTS
-export const getReports = () => (dispatch) => {
+export const getReports = () => (dispatch, getState) => {
     axios
-        .get("/api/reports/", {})
+        .get("/api/reports/", tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_REPORTS,

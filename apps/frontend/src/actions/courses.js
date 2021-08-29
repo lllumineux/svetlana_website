@@ -27,9 +27,9 @@ export const getCourses = () => (dispatch, getState) => {
 };
 
 // GET COURSE
-export const getCourse = (id) => (dispatch) => {
+export const getCourse = (id) => (dispatch, getState) => {
   axios
-    .get(`/api/courses/${id}/`)
+    .get(`/api/courses/${id}/`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_COURSE,
@@ -40,13 +40,9 @@ export const getCourse = (id) => (dispatch) => {
 };
 
 // ADD_COURSE
-export const addCourse = (course, callback_func) => (dispatch) => {
+export const addCourse = (course, callback_func) => (dispatch, getState) => {
   axios
-    .post(`/api/courses/`, course, {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-    })
+    .post(`/api/courses/`, course, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: ADD_COURSE,
@@ -67,9 +63,9 @@ export const addCourse = (course, callback_func) => (dispatch) => {
 };
 
 // DELETE COURSE
-export const deleteCourse = (id) => (dispatch) => {
+export const deleteCourse = (id) => (dispatch, getState) => {
   axios
-    .delete(`/api/courses/${id}/`)
+    .delete(`/api/courses/${id}/`, tokenConfig(getState))
     .then(res => {
       dispatch(createMessage({deleteCourse: "Курс удалён"}));
       dispatch({
@@ -81,13 +77,9 @@ export const deleteCourse = (id) => (dispatch) => {
 };
 
 // UPDATE_COURSE
-export const updateCourse = (id, course, callback_func) => (dispatch) => {
+export const updateCourse = (id, course, callback_func) => (dispatch, getState) => {
   axios
-    .patch(`/api/courses/${id}/`, course, {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-    })
+    .patch(`/api/courses/${id}/`, course, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: UPDATE_COURSE,
@@ -99,9 +91,9 @@ export const updateCourse = (id, course, callback_func) => (dispatch) => {
 };
 
 // INVERT_COURSE_VISIBILITY
-export const invertCourseVisibility = (id) => (dispatch) => {
+export const invertCourseVisibility = (id) => (dispatch, getState) => {
   axios
-    .patch(`/api/courses/${id}/invert_visibility/`)
+    .patch(`/api/courses/${id}/invert_visibility/`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: INVERT_COURSE_VISIBILITY,

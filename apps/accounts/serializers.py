@@ -41,15 +41,3 @@ class UserCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserCourse
         fields = '__all__'
-
-
-class UserWeekSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.UserWeek
-        fields = '__all__'
-
-
-class UserDaySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.UserDay
-        fields = '__all__'

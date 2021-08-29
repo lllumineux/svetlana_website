@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.accounts import models, serializers
@@ -9,6 +9,10 @@ from apps.courses.serializers import CourseSerializer
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     queryset = models.User.objects.all()
+
+    def get_permissions(self):
+        permission_classes = (permissions.IsAdminUser,)
+        return [permission() for permission in permission_classes]
 
     def list(self, request, *args, **kwargs):
         users = models.User.objects.all()
@@ -24,6 +28,10 @@ class UserCourseViewSet(viewsets.ModelViewSet):
     queryset = models.UserCourse.objects.all()
     serializer_class = serializers.UserCourseSerializer
 
+    def get_permissions(self):
+        permission_classes = (permissions.IsAdminUser,)
+        return [permission() for permission in permission_classes]
+
     @action(methods=['POST'], detail=False, url_path='invert_access')
     def invert_course_access(self, request):
         course = courses_models.Course.objects.get(pk=request.data["course_id"])
@@ -37,13 +45,3 @@ class UserCourseViewSet(viewsets.ModelViewSet):
         user_serialized = serializers.UserSerializer(user).data
         user_serialized["courses"] = [CourseSerializer(obj.course).data for obj in models.UserCourse.objects.filter(user=user)]
         return Response(user_serialized)
-
-
-class UserWeekViewSet(viewsets.ModelViewSet):
-    queryset = models.UserWeek.objects.all()
-    serializer_class = serializers.UserWeekSerializer
-
-
-class UserDayViewSet(viewsets.ModelViewSet):
-    queryset = models.UserDay.objects.all()
-    serializer_class = serializers.UserDaySerializer
