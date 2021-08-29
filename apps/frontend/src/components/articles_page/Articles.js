@@ -21,6 +21,7 @@ export class Articles extends Component {
             <Fragment>
                 <div className="content-header"><h2 className="title">Статьи</h2></div>
                 <div className="articles">
+                    <div className="article-promotion-text">Хотите прямо сейчас запустить внутренние трансформации? Тогда читайте это:</div>
                     { this.props.articles.map(article => (
                         <div className="article" key={`article_${article.id}`}>
                             <Link to={`/articles/${article.id}/`}><h3 className="hover-animation">{article.name}</h3></Link>

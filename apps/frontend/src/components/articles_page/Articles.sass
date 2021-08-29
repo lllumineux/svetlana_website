@@ -1,13 +1,19 @@
 @use "../common/base"
 
 .articles
+  .article-promotion-text
+    font-size: base.$h5-5-size
+    font-weight: 600
+
   .article:nth-child(n+2)
-    margin-top: 20px
+    margin-top: 10px
 
   .article
     h3
       display: inline-block
-      font-size: base.$h5-size
+      color: base.$dark-gray-color
+      font-size: base.$h6-size
+      text-decoration: underline
 
     .action-buttons
       display: inline-block

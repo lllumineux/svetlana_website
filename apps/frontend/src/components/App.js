@@ -54,8 +54,6 @@ const alertOptions = {
         new RegExp(/^(\/)$/),
         new RegExp(/^(\/login\/)$/),
         new RegExp(/^(\/signup\/)$/),
-        new RegExp(/^(\/course_description\/\d+\/)$/),
-        new RegExp(/^(\/psychological_consultation_description\/)$/),
     ],
 };
 

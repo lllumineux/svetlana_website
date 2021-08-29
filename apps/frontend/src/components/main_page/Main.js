@@ -90,7 +90,7 @@ export class Main extends Component {
                 }
                 <div className="main-content-header">
                     <div className="main-content-header-controls">
-                        <Link className="main-login-btn hover-animation" to="/login/">Войти</Link>
+                        <Link className="main-login-btn hover-animation" to="/login/" onClick={() => window.location.replace("/login/")}>Войти</Link>
                     </div>
                     <div className="main-content-header-info">
                         <h1>Светлана Ганиева</h1>
@@ -130,7 +130,7 @@ export class Main extends Component {
                         <div className="main-menu-item-info">
                             <h4>{course.name}</h4>
                         </div>
-                        <Link to={`/course_description/${course.id}/`} className="hover-animation">Подробнее</Link>
+                        <Link to={`/course_description/${course.id}/`} onClick={() => window.location.replace(`/course_description/${course.id}/`)} className="hover-animation">Подробнее</Link>
                     </div>
                 ))}
                 <div className="main-menu-item psychological-consultation">
@@ -139,7 +139,7 @@ export class Main extends Component {
                         <h4>Психологическая консультация</h4>
                         <p>Запись на индивидуальную онлайн встречу</p>
                     </div>
-                    <Link to="/psychological_consultation_description/" className="hover-animation">Подробнее</Link>
+                    <Link to="/psychological_consultation_description/" onClick={() => window.location.replace("/psychological_consultation_description/")} className="hover-animation">Подробнее</Link>
                 </div>
                 <div className="main-menu-item reviews">
                     <div/>
@@ -155,7 +155,7 @@ export class Main extends Component {
                         <h4>Интересное</h4>
                         <p>Статьи, запускающие внутренние трансформации</p>
                     </div>
-                    <Link to="/articles/" className="hover-animation">Читать</Link>
+                    <Link to="/articles/" onClick={() => window.location.replace("/articles/")} className="hover-animation">Читать</Link>
                 </div>
                 <form onSubmit={this.onSubmit} className="main-number-input-form">
                     <p className="number-input-form-description">{this.props.general_info.main_page_numbers_form_text}</p>
