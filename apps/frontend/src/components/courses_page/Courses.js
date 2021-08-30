@@ -41,9 +41,9 @@ export class Courses extends Component {
                         title="Покупка курса"
                         content={
                             <div className="authorized-buy-course-popup-window-content">
-                                &bull; Для того, чтобы приобрести <strong><span className="accent-color">Курс «{this.state.buyPopupCourse.name}»</span> без консультаций</strong>, переведите <strong>{this.state.buyPopupCourse.price1} руб.</strong> на карту <strong>2047 8294 8941 8892</strong> с комментарием:<br/><strong>«{this.props.auth.user.username} - {this.state.buyPopupCourse.name}»</strong>.
+                                &bull; Для того, чтобы приобрести <strong><span className="accent-color">Курс «{this.state.buyPopupCourse.name}»</span> без консультаций</strong>, переведите <strong>{this.state.buyPopupCourse.price1} руб.</strong> на карту <strong>2047 8294 8941 8892</strong> с комментарием: <strong>«{this.props.auth.user.username}: {this.state.buyPopupCourse.name}»</strong>.
                                 <br/><br/>
-                                &bull; Для того, чтобы приобрести <strong><span className="accent-color">Курс «{this.state.buyPopupCourse.name}»</span> + <span className="accent-color">Консультации</span></strong>, переведите <strong>{this.state.buyPopupCourse.price2} руб.</strong> на карту <strong>2047 8294 8941 8892</strong> с комментарием:<br/><strong>«{this.props.auth.user.username} - {this.state.buyPopupCourse.name} + консультации»</strong>.
+                                &bull; Для того, чтобы приобрести <strong><span className="accent-color">Курс «{this.state.buyPopupCourse.name}»</span> + <span className="accent-color">Консультации</span></strong>, переведите <strong>{this.state.buyPopupCourse.price2} руб.</strong> на карту <strong>2047 8294 8941 8892</strong> с комментарием: <strong>«{this.props.auth.user.username}: {this.state.buyPopupCourse.name} + консультации»</strong>.
                                 <br/><br/>
                                 После того, как платёж будет совершён, в течение 24 часов у вашего аккаунта появится доступ к оплаченному курсу.
                                 <br/><br/>

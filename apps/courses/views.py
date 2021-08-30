@@ -25,6 +25,13 @@ class CourseViewSet(viewsets.ModelViewSet):
             permission_classes = (permissions.AllowAny,)
         return [permission() for permission in permission_classes]
 
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        course = response.data
+        course["is_locked"] = False
+        response.data = course
+        return response
+
     def retrieve(self, request, *args, **kwargs):
         course = self.get_object()
         if course.is_hidden and not request.user.is_staff:
@@ -54,6 +61,20 @@ class CourseViewSet(viewsets.ModelViewSet):
                 course_serialized["is_locked"] = False
                 courses_serialized.append(course_serialized)
             return Response(courses_serialized)
+
+    def update(self, request, *args, **kwargs):
+        response = super().update(request, *args, **kwargs)
+        course = response.data
+        course["is_locked"] = False
+        response.data = course
+        return response
+
+    def partial_update(self, request, *args, **kwargs):
+        response = super().partial_update(request, *args, **kwargs)
+        course = response.data
+        course["is_locked"] = False
+        response.data = course
+        return response
 
     @action(methods=['PATCH'], detail=True, url_path='invert_visibility', permission_classes=(permissions.IsAdminUser,))
     def invert_course_visibility(self, request, pk=None):
