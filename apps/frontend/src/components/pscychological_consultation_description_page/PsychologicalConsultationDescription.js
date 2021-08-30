@@ -50,7 +50,7 @@ export class PsychologicalConsultationDescription extends Component {
                     /> : ""
                 }
                 <div className="content-header"><h2 className="title">Психологическая консультация</h2></div>
-                <div className="editor-rendered-content psychological-consultation-description" dangerouslySetInnerHTML={{__html: this.props.general_info.psychological_consultation_description}}/>
+                <div className="editor-rendered-content psychological-consultation-description editor-rendered-content" dangerouslySetInnerHTML={{__html: this.props.general_info.psychological_consultation_description}}/>
                 <button className="book-btn" onClick={this.showPopup}>Записаться</button>
                 {this.state.isPopupShown ? <style>{"html {overflow: hidden;}"}</style> : ""}
             </Fragment>

@@ -31,4 +31,18 @@
       font-weight: 800
 
     .popup-window-content
+      overflow-y: auto
+      max-height: 60vh
       margin-top: 17px
+
+    .popup-window-content::-webkit-scrollbar
+      width: 10px
+      border-radius: 100px
+
+    .popup-window-content::-webkit-scrollbar-track
+      border: 2px solid base.$light-gray-color
+      border-radius: 100px
+
+    .popup-window-content::-webkit-scrollbar-thumb
+      background: base.$dark-gray-color
+      border-radius: 100px
