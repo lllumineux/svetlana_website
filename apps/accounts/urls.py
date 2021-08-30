@@ -6,6 +6,7 @@ from knox import views as knox_views
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
 router.register('users_courses', views.UserCourseViewSet)
+router.register('users_days', views.UserDayViewSet)
 
 
 urlpatterns = [

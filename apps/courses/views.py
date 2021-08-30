@@ -33,13 +33,27 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         courses = models.Course.objects.all()
+        not_hidden_courses = list(filter(lambda x: not x.is_hidden, courses))
 
         if isinstance(request.user, (AnonymousUser,)):
-            courses = list(filter(lambda x: not x.is_hidden, courses))
-        elif not request.user.is_staff:
-            courses = list(filter(lambda x: not x.is_hidden, [obj.course for obj in UserCourse.objects.filter(user=request.user)]))
+            return Response([serializers.CourseSerializer(course).data for course in not_hidden_courses])
 
-        return Response([serializers.CourseSerializer(course).data for course in courses])
+        elif not request.user.is_staff:
+            unlocked_courses = [obj.course for obj in UserCourse.objects.filter(user=request.user)]
+            courses_serialized = []
+            for course in not_hidden_courses:
+                course_serialized = serializers.CourseSerializer(course).data
+                course_serialized["is_locked"] = course not in unlocked_courses
+                courses_serialized.append(course_serialized)
+            return Response(list(filter(lambda x: not x["is_locked"], courses_serialized)) + list(filter(lambda x: x["is_locked"], courses_serialized)))
+
+        elif request.user.is_staff:
+            courses_serialized = []
+            for course in courses:
+                course_serialized = serializers.CourseSerializer(course).data
+                course_serialized["is_locked"] = False
+                courses_serialized.append(course_serialized)
+            return Response(courses_serialized)
 
     @action(methods=['PATCH'], detail=True, url_path='invert_visibility', permission_classes=(permissions.IsAdminUser,))
     def invert_course_visibility(self, request, pk=None):
@@ -51,13 +65,25 @@ class CourseViewSet(viewsets.ModelViewSet):
     @action(methods=['GET'], detail=True, permission_classes=(permissions.IsAuthenticated,))
     def week_list(self, request, pk=None):
         course = Course.objects.get(pk=pk)
-
-        if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user, course=course) or course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
-
         weeks = Week.objects.filter(course=course)
-        return Response(serializers.WeekSerializer(week).data for week in weeks)
+
+        if request.user.is_staff:
+            weeks_serialized = []
+            for week in weeks:
+                week_serialized = serializers.WeekSerializer(week).data
+                week_serialized["is_locked"] = False
+                weeks_serialized.append(week_serialized)
+            return Response(weeks_serialized)
+
+        if not accounts_models.UserCourse.objects.filter(user=request.user, course=course) or course.is_hidden:
+            return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+
+        weeks_serialized = []
+        for week in weeks:
+            week_serialized = serializers.WeekSerializer(week).data
+            week_serialized["is_locked"] = not list(filter(lambda x: x.day.week == week, accounts_models.UserDay.objects.filter(user=request.user)))
+            weeks_serialized.append(week_serialized)
+        return Response(weeks_serialized)
 
 
 class WeekViewSet(viewsets.ModelViewSet):
@@ -78,14 +104,28 @@ class WeekViewSet(viewsets.ModelViewSet):
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         return Response(self.get_serializer(week).data)
 
-    @action(methods=['GET'], detail=True)
+    @action(methods=['GET'], detail=True, permission_classes=(permissions.IsAuthenticated,))
     def day_list(self, request, pk=None):
         week = Week.objects.get(pk=pk)
-        if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user, course=week.course) or week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         days = Day.objects.filter(week=week)
-        return Response(serializers.DaySerializer(day).data for day in days)
+
+        if request.user.is_staff:
+            days_serialized = []
+            for day in days:
+                day_serialized = serializers.DaySerializer(day).data
+                day_serialized["is_locked"] = False
+                days_serialized.append(day_serialized)
+            return Response(days_serialized)
+
+        if not accounts_models.UserCourse.objects.filter(user=request.user, course=week.course) or week.course.is_hidden:
+            return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+
+        days_serialized = []
+        for day in days:
+            day_serialized = serializers.DaySerializer(day).data
+            day_serialized["is_locked"] = not list(filter(lambda x: x.day == day, accounts_models.UserDay.objects.filter(user=request.user)))
+            days_serialized.append(day_serialized)
+        return Response(days_serialized)
 
 
 class DayViewSet(viewsets.ModelViewSet):
@@ -102,7 +142,8 @@ class DayViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         day = self.get_object()
         if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
+            if not accounts_models.UserCourse.objects.filter(user=request.user,
+                                                             course=day.week.course) or day.week.course.is_hidden:
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         return Response(self.get_serializer(day).data)
 
@@ -120,7 +161,8 @@ class DayViewSet(viewsets.ModelViewSet):
     def report_questions_list(self, request, pk=None):
         day = Day.objects.get(pk=pk)
         if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
+            if not accounts_models.UserCourse.objects.filter(user=request.user,
+                                                             course=day.week.course) or day.week.course.is_hidden:
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         report_questions = ReportQuestion.objects.filter(day=day)
         return Response(ReportQuestionSerializer(report_question).data for report_question in report_questions)

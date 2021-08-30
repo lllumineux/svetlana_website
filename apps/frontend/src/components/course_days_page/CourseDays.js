@@ -76,20 +76,38 @@ export class CourseDays extends Component {
                 </div>
                 <div className="days">
                     { this.props.course_days.map(day => (
-                        <div className="day" key={day.id}>
-                            <Link
-                                to={{
-                                    pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${day.number}/`,
-                                    state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id, number: day.number, name: day.name}}
-                                }}>
-                                <div className="day-info-wrapper hover-animation">
-                                    <h3>День {day.number}</h3>
-                                    <div className="day-info-inner">
-                                        <h4 className="name">{day.name}</h4>
-                                        <div className="description">{day.short_description}</div>
+                        <div className="day" data-locked={day.is_locked.toString()} key={day.id}>
+                            {day.is_locked ? (
+                                <Fragment>
+                                    <div className="day-locked-warning">
+                                        <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2LjU3NzEgOC4yMzM0OUgxNS42Mjk0VjUuMzQ3OTFDMTUuNjI5NCAyLjM5OTM1IDEzLjIzMDYgMCAxMC4yODIyIDBDNy4zMzI3NCAwIDQuOTM0MzYgMi4zOTkwMyA0LjkzNDM2IDUuMzQ3OTFWOC4yMzM0OUgzLjk4N0MzLjQ0MTc2IDguMjMzNDkgMyA4LjY3NTQ3IDMgOS4yMjA1VjE5LjAxMzFDMyAxOS41NTgxIDMuNDQxNzYgMjAgMy45ODcgMjBIMTYuNTc3MkMxNy4xMjEzIDIwIDE3LjU2NDIgMTkuNTU4MSAxNy41NjQyIDE5LjAxMzFWOS4yMjA1QzE3LjU2NDIgOC42NzU0NyAxNy4xMjEyIDguMjMzNDkgMTYuNTc3MSA4LjIzMzQ5Wk02LjkwODE1IDUuMzQ3OTFDNi45MDgxNSAzLjQ4NzE1IDguNDIxNDYgMS45NzM4NCAxMC4yODIyIDEuOTczODRDMTIuMTQyNCAxLjk3Mzg0IDEzLjY1NTggMy40ODcxNSAxMy42NTU4IDUuMzQ3OTFWOC4yMzM0OUg2LjkwODE1VjUuMzQ3OTFaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K" alt="Locked Icon"/>
+                                        <p>Для того, чтобы получить доступ к этому занятию, сначала пройдите предыдущие!</p>
                                     </div>
-                                </div>
-                            </Link>
+                                    <a>
+                                        <div className="day-info-wrapper">
+                                            <h3>День {day.number}</h3>
+                                            <div className="day-info-inner">
+                                                <h4 className="name">{day.name}</h4>
+                                                <div className="description">{day.short_description}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </Fragment>
+                            ) : (
+                                <Link
+                                    to={{
+                                        pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${day.number}/`,
+                                        state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: day.id, number: day.number, name: day.name}}
+                                    }}>
+                                    <div className="day-info-wrapper hover-animation">
+                                        <h3>День {day.number}</h3>
+                                        <div className="day-info-inner">
+                                            <h4 className="name">{day.name}</h4>
+                                            <div className="description">{day.short_description}</div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            )}
                             {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
                                 <Fragment>
                                     <hr/>

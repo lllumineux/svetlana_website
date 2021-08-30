@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getCourses, deleteCourse, invertCourseVisibility } from "../../actions/courses";
 import {Link} from "react-router-dom";
-import {loadUser} from "../../actions/auth";
 
 export class Courses extends Component {
     static propTypes = {
@@ -29,11 +28,28 @@ export class Courses extends Component {
                         </Link>
                     ) : ""}
                     { this.props.courses.map(course => (
-                        <div className="course" key={course.name + course.id}>
-                            <Link to={`/courses/${course.id}/`}>
-                                <h3>{course.name}</h3>
-                                <div className="description">{course.short_description}</div>
-                            </Link>
+                        <div className="course" data-locked={course.is_locked.toString()} key={course.name + course.id}>
+                            {course.is_locked ? (
+                                <Fragment>
+                                    <div className="course-locked-warning">
+                                        <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2LjU3NzEgOC4yMzM0OUgxNS42Mjk0VjUuMzQ3OTFDMTUuNjI5NCAyLjM5OTM1IDEzLjIzMDYgMCAxMC4yODIyIDBDNy4zMzI3NCAwIDQuOTM0MzYgMi4zOTkwMyA0LjkzNDM2IDUuMzQ3OTFWOC4yMzM0OUgzLjk4N0MzLjQ0MTc2IDguMjMzNDkgMyA4LjY3NTQ3IDMgOS4yMjA1VjE5LjAxMzFDMyAxOS41NTgxIDMuNDQxNzYgMjAgMy45ODcgMjBIMTYuNTc3MkMxNy4xMjEzIDIwIDE3LjU2NDIgMTkuNTU4MSAxNy41NjQyIDE5LjAxMzFWOS4yMjA1QzE3LjU2NDIgOC42NzU0NyAxNy4xMjEyIDguMjMzNDkgMTYuNTc3MSA4LjIzMzQ5Wk02LjkwODE1IDUuMzQ3OTFDNi45MDgxNSAzLjQ4NzE1IDguNDIxNDYgMS45NzM4NCAxMC4yODIyIDEuOTczODRDMTIuMTQyNCAxLjk3Mzg0IDEzLjY1NTggMy40ODcxNSAxMy42NTU4IDUuMzQ3OTFWOC4yMzM0OUg2LjkwODE1VjUuMzQ3OTFaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K" alt="Locked Icon"/>
+                                        <p>Для того, чтобы получить к курсу - приобретите его!</p>
+                                        <div className="locked-warning-controls">
+                                            <button className="locked-warning-controls-buy hover-animation">Купить</button>
+                                            <button className="locked-warning-controls-description hover-animation">Описание курса</button>
+                                        </div>
+                                    </div>
+                                    <a>
+                                        <h3>{course.name}</h3>
+                                        <div className="description">{course.short_description}</div>
+                                    </a>
+                                </Fragment>
+                            ) : (
+                                <Link to={`/courses/${course.id}/`}>
+                                    <h3>{course.name}</h3>
+                                    <div className="description">{course.short_description}</div>
+                                </Link>
+                            )}
                             {this.props.auth.isAuthenticated && this.props.auth.user.is_staff ? (
                                 <Fragment>
                                     <hr/>

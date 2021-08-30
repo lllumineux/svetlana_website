@@ -45,3 +45,10 @@ class UserCourseViewSet(viewsets.ModelViewSet):
         user_serialized = serializers.UserSerializer(user).data
         user_serialized["courses"] = [CourseSerializer(obj.course).data for obj in models.UserCourse.objects.filter(user=user)]
         return Response(user_serialized)
+
+
+class UserDayViewSet(viewsets.ModelViewSet):
+    queryset = models.UserDay.objects.all()
+    serializer_class = serializers.UserDaySerializer
+    permission_classes = (permissions.IsAdminUser,)
+
