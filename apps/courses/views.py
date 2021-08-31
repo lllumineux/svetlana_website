@@ -1,6 +1,8 @@
+import datetime
 import json
 
 from django.contrib.auth.models import AnonymousUser
+from django.utils import timezone
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -102,7 +104,12 @@ class CourseViewSet(viewsets.ModelViewSet):
         weeks_serialized = []
         for week in weeks:
             week_serialized = serializers.WeekSerializer(week).data
-            week_serialized["is_locked"] = not list(filter(lambda x: x.day.week == week, accounts_models.UserDay.objects.filter(user=request.user)))
+            week_serialized["is_locked"] = not list(
+                filter(
+                    lambda x: x.day.week == week and x.activation_time <= timezone.now(),
+                    accounts_models.UserDay.objects.filter(user=request.user)
+                )
+            )
             weeks_serialized.append(week_serialized)
         return Response(weeks_serialized)
 
@@ -144,7 +151,12 @@ class WeekViewSet(viewsets.ModelViewSet):
         days_serialized = []
         for day in days:
             day_serialized = serializers.DaySerializer(day).data
-            day_serialized["is_locked"] = not list(filter(lambda x: x.day == day, accounts_models.UserDay.objects.filter(user=request.user)))
+            day_serialized["is_locked"] = not list(
+                filter(
+                    lambda x: x.day == day and x.activation_time <= timezone.now(),
+                    accounts_models.UserDay.objects.filter(user=request.user)
+                )
+            )
             days_serialized.append(day_serialized)
         return Response(days_serialized)
 

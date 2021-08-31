@@ -1,10 +1,14 @@
+import datetime
 import json
 
+import pytz
+from django.utils import timezone
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.courses import models as courses_models
+from apps.courses.helpers.functions import get_next_day
 from apps.reports import serializers, models
 from apps.accounts import models as accounts_models
 from apps.reports.helpers.functions import get_full_report_serialized
@@ -35,15 +39,35 @@ class ReportViewSet(viewsets.ModelViewSet):
             ):
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
 
-        new_report = models.Report(user=request.user, day=courses_models.Day.objects.get(pk=request.data["day_id"]))
+        day = courses_models.Day.objects.get(pk=request.data["day_id"])
+
+        new_report = models.Report(user=request.user, day=day)
         new_report.save()
+
+        next_day = get_next_day(day)
+        if next_day:
+            now = datetime.datetime.now(tz=pytz.timezone('Europe/Moscow'))
+            if 0 <= now.hour <= 4:
+                user_day_activation_time = now
+            else:
+                tomorrow = now + datetime.timedelta(days=1)
+                tomorrow = tomorrow.replace(hour=0)
+                tomorrow = tomorrow.replace(minute=0)
+                tomorrow = tomorrow.replace(second=0)
+                tomorrow = tomorrow.replace(microsecond=0)
+                user_day_activation_time = tomorrow
+            user_day = accounts_models.UserDay(
+                user=request.user,
+                day=get_next_day(day),
+                activation_time=user_day_activation_time
+            )
+            user_day.save()
 
         for key, val in request.data.items():
             if "report_item" in key:
                 report_item = json.loads(val)
                 report_question = models.ReportQuestion(pk=report_item["question_id"])
-                new_report_item = models.ReportItem(question=report_question, answer=report_item["answer_text"],
-                                                    report=new_report)
+                new_report_item = models.ReportItem(question=report_question, answer=report_item["answer_text"], report=new_report)
                 new_report_item.save()
 
         return Response(get_full_report_serialized(new_report))

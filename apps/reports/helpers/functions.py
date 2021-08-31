@@ -13,3 +13,6 @@ def get_full_report_serialized(report):
         report_serialized["items"].append(report_item_serialized)
 
     return report_serialized
+
+
+

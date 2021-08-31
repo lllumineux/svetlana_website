@@ -1,8 +1,10 @@
+from django.utils import timezone
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from apps.accounts import models, serializers
 from apps.courses import models as courses_models
+from apps.courses.helpers.functions import get_first_course_day
 from apps.courses.serializers import CourseSerializer
 
 
@@ -42,6 +44,8 @@ class UserCourseViewSet(viewsets.ModelViewSet):
         else:
             new_user_course = models.UserCourse(course=course, user=user)
             new_user_course.save()
+            new_user_day = models.UserDay(day=get_first_course_day(course), user=user, activation_time=timezone.now())
+            new_user_day.save()
         user_serialized = serializers.UserSerializer(user).data
         user_serialized["courses"] = [CourseSerializer(obj.course).data for obj in models.UserCourse.objects.filter(user=user)]
         return Response(user_serialized)
