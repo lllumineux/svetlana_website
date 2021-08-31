@@ -3,9 +3,9 @@ import {GET_COURSE_DAY, GET_COURSE_DAYS, UPDATE_COURSE_DAY} from "./types";
 import {tokenConfig} from "./auth";
 
 // GET_COURSE_DAYS
-export const getCourseDays = (id) => (dispatch, getState) => {
+export const getCourseDays = (course_id, week_number) => (dispatch, getState) => {
   axios
-    .get(`/api/weeks/${id}/day_list/`, tokenConfig(getState))
+    .get(`/api/weeks/day_list?course_id=${course_id}&week_number=${week_number}`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_COURSE_DAYS,
@@ -16,9 +16,9 @@ export const getCourseDays = (id) => (dispatch, getState) => {
 };
 
 // GET_COURSE_DAY
-export const getCourseDay = (id) => (dispatch, getState) => {
+export const getCourseDay = (course_id, week_number, day_number) => (dispatch, getState) => {
   axios
-    .get(`/api/days/${id}/`, tokenConfig(getState))
+    .get(`/api/days/day_by_info?course_id=${course_id}&week_number=${week_number}&day_number=${day_number}`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_COURSE_DAY,

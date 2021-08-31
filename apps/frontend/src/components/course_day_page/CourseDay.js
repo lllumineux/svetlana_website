@@ -6,12 +6,15 @@ import {getCourseDay} from "../../actions/course_days";
 import {Link} from "react-router-dom";
 import {
     createReport,
-    getReportByDayId,
-    getReportQuestionsByDayId
+    getReportByDay,
+    getReportQuestionsByDay
 } from "../../actions/reports";
 
 export class CourseDay extends Component {
     state = {
+        course_id: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[1], 10),
+        week_number: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[3], 10),
+        day_number: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[5], 10),
         report_answers: []
     };
 
@@ -20,15 +23,15 @@ export class CourseDay extends Component {
         course_day: PropTypes.any.isRequired,
         getCourseDay: PropTypes.func.isRequired,
         getCourse: PropTypes.func.isRequired,
-        getReportQuestionsByDayId: PropTypes.func.isRequired,
-        getReportByDayId: PropTypes.func.isRequired
+        getReportQuestionsByDay: PropTypes.func.isRequired,
+        getReportByDay: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        this.props.getCourseDay(this.props.location.state.day.id);
-        this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "")[1]);
-        this.props.getReportQuestionsByDayId(this.props.location.state.day.id);
-        this.props.getReportByDayId(this.props.location.state.day.id);
+        this.props.getCourse(this.state.course_id);
+        this.props.getCourseDay(this.state.course_id, this.state.week_number, this.state.day_number);
+        this.props.getReportQuestionsByDay(this.state.course_id, this.state.week_number, this.state.day_number);
+        this.props.getReportByDay(this.state.course_id, this.state.week_number, this.state.day_number);
     }
 
     // Input form changes listeners
@@ -54,8 +57,8 @@ export class CourseDay extends Component {
             }
         })
         const formData = new FormData();
-        formData.append("day_id", this.props.location.state.day.id)
-        formData.append("course_id", this.props.course.id)
+        formData.append("day_id", this.props.course_day.id);
+        formData.append("course_id", this.props.course.id);
         this.state.report_answers.concat(empty_report_answers).forEach((report_answer, index) => {
             formData.append(`report_item_${index}`, JSON.stringify({
                 "question_id": report_answer.report_question_id,
@@ -76,50 +79,36 @@ export class CourseDay extends Component {
                 <div className="content-header">
                     <h2 className="title">Курс: {this.props.course.name}</h2>
                     <div className="content-controls">
-                        <Link to={{pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/`, state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}}}}><span className="addition hover-animation">Неделя {this.props.location.state.week.number}</span></Link>
+                        <Link to={`/courses/${this.props.course.id}/weeks/${this.state.week_number}/`}>
+                            <span className="addition hover-animation">Неделя {this.state.week_number}</span>
+                        </Link>
                         {
-                            (this.props.location.state.day.number > 1)  ? (
-                                <div className="control-button hover-animation">
-                                    <Link to={{
-                                        pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${this.props.location.state.day.number - 1}/`,
-                                        state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: this.props.location.state.day.id - 1, number: this.props.location.state.day.number - 1}}
-                                    }} onClick={
-                                        () => {
-                                            this.props.history.push({
-                                                pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${this.props.location.state.day.number - 1}/`,
-                                                state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: this.props.location.state.day.id - 1, number: this.props.location.state.day.number - 1}}
-                                            });
-                                            location.reload();
-                                        }
-                                    }>
-                                        <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik0yLjIyMjEgNS4zOTAyTDYuNjcyMjMgOS44NDAyNUM2Ljc3NTE1IDkuOTQzMjUgNi45MTI1NSAxMCA3LjA1OTA1IDEwQzcuMjA1NTUgMTAgNy4zNDI5NSA5Ljk0MzI1IDcuNDQ1ODggOS44NDAyNUw3Ljc3MzYgOS41MTI2MUM3Ljk4Njg1IDkuMjk5MTEgNy45ODY4NSA4Ljk1MjEyIDcuNzczNiA4LjczODk1TDQuMDM2NzIgNS4wMDIwN0w3Ljc3Nzc1IDEuMjYxMDVDNy44ODA2NyAxLjE1ODA0IDcuOTM3NSAxLjAyMDcyIDcuOTM3NSAwLjg3NDMwMkM3LjkzNzUgMC43Mjc3MTcgNy44ODA2NyAwLjU5MDQwMSA3Ljc3Nzc1IDAuNDg3MzEyTDcuNDUwMDMgMC4xNTk3NTRDNy4zNDcwMiAwLjA1Njc0NzQgNy4yMDk3IC02LjM2MjYyZS0wOCA3LjA2MzIgLTcuNjQzMzllLTA4QzYuOTE2NyAtOC45MjQxNmUtMDggNi43NzkzIDAuMDU2NzQ3MyA2LjY3NjM3IDAuMTU5NzU0TDIuMjIyMSA0LjYxMzg2QzIuMTE4OTMgNC43MTcyIDIuMDYyMjYgNC44NTUxNiAyLjA2MjU5IDUuMDAxODNDMi4wNjIyNiA1LjE0OTA2IDIuMTE4OTMgNS4yODY5NSAyLjIyMjEgNS4zOTAyWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwIDEwKSByb3RhdGUoLTE4MCkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Previous Week"/>
-                                    </Link>
-                                </div>
+                            (this.state.day_number > 1)  ? (
+                                <Link to={`/courses/${this.state.course_id}/weeks/${this.state.week_number}/days/${this.state.day_number - 1}/`} onClick={
+                                    () => {
+                                        this.props.history.push(`/courses/${this.state.course_id}/weeks/${this.state.week_number}/days/${this.state.day_number - 1}/`);
+                                        location.reload();
+                                    }
+                                } className="control-button hover-animation">
+                                    <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik0yLjIyMjEgNS4zOTAyTDYuNjcyMjMgOS44NDAyNUM2Ljc3NTE1IDkuOTQzMjUgNi45MTI1NSAxMCA3LjA1OTA1IDEwQzcuMjA1NTUgMTAgNy4zNDI5NSA5Ljk0MzI1IDcuNDQ1ODggOS44NDAyNUw3Ljc3MzYgOS41MTI2MUM3Ljk4Njg1IDkuMjk5MTEgNy45ODY4NSA4Ljk1MjEyIDcuNzczNiA4LjczODk1TDQuMDM2NzIgNS4wMDIwN0w3Ljc3Nzc1IDEuMjYxMDVDNy44ODA2NyAxLjE1ODA0IDcuOTM3NSAxLjAyMDcyIDcuOTM3NSAwLjg3NDMwMkM3LjkzNzUgMC43Mjc3MTcgNy44ODA2NyAwLjU5MDQwMSA3Ljc3Nzc1IDAuNDg3MzEyTDcuNDUwMDMgMC4xNTk3NTRDNy4zNDcwMiAwLjA1Njc0NzQgNy4yMDk3IC02LjM2MjYyZS0wOCA3LjA2MzIgLTcuNjQzMzllLTA4QzYuOTE2NyAtOC45MjQxNmUtMDggNi43NzkzIDAuMDU2NzQ3MyA2LjY3NjM3IDAuMTU5NzU0TDIuMjIyMSA0LjYxMzg2QzIuMTE4OTMgNC43MTcyIDIuMDYyMjYgNC44NTUxNiAyLjA2MjU5IDUuMDAxODNDMi4wNjIyNiA1LjE0OTA2IDIuMTE4OTMgNS4yODY5NSAyLjIyMjEgNS4zOTAyWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwIDEwKSByb3RhdGUoLTE4MCkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Previous Week"/>
+                                </Link>
                             ) : (
                                 <div className="control-button disabled">
                                     <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik0yLjIyMjEgNS4zOTAyTDYuNjcyMjMgOS44NDAyNUM2Ljc3NTE1IDkuOTQzMjUgNi45MTI1NSAxMCA3LjA1OTA1IDEwQzcuMjA1NTUgMTAgNy4zNDI5NSA5Ljk0MzI1IDcuNDQ1ODggOS44NDAyNUw3Ljc3MzYgOS41MTI2MUM3Ljk4Njg1IDkuMjk5MTEgNy45ODY4NSA4Ljk1MjEyIDcuNzczNiA4LjczODk1TDQuMDM2NzIgNS4wMDIwN0w3Ljc3Nzc1IDEuMjYxMDVDNy44ODA2NyAxLjE1ODA0IDcuOTM3NSAxLjAyMDcyIDcuOTM3NSAwLjg3NDMwMkM3LjkzNzUgMC43Mjc3MTcgNy44ODA2NyAwLjU5MDQwMSA3Ljc3Nzc1IDAuNDg3MzEyTDcuNDUwMDMgMC4xNTk3NTRDNy4zNDcwMiAwLjA1Njc0NzQgNy4yMDk3IC02LjM2MjYyZS0wOCA3LjA2MzIgLTcuNjQzMzllLTA4QzYuOTE2NyAtOC45MjQxNmUtMDggNi43NzkzIDAuMDU2NzQ3MyA2LjY3NjM3IDAuMTU5NzU0TDIuMjIyMSA0LjYxMzg2QzIuMTE4OTMgNC43MTcyIDIuMDYyMjYgNC44NTUxNiAyLjA2MjU5IDUuMDAxODNDMi4wNjIyNiA1LjE0OTA2IDIuMTE4OTMgNS4yODY5NSAyLjIyMjEgNS4zOTAyWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwIDEwKSByb3RhdGUoLTE4MCkiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Previous Week"/>
                                 </div>
                             )
                         }
-                        <span className="current_day">День {this.props.location.state.day.number}</span>
+                        <span className="current_day">День {this.state.day_number}</span>
                         {
-                            (this.props.location.state.day.number < 7) ? (
-                                <div className="control-button hover-animation">
-                                    <Link to={{
-                                        pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${this.props.location.state.day.number + 1}/`,
-                                        state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: this.props.location.state.day.id + 1, number: this.props.location.state.day.number + 1}}
-                                    }} onClick={
-                                        () => {
-                                            this.props.history.push({
-                                                pathname: `/courses/${this.props.course.id}/weeks/${this.props.location.state.week.number}/days/${this.props.location.state.day.number + 1}/`,
-                                                state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}, day: {id: this.props.location.state.day.id + 1, number: this.props.location.state.day.number + 1}}
-                                            });
-                                            location.reload();
-                                        }
-                                    }>
+                            (this.state.day_number < 7) ? (
+                                <Link to={`/courses/${this.state.course_id}/weeks/${this.state.week_number}/days/${this.state.day_number + 1}/`} onClick={
+                                    () => {
+                                        this.props.history.push(`/courses/${this.state.course_id}/weeks/${this.state.week_number}/days/${this.state.day_number + 1}/`);
+                                        location.reload();
+                                    }
+                                } className="control-button hover-animation">
                                     <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNzc3OSA0LjYwOThMMy4zMjc3NyAwLjE1OTc1NUMzLjIyNDg1IDAuMDU2NzQ3NSAzLjA4NzQ1IDAgMi45NDA5NSAwQzIuNzk0NDUgMCAyLjY1NzA1IDAuMDU2NzQ3NSAyLjU1NDEyIDAuMTU5NzU1TDIuMjI2NCAwLjQ4NzM5NEMyLjAxMzE1IDAuNzAwODg5IDIuMDEzMTUgMS4wNDc4OCAyLjIyNjQgMS4yNjEwNUw1Ljk2MzI4IDQuOTk3OTNMMi4yMjIyNSA4LjczODk1QzIuMTE5MzMgOC44NDE5NiAyLjA2MjUgOC45NzkyOCAyLjA2MjUgOS4xMjU3QzIuMDYyNSA5LjI3MjI4IDIuMTE5MzMgOS40MDk2IDIuMjIyMjUgOS41MTI2OUwyLjU0OTk4IDkuODQwMjVDMi42NTI5OCA5Ljk0MzI1IDIuNzkwMyAxMCAyLjkzNjggMTBDMy4wODMzIDEwIDMuMjIwNyA5Ljk0MzI1IDMuMzIzNjMgOS44NDAyNUw3Ljc3NzkgNS4zODYxNEM3Ljg4MTA3IDUuMjgyOCA3LjkzNzc0IDUuMTQ0ODQgNy45Mzc0MSA0Ljk5ODE3QzcuOTM3NzQgNC44NTA5NCA3Ljg4MTA3IDQuNzEzMDUgNy43Nzc5IDQuNjA5OFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt="Previous Week"/>
-                                    </Link>
-                                </div>
+                                </Link>
                             ) : (
                                 <div className="control-button disabled">
                                     <img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTcuNzc3OSA0LjYwOThMMy4zMjc3NyAwLjE1OTc1NUMzLjIyNDg1IDAuMDU2NzQ3NSAzLjA4NzQ1IDAgMi45NDA5NSAwQzIuNzk0NDUgMCAyLjY1NzA1IDAuMDU2NzQ3NSAyLjU1NDEyIDAuMTU5NzU1TDIuMjI2NCAwLjQ4NzM5NEMyLjAxMzE1IDAuNzAwODg5IDIuMDEzMTUgMS4wNDc4OCAyLjIyNjQgMS4yNjEwNUw1Ljk2MzI4IDQuOTk3OTNMMi4yMjIyNSA4LjczODk1QzIuMTE5MzMgOC44NDE5NiAyLjA2MjUgOC45NzkyOCAyLjA2MjUgOS4xMjU3QzIuMDYyNSA5LjI3MjI4IDIuMTE5MzMgOS40MDk2IDIuMjIyMjUgOS41MTI2OUwyLjU0OTk4IDkuODQwMjVDMi42NTI5OCA5Ljk0MzI1IDIuNzkwMyAxMCAyLjkzNjggMTBDMy4wODMzIDEwIDMuMjIwNyA5Ljk0MzI1IDMuMzIzNjMgOS44NDAyNUw3Ljc3NzkgNS4zODYxNEM3Ljg4MTA3IDUuMjgyOCA3LjkzNzc0IDUuMTQ0ODQgNy45Mzc0MSA0Ljk5ODE3QzcuOTM3NzQgNC44NTA5NCA3Ljg4MTA3IDQuNzEzMDUgNy43Nzc5IDQuNjA5OFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt="Previous Week"/>
@@ -169,4 +158,4 @@ const mapStateToProps = (state) => ({
     report: state.reports.report
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDayId, createReport, getReportByDayId })(CourseDay);
+export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDay, createReport, getReportByDay })(CourseDay);

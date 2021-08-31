@@ -5,6 +5,8 @@ import {getCourseWeek, updateCourseWeek} from "../../actions/course_weeks";
 
 export class EditCourseWeek extends Component {
     state = {
+        course_id: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[1], 10),
+        week_number: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[4], 10),
         number: "",
         short_description: ""
     };
@@ -20,7 +22,7 @@ export class EditCourseWeek extends Component {
     };
 
     componentDidMount() {
-        this.props.getCourseWeek(this.props.location.state.week.id);
+        this.props.getCourseWeek(this.state.course_id, this.state.week_number);
     }
 
     // Input form changes listeners
@@ -34,12 +36,10 @@ export class EditCourseWeek extends Component {
             formData.append('short_description', this.state.short_description);
         }
         this.props.updateCourseWeek(
-            this.props.location.state.week.id,
+            this.props.course_week.id,
             formData,
             () => {
-                this.props.history.push({
-                    pathname: `/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}`
-                });
+                this.props.history.push(`/courses/${this.state.course_id}`);
                 location.reload();
             }
         );

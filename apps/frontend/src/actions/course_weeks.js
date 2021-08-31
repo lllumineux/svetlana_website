@@ -17,9 +17,9 @@ export const getCourseWeeks = (id) => (dispatch, getState) => {
 };
 
 // GET_COURSE_WEEK
-export const getCourseWeek = (id) => (dispatch, getState) => {
+export const getCourseWeek = (course_id, week_number) => (dispatch, getState) => {
   axios
-    .get(`/api/weeks/${id}/`, tokenConfig(getState))
+    .get(`/api/weeks/week_by_info?course_id=${course_id}&week_number=${week_number}`, tokenConfig(getState))
     .then(res => {
       dispatch({
         type: GET_COURSE_WEEK,

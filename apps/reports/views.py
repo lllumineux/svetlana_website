@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.courses import models as courses_models
-from apps.courses.helpers.functions import get_next_day
+from apps.courses.helpers.functions import get_next_day, get_day_by_info
 from apps.reports import serializers, models
 from apps.accounts import models as accounts_models
 from apps.reports.helpers.functions import get_full_report_serialized
@@ -77,8 +77,13 @@ class ReportViewSet(viewsets.ModelViewSet):
         return Response(reports_serialized)
 
     @action(methods=['GET'], detail=False)
-    def report_by_day_id(self, request):
-        report_day = courses_models.Day.objects.get(pk=request.query_params["day_id"])
+    def report_by_day(self, request):
+        report_day = get_day_by_info(
+            request.query_params['course_id'],
+            request.query_params['week_number'],
+            request.query_params['day_number']
+        )
+
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=report_day.week.course) or report_day.week.course.is_hidden:
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)

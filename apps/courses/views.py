@@ -8,6 +8,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.courses import serializers
+from apps.courses.helpers.functions import get_day_by_info, get_week_by_info
 from apps.reports.serializers import ReportQuestionSerializer
 from apps.courses import models
 from apps.courses.models import Course, Week, Day
@@ -119,22 +120,23 @@ class WeekViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.WeekSerializer
 
     def get_permissions(self):
-        if self.action in ['list', 'create', 'update', 'partial_update', 'destroy']:
+        if self.action in ['create', 'list', 'retrieve', 'update', 'partial_update', 'destroy']:
             permission_classes = (permissions.IsAdminUser,)
         else:
             permission_classes = (permissions.IsAuthenticated,)
         return [permission() for permission in permission_classes]
 
-    def retrieve(self, request, *args, **kwargs):
-        week = self.get_object()
+    @action(methods=['GET'], detail=False, permission_classes=(permissions.IsAuthenticated,))
+    def week_by_info(self, request):
+        week = get_week_by_info(request.query_params['course_id'], request.query_params['week_number'])
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=week.course) or week.course.is_hidden:
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         return Response(self.get_serializer(week).data)
 
-    @action(methods=['GET'], detail=True, permission_classes=(permissions.IsAuthenticated,))
-    def day_list(self, request, pk=None):
-        week = Week.objects.get(pk=pk)
+    @action(methods=['GET'], detail=False, permission_classes=(permissions.IsAuthenticated,))
+    def day_list(self, request):
+        week = get_week_by_info(request.query_params['course_id'], request.query_params['week_number'])
         days = Day.objects.filter(week=week)
 
         if request.user.is_staff:
@@ -166,19 +168,11 @@ class DayViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.DaySerializer
 
     def get_permissions(self):
-        if self.action in ['list', 'create', 'update', 'partial_update', 'destroy']:
+        if self.action in ['get', 'list', 'create', 'update', 'partial_update', 'destroy']:
             permission_classes = (permissions.IsAdminUser,)
         else:
             permission_classes = (permissions.IsAuthenticated,)
         return [permission() for permission in permission_classes]
-
-    def retrieve(self, request, *args, **kwargs):
-        day = self.get_object()
-        if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user,
-                                                             course=day.week.course) or day.week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
-        return Response(self.get_serializer(day).data)
 
     def update(self, request, *args, **kwargs):
         response = super().update(request, *args, **kwargs)
@@ -190,12 +184,30 @@ class DayViewSet(viewsets.ModelViewSet):
                 report_question_to_update.save()
         return response
 
-    @action(methods=['GET'], detail=True)
-    def report_questions_list(self, request, pk=None):
-        day = Day.objects.get(pk=pk)
+    @action(methods=['GET'], detail=False)
+    def day_by_info(self, request):
+        day = get_day_by_info(
+            request.query_params['course_id'],
+            request.query_params['week_number'],
+            request.query_params['day_number']
+        )
+
         if not request.user.is_staff:
-            if not accounts_models.UserCourse.objects.filter(user=request.user,
-                                                             course=day.week.course) or day.week.course.is_hidden:
+            if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
+                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+
+        return Response(serializers.DaySerializer(day).data)
+
+    @action(methods=['GET'], detail=False)
+    def report_questions_list(self, request):
+        day = get_day_by_info(
+            request.query_params['course_id'],
+            request.query_params['week_number'],
+            request.query_params['day_number']
+        )
+
+        if not request.user.is_staff:
+            if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
                 return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
         report_questions = ReportQuestion.objects.filter(day=day)
         return Response(ReportQuestionSerializer(report_question).data for report_question in report_questions)

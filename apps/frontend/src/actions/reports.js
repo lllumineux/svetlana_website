@@ -9,9 +9,9 @@ import {tokenConfig} from "./auth";
 import {createMessage} from "./messages";
 
 // GET_REPORT_QUESTIONS
-export const getReportQuestionsByDayId = (course_day_id) => (dispatch, getState) => {
+export const getReportQuestionsByDay = (course_id, week_number, day_number) => (dispatch, getState) => {
     axios
-        .get(`/api/days/${course_day_id}/report_questions_list/`, tokenConfig(getState))
+        .get(`/api/days/report_questions_list?course_id=${course_id}&week_number=${week_number}&day_number=${day_number}`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_REPORT_QUESTIONS,
@@ -49,9 +49,9 @@ export const getReports = () => (dispatch, getState) => {
 };
 
 // GET_REPORT_BY_DAY_ID
-export const getReportByDayId = (day_id) => (dispatch, getState) => {
+export const getReportByDay = (course_id, week_number, day_number) => (dispatch, getState) => {
     axios
-        .get(`/api/reports/report_by_day_id?day_id=${day_id}`, tokenConfig(getState))
+        .get(`/api/reports/report_by_day?course_id=${course_id}&week_number=${week_number}&day_number=${day_number}`, tokenConfig(getState))
         .then(res => {
             dispatch({
                 type: GET_REPORT_BY_DAY_ID,

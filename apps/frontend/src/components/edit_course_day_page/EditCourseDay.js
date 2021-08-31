@@ -4,10 +4,13 @@ import PropTypes from "prop-types";
 import {getCourseDay, updateCourseDay} from "../../actions/course_days";
 import {Editor} from "@tinymce/tinymce-react";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
-import {getReportQuestionsByDayId} from "../../actions/reports";
+import {getReportQuestionsByDay} from "../../actions/reports";
 
 export class EditCourseDay extends Component {
     state = {
+        course_id: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[1], 10),
+        week_number: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[3], 10),
+        day_number: parseInt(this.props.location.pathname.split("/").filter(obj => obj !== "")[6], 10),
         name: "",
         short_description: "",
         content: "",
@@ -25,12 +28,12 @@ export class EditCourseDay extends Component {
         report_questions: PropTypes.array,
         getCourseDay: PropTypes.func.isRequired,
         updateCourseDay: PropTypes.func.isRequired,
-        getReportQuestionsByDayId: PropTypes.func.isRequired
+        getReportQuestionsByDay: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        this.props.getCourseDay(this.props.location.state.day.id);
-        this.props.getReportQuestionsByDayId(this.props.location.state.day.id);
+        this.props.getCourseDay(this.state.course_id, this.state.week_number, this.state.day_number);
+        this.props.getReportQuestionsByDay(this.state.course_id, this.state.week_number, this.state.day_number);
     }
 
     // Input form changes listeners
@@ -71,10 +74,7 @@ export class EditCourseDay extends Component {
         })
 
         this.props.updateCourseDay(this.props.course_day.id, formData, () => {
-            this.props.history.push({
-                pathname: `/courses/${this.props.location.pathname.split("/").filter(obj => obj !== "")[1]}/weeks/${this.props.course_day.number}/`,
-                state: { week: {id: this.props.location.state.week.id, number: this.props.location.state.week.number}}
-            });
+            this.props.history.push(`/courses/${this.state.course_id}/weeks/${this.state.week_number}/`);
             location.reload();
         });
     };
@@ -82,7 +82,7 @@ export class EditCourseDay extends Component {
     render() {
         return (
             <Fragment>
-                <div className="content-header"><h2 className="title">Редактирование «День {this.props.course_day.number}»</h2></div>
+                <div className="content-header"><h2 className="title">Редактирование «День {this.state.day_number}»</h2></div>
                 <form onSubmit={this.onSubmit} className="input-forms">
                     <div className="input-form">
                         <h4>Название</h4>
@@ -114,4 +114,4 @@ const mapStateToProps = (state) => ({
     course_day: state.course_days.course_day,
 });
 
-export default connect(mapStateToProps, { getCourseDay, updateCourseDay, getReportQuestionsByDayId })(EditCourseDay);
+export default connect(mapStateToProps, { getCourseDay, updateCourseDay, getReportQuestionsByDay })(EditCourseDay);

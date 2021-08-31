@@ -35,3 +35,13 @@ def get_next_day(day):
 def get_first_course_day(course):
     first_week = models.Week.objects.get(course=course, number=1)
     return models.Day.objects.get(week=first_week, number=1)
+
+
+def get_week_by_info(course_id, week_number):
+    course = models.Course.objects.get(pk=course_id)
+    return models.Week.objects.get(course=course, number=week_number)
+
+
+def get_day_by_info(course_id, week_number, day_number):
+    week = get_week_by_info(course_id, week_number)
+    return models.Day.objects.get(week=week, number=day_number)
