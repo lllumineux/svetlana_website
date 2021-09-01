@@ -244,5 +244,3 @@ cython_debug/
 /apps/frontend/static/
 /apps/frontend/src/uploads/*
 !/apps/frontend/src/uploads/.gitkeep
-/apps/frontend/src/images/*
-!/apps/frontend/src/images/.gitkeep
