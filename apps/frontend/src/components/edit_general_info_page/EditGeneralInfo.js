@@ -17,16 +17,7 @@ export class EditGeneralInfo extends Component {
     };
 
     static propTypes = {
-        general_info: PropTypes.shape({
-            id: PropTypes.number,
-            about_me_list: PropTypes.string.isRequired,
-            greeting_video: PropTypes.string.isRequired,
-            psychological_consultation_description: PropTypes.string.isRequired,
-            whatsapp_number: PropTypes.string.isRequired,
-            instagram_alias: PropTypes.string.isRequired,
-            main_page_numbers_form_text: PropTypes.string.isRequired,
-            two_course_sale_value: PropTypes.any.isRequired
-        }).isRequired,
+        general_info: PropTypes.object.isRequired,
         getGeneralInfo: PropTypes.func.isRequired,
         updateGeneralInfo: PropTypes.func.isRequired,
         getScreenshots: PropTypes.func.isRequired,

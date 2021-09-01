@@ -12,12 +12,7 @@ export class EditArticle extends Component {
     };
 
     static propTypes = {
-        article: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-            is_hidden: PropTypes.bool.isRequired
-        }),
+        article: PropTypes.object.isRequired,
         getArticle: PropTypes.func.isRequired,
         updateArticle: PropTypes.func.isRequired
     };

@@ -2,7 +2,6 @@ import datetime
 import json
 
 import pytz
-from django.utils import timezone
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -37,7 +36,7 @@ class ReportViewSet(viewsets.ModelViewSet):
                 user=request.user,
                 course=courses_models.Course.objects.get(pk=request.data["course_id"])
             ):
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+                return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
         day = courses_models.Day.objects.get(pk=request.data["day_id"])
 
@@ -86,7 +85,7 @@ class ReportViewSet(viewsets.ModelViewSet):
 
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=report_day.week.course) or report_day.week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+                return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
         reports = models.Report.objects.filter(user=request.user, day=report_day)
         if not reports:

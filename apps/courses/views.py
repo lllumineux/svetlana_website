@@ -1,4 +1,3 @@
-import datetime
 import json
 
 from django.contrib.auth.models import AnonymousUser
@@ -38,7 +37,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         course = self.get_object()
         if course.is_hidden and not request.user.is_staff:
-            return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+            return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
         return Response(self.get_serializer(course).data)
 
     def list(self, request, *args, **kwargs):
@@ -100,7 +99,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Response(weeks_serialized)
 
         if not accounts_models.UserCourse.objects.filter(user=request.user, course=course) or course.is_hidden:
-            return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+            return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
         weeks_serialized = []
         for week in weeks:
@@ -131,7 +130,7 @@ class WeekViewSet(viewsets.ModelViewSet):
         week = get_week_by_info(request.query_params['course_id'], request.query_params['week_number'])
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=week.course) or week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+                return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
         return Response(self.get_serializer(week).data)
 
     @action(methods=['GET'], detail=False, permission_classes=(permissions.IsAuthenticated,))
@@ -148,7 +147,7 @@ class WeekViewSet(viewsets.ModelViewSet):
             return Response(days_serialized)
 
         if not accounts_models.UserCourse.objects.filter(user=request.user, course=week.course) or week.course.is_hidden:
-            return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+            return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
         days_serialized = []
         for day in days:
@@ -194,7 +193,7 @@ class DayViewSet(viewsets.ModelViewSet):
 
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+                return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
         return Response(serializers.DaySerializer(day).data)
 
@@ -208,6 +207,6 @@ class DayViewSet(viewsets.ModelViewSet):
 
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
-                return Response({'detail': 'You do not have permission to perform this action.'}, status=401)
+                return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
         report_questions = ReportQuestion.objects.filter(day=day)
         return Response(ReportQuestionSerializer(report_question).data for report_question in report_questions)

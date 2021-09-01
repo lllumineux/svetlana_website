@@ -21,15 +21,7 @@ export class Main extends Component {
     static propTypes = {
         addNumber: PropTypes.func.isRequired,
         getGeneralInfo: PropTypes.func.isRequired,
-        general_info: PropTypes.shape({
-            id: PropTypes.number,
-            about_me_list: PropTypes.string.isRequired,
-            greeting_video: PropTypes.string.isRequired,
-            psychological_consultation_description: PropTypes.string.isRequired,
-            whatsapp_number: PropTypes.string.isRequired,
-            instagram_alias: PropTypes.string.isRequired,
-            main_page_numbers_form_text: PropTypes.string.isRequired,
-        }).isRequired,
+        general_info: PropTypes.object.isRequired,
         getCourses: PropTypes.func.isRequired,
         getScreenshots: PropTypes.func.isRequired,
         screenshots: PropTypes.array.isRequired
@@ -123,7 +115,7 @@ export class Main extends Component {
                         key={`course_${course.id}`}
                         style={{
                             "background": `linear-gradient(to bottom, rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.54)), url(${STATIC_FILES_PATH + course.background_img.split("/").pop()}) no-repeat center center`,
-                            "background-size": "cover"
+                            "backgroundSize": "cover"
                         }}
                     >
                         <div/>

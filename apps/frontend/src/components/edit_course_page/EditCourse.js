@@ -16,16 +16,7 @@ export class EditCourse extends Component {
     };
 
     static propTypes = {
-        course: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            short_description: PropTypes.string.isRequired,
-            full_description: PropTypes.string.isRequired,
-            price1: PropTypes.any.isRequired,
-            price2: PropTypes.any.isRequired,
-            background_img: PropTypes.string.isRequired,
-            is_hidden: PropTypes.any.isRequired
-        }),
+        course: PropTypes.object.isRequired,
         getCourse: PropTypes.func.isRequired,
         updateCourse: PropTypes.func.isRequired
     };

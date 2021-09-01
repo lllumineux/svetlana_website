@@ -11,15 +11,7 @@ export class PsychologicalConsultationDescription extends Component {
 
     static propTypes = {
         getGeneralInfo: PropTypes.any.isRequired,
-        general_info: PropTypes.shape({
-            id: PropTypes.number,
-            about_me_list: PropTypes.string.isRequired,
-            greeting_video: PropTypes.string.isRequired,
-            psychological_consultation_description: PropTypes.string.isRequired,
-            whatsapp_number: PropTypes.string.isRequired,
-            instagram_alias: PropTypes.string.isRequired,
-            main_page_numbers_form_text: PropTypes.string.isRequired,
-        }).isRequired,
+        general_info: PropTypes.object.isRequired,
         getContactInfo: PropTypes.func.isRequired,
         contact_info: PropTypes.shape({
             whatsapp_number: PropTypes.string,

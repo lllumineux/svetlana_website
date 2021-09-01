@@ -11,15 +11,7 @@ export class Numbers extends Component {
 
     static propTypes = {
         numbers: PropTypes.array.isRequired,
-        general_info: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            about_me_list : PropTypes.string.isRequired,
-            greeting_video : PropTypes.string.isRequired,
-            psychological_consultation_description: PropTypes.string.isRequired,
-            whatsapp_number: PropTypes.string.isRequired,
-            instagram_alias: PropTypes.string.isRequired,
-            main_page_numbers_form_text: PropTypes.string.isRequired
-        }),
+        general_info: PropTypes.object.isRequired,
         getNumbers: PropTypes.func.isRequired,
         getGeneralInfo: PropTypes.func.isRequired,
         updateGeneralInfo: PropTypes.func.isRequired
