@@ -12,7 +12,8 @@ export class EditGeneralInfo extends Component {
         greeting_video: "",
         psychological_consultation_description: "",
         whatsapp_number: "",
-        instagram_alias: ""
+        instagram_alias: "",
+        two_course_sale_value: ""
     };
 
     static propTypes = {
@@ -24,6 +25,7 @@ export class EditGeneralInfo extends Component {
             whatsapp_number: PropTypes.string.isRequired,
             instagram_alias: PropTypes.string.isRequired,
             main_page_numbers_form_text: PropTypes.string.isRequired,
+            two_course_sale_value: PropTypes.any.isRequired
         }).isRequired,
         getGeneralInfo: PropTypes.func.isRequired,
         updateGeneralInfo: PropTypes.func.isRequired,
@@ -38,7 +40,9 @@ export class EditGeneralInfo extends Component {
     }
 
     // Input form changes listeners
-    onChange = e => this.setState({ [e.target.name]: e.target.value });
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
     onFileChange = e => {
         this.setState({ greeting_video: e.target.files[0] });
         document.getElementById("file-input-label").innerHTML = e.target.files[0].name;
@@ -74,6 +78,9 @@ export class EditGeneralInfo extends Component {
         if (this.state.instagram_alias !== "") {
             formData.append('instagram_alias', this.state.instagram_alias);
         }
+        if (this.state.two_course_sale_value !== "") {
+            formData.append('two_course_sale_value', parseInt(this.state.two_course_sale_value, 10))
+        }
         this.props.updateGeneralInfo(this.props.general_info.id, formData, () => location.reload());
     };
 
@@ -103,11 +110,15 @@ export class EditGeneralInfo extends Component {
                     </div>
                     <div className="input-form">
                         <h4>Номер телефона WhatsApp <span className="gray">(в формате: +7 (906) 329-02-10)</span></h4>
-                        <input type="text"  name="whatsapp_number" placeholder="Введите текст" onChange={this.onChange} defaultValue={this.props.general_info.whatsapp_number}/>
+                        <input type="text"  pattern="\+7 \([\d]{3}\) [\d]{3}-[\d]{2}-[\d]{2}" name="whatsapp_number" placeholder="Введите текст" onChange={this.onChange} defaultValue={this.props.general_info.whatsapp_number}/>
                     </div>
                     <div className="input-form">
                         <h4>Алиас Instagram <span className="gray">(в формате: psicholog_yoganieva)</span></h4>
                         <input type="text" name="instagram_alias" placeholder="Введите текст" onChange={this.onChange} defaultValue={this.props.general_info.instagram_alias}/>
+                    </div>
+                    <div className="input-form">
+                        <h4>Размер скидки на покупку двух курсов сразу <span className="gray">(в процентах, например: 15)</span></h4>
+                        <input type="text" pattern="\d+" name="two_course_sale_value" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.general_info.two_course_sale_value}/>
                     </div>
                     <div className="input-form">
                         <h4>Скриншоты отзывов по порядку</h4>

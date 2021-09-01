@@ -23,6 +23,7 @@ class GeneralInfo(help_models.SingletonModel):
     whatsapp_number = models.CharField(max_length=32, default='', blank=True)
     instagram_alias = models.CharField(max_length=32, default='', blank=True)
     main_page_numbers_form_text = models.TextField(default='', blank=True)
+    two_course_sale_value = models.IntegerField(default=100)
 
     @property
     def whatsapp_link(self):

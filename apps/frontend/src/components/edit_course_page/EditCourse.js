@@ -86,11 +86,11 @@ export class EditCourse extends Component {
                     </div>
                     <div className="input-form">
                         <h4>Цена за материалы</h4>
-                        <input type="number" name="price1" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.course.price1}/>
+                        <input type="text" pattern="\d+" name="price1" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.course.price1}/>
                     </div>
                     <div className="input-form">
                         <h4>Цена за материалы + консультации</h4>
-                        <input type="number" name="price2" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.course.price2}/>
+                        <input type="text" pattern="\d+" name="price2" placeholder="Введите значение" onChange={this.onChange} defaultValue={this.props.course.price2}/>
                     </div>
                     <div className="input-form">
                         <h4>Фоновое фото курса на главной странице</h4>

@@ -2,7 +2,6 @@ import React, {Component, Fragment} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getContactInfo} from "../../actions/general_info";
-import {Link} from "react-router-dom";
 
 export class Footer extends Component {
     static propTypes = {
@@ -35,7 +34,7 @@ export class Footer extends Component {
                             </div>
                         </div>
                         <div>&copy; Светлана Ганиева {new Date().getFullYear()}</div>
-                        <a href="https://suleimanoff.me/" target="_blank" className="website_developer">made by lllumineux</a>
+                        <a href="https://suleimanoff.me/" target="_blank" className="website_developer">разработано lllumineux</a>
                     </footer>
                 ) : ""}
             </Fragment>

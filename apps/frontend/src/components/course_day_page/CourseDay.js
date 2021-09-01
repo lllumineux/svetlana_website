@@ -126,14 +126,14 @@ export class CourseDay extends Component {
                             this.props.report.items.map(report_item => (
                                 <div className="report-question-form report-question-form-disabled" key={`report-question-form_${report_item.id}`}>
                                     <h5>{report_item.question.text}</h5>
-                                    <input type="text" defaultValue={report_item.answer} disabled/>
+                                    <textarea defaultValue={report_item.answer} disabled/>
                                 </div>
                             ))
                         ) : (
                             this.props.report_questions.map(report_question => (
                                 <div className="report-question-form" key={`report-question-form_${report_question.id}`}>
                                     <h5>{report_question.text}</h5>
-                                    <input type="text" name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
+                                    <textarea name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
                                 </div>
                             ))
                         )}

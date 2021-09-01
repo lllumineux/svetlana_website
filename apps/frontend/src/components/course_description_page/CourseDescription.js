@@ -3,24 +3,19 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {getCourse} from "../../actions/courses";
 import {TWO_COURSE_PROMOTION_DISCOUNT_VALUE} from "../../config";
+import {getGeneralInfo} from "../../actions/general_info";
 
 export class CourseDescription extends Component {
     static propTypes = {
-        course: PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            short_description: PropTypes.string.isRequired,
-            full_description: PropTypes.string.isRequired,
-            price1: PropTypes.any.isRequired,
-            price2: PropTypes.any.isRequired,
-            background_img: PropTypes.string.isRequired,
-            is_hidden: PropTypes.any.isRequired
-        }),
-        getCourse: PropTypes.func.isRequired
+        course: PropTypes.object.isRequired,
+        general_info: PropTypes.object.isRequired,
+        getCourse: PropTypes.func.isRequired,
+        getGeneralInfo: PropTypes.func.isRequired
     };
 
     componentDidMount() {
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
+        this.props.getGeneralInfo();
     }
 
     render() {
@@ -28,25 +23,27 @@ export class CourseDescription extends Component {
             <Fragment>
                 <div className="content-header"><h2 className="title">Курс «{this.props.course.name}»</h2></div>
                 <div className="editor-rendered-content course-full-description" dangerouslySetInnerHTML={{__html: this.props.course.full_description}}/>
-                <div className="course-description-promotion-banner">
-                    <div className="promotion-info">
-                        <h3>Акция!</h3>
-                        <p>Купите оба курса «Осознание себя» и «Принятие себя» вместе, чтобы получить <strong>{Math.round((1 - TWO_COURSE_PROMOTION_DISCOUNT_VALUE) * 100)}% скидку</strong> на общую сумму покупки!</p>
-                    </div>
-                    <div className="promotion-offers">
-                        <div className="promotion-offer">
-                            <div className="promotion-offer-name">Материалы курсов «Осознание себя» и «Принятие себя»</div>
-                            <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price1 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price1 * 2 * TWO_COURSE_PROMOTION_DISCOUNT_VALUE))} руб.</div>
-                            <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                {(this.props.course.name.toLowerCase() === "осознание себя") ? (
+                    <div className="course-description-promotion-banner">
+                        <div className="promotion-info">
+                            <h3>Акция!</h3>
+                            <p>Купите оба курса «Осознание себя» и «Принятие себя» вместе, чтобы получить <strong>{this.props.general_info.two_course_sale_value}% скидку</strong> на общую сумму покупки!</p>
                         </div>
-                        <hr/>
-                        <div className="promotion-offer">
-                            <div className="promotion-offer-name">Материалы курсов + личные консультации раз в неделю</div>
-                            <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price2 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price2 * 2 * TWO_COURSE_PROMOTION_DISCOUNT_VALUE))} руб.</div>
-                            <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                        <div className="promotion-offers">
+                            <div className="promotion-offer">
+                                <div className="promotion-offer-name">Материалы курсов «Осознание себя» и «Принятие себя»</div>
+                                <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price1 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price1 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)))} руб.</div>
+                                <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                            </div>
+                            <hr/>
+                            <div className="promotion-offer">
+                                <div className="promotion-offer-name">Материалы курсов + личные консультации раз в неделю</div>
+                                <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price2 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price2 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)))} руб.</div>
+                                <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                ) : ""}
                 <table className="course-description-price-table">
                     <tr>
                         <th>Материалы курса</th>
@@ -75,7 +72,8 @@ export class CourseDescription extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    course: state.courses.course
+    course: state.courses.course,
+    general_info: state.general_info.general_info
 });
 
-export default connect(mapStateToProps, { getCourse })(CourseDescription);
+export default connect(mapStateToProps, { getCourse, getGeneralInfo })(CourseDescription);
