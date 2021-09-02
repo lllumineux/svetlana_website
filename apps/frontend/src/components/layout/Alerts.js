@@ -15,6 +15,12 @@ export class Alerts extends Component {
             // Auth
             if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
             if (error.msg.username) alert.error(error.msg.username.join());
+            if (error.msg.password_validation_failed) {
+                error.msg.password_validation_failed.forEach((error_msg_content) => {
+                    alert.error(error_msg_content);
+                })
+            }
+
 
             // Course
             if (error.msg.name) alert.error(`Название: ${error.msg.name.join().toLowerCase()}`);

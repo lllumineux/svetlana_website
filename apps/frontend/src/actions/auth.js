@@ -5,7 +5,7 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
-    LOGIN_FAIL, LOGOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_FAIL
+    LOGIN_FAIL, LOGOUT_SUCCESS, SIGNUP_SUCCESS, SIGNUP_FAIL, GET_ERRORS
 } from "./types";
 
 
@@ -71,9 +71,16 @@ export const signup = ({username, password}, callback_func) => dispatch => {
           callback_func();
         })
         .catch((err) => {
-          dispatch(returnErrors(err.response.data, err.response.status));
+          const errors = {
+            msg: err.response.data,
+            status: err.response.status
+          }
+          dispatch({
+            type: GET_ERRORS,
+            payload: errors
+          });
           dispatch({type: SIGNUP_FAIL})
-});
+        });
 };
 
 // LOGOUT_USER

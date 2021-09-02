@@ -1,7 +1,10 @@
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
 from apps.accounts import serializers
+from apps.accounts.models import User
 
 
 class RegisterAPI(generics.GenericAPIView):
@@ -10,7 +13,14 @@ class RegisterAPI(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+        print(serializer.data)
+        user = User(username=serializer.data['username'], email="")
+        try:
+            validate_password(request.data['password'], user)
+        except ValidationError as e:
+            return Response({"password_validation_failed": e}, status=400)
+        user.set_password(request.data['password'])
+        user.save()
         return Response(
             {
                 'user': serializers.UserSerializer(user, context=self.get_serializer_context()).data,
