@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from "react";
 import ReactDOM from "react-dom";
-import {connect, Provider} from "react-redux";
+import {Provider} from "react-redux";
 import {BrowserRouter, Switch, Route, withRouter} from "react-router-dom";
 import store from "../store";
 import {Provider as AlertProvider} from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+import AlertTemplate from "./common/AlertTemplate";
 import {loadUser} from "../actions/auth";
 
 import OnlyAuthorizedRoute from "./common/OnlyAuthorizedRoute";

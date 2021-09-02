@@ -8,6 +8,7 @@ import {
     UPDATE_ARTICLE
 } from "./types";
 import {tokenConfig} from "./auth";
+import {createMessage} from "./messages";
 
 
 // GET_ARTICLES
@@ -91,6 +92,7 @@ export const invertArticleVisibility = (id) => (dispatch, getState) => {
   axios
     .patch(`/api/articles/${id}/invert_visibility/`, {}, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({invertArticleVisibility: "Изменения сохранены"}));
       dispatch({
         type: INVERT_ARTICLE_VISIBILITY,
         payload: id

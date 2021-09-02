@@ -2,8 +2,6 @@ import React, {Component, Fragment} from "react";
 import {withAlert} from "react-alert";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {success} from "webpack-cli/lib/utils/logger";
-import {invertCourseVisibility} from "../../actions/courses";
 
 export class Alerts extends Component {
     static propTypes = {
@@ -19,12 +17,15 @@ export class Alerts extends Component {
             if (error.msg.username) alert.error(error.msg.username.join());
 
             // Course
-            if (error.msg.name) alert.error(`Название: ${error.msg.name.join()}`);
-            if (error.msg.short_description) alert.error(`Краткое описание: ${error.msg.short_description.join()}`);
-            if (error.msg.full_description) alert.error(`Полное описание: ${error.msg.full_description.join()}`);
-            if (error.msg.price1) alert.error(`Цена за материалы: ${error.msg.price1.join()}`);
-            if (error.msg.price2) alert.error(`Цена за материалы + консультации: ${error.msg.price2.join()}`);
-            if (error.msg.background_img) alert.error(`Фоновое фото курса на главной странице: ${error.msg.background_img.join()}`);
+            if (error.msg.name) alert.error(`Название: ${error.msg.name.join().toLowerCase()}`);
+            if (error.msg.short_description) alert.error(`Краткое описание: ${error.msg.short_description.join().toLowerCase()}`);
+            if (error.msg.full_description) alert.error(`Полное описание: ${error.msg.full_description.join().toLowerCase()}`);
+            if (error.msg.price1) alert.error(`Цена за материалы: ${error.msg.price1.join().toLowerCase()}`);
+            if (error.msg.price2) alert.error(`Цена за материалы + консультации: ${error.msg.price2.join().toLowerCase()}`);
+            if (error.msg.background_img) alert.error(`Фоновое фото курса на главной странице: ${error.msg.background_img.join().toLowerCase()}`);
+
+            // Articles
+            if (error.msg.content) alert.error(`Содержание статьи: ${error.msg.content.join().toLowerCase()}`);
         }
 
         if (message !== prevProps.message) {
@@ -37,6 +38,9 @@ export class Alerts extends Component {
             // Course
             if (message.deleteCourse) alert.success(message.deleteCourse);
             if (message.invertCourseVisibility) alert.success(message.invertCourseVisibility);
+
+            // Articles
+            if (message.invertArticleVisibility) alert.success(message.invertArticleVisibility);
 
             // Users
             if (message.invertUserCourseAccess) alert.success(message.invertUserCourseAccess);
