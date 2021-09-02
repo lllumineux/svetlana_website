@@ -3,6 +3,7 @@ import {withAlert} from "react-alert";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {success} from "webpack-cli/lib/utils/logger";
+import {invertCourseVisibility} from "../../actions/courses";
 
 export class Alerts extends Component {
     static propTypes = {
@@ -35,6 +36,7 @@ export class Alerts extends Component {
 
             // Course
             if (message.deleteCourse) alert.success(message.deleteCourse);
+            if (message.invertCourseVisibility) alert.success(message.invertCourseVisibility);
 
             // Users
             if (message.invertUserCourseAccess) alert.success(message.invertUserCourseAccess);

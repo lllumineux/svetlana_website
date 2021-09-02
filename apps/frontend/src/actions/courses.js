@@ -95,6 +95,7 @@ export const invertCourseVisibility = (id) => (dispatch, getState) => {
   axios
     .patch(`/api/courses/${id}/invert_visibility/`, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({invertCourseVisibility: "Изменения сохранены"}));
       dispatch({
         type: INVERT_COURSE_VISIBILITY,
         payload: id

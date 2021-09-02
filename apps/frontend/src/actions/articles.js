@@ -3,7 +3,7 @@ import {
     ADD_ARTICLE,
     DELETE_ARTICLE,
     GET_ARTICLE,
-    GET_ARTICLES,
+    GET_ARTICLES, GET_ERRORS,
     INVERT_ARTICLE_VISIBILITY,
     UPDATE_ARTICLE
 } from "./types";
@@ -47,7 +47,16 @@ export const addArticle = (data, callback_func) => (dispatch, getState) => {
       });
       callback_func();
     })
-    .catch((err) => console.log(err))
+    .catch(err => {
+        const errors = {
+            msg: err.response.data,
+            status: err.response.status
+        }
+        dispatch({
+            type: GET_ERRORS,
+            payload: errors
+        });
+    });
 };
 
 // DELETE_ARTICLE
@@ -74,7 +83,7 @@ export const updateArticle = (id, data, callback_func) => (dispatch, getState) =
       });
       callback_func();
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {})
 };
 
 // INVERT_ARTICLE_VISIBILITY

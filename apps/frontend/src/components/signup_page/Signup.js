@@ -28,7 +28,15 @@ export class Signup extends Component {
         }
         else {
             const newUser = {username: this.state.username, password: this.state.password};
-            this.props.signup(newUser);
+            this.props.signup(newUser, () => {
+                this.props.history.push({
+                    pathname: "/courses/",
+                    state: this.props.location.state && this.props.location.state.isPopupShown ? {
+                        isPopupShown: this.props.location.state.isPopupShown,
+                        popupParagraphsInfo: this.props.location.state.popupParagraphsInfo
+                    } : {}
+                });
+            });
         }
     }
 
@@ -49,7 +57,13 @@ export class Signup extends Component {
                     <div className="auth-forms-controls">
                         <button type="submit" className="hover-animation">Зарегистрироваться</button>
                         <div className="second-btn-wrapper">
-                            <Link to="/login/" className="hover-animation">Войти</Link>
+                            <Link to={{
+                                pathname: "/login/",
+                                state: this.props.location.state && this.props.location.state.isPopupShown ? {
+                                    isPopupShown: this.props.location.state.isPopupShown,
+                                    popupParagraphsInfo: this.props.location.state.popupParagraphsInfo
+                                } : {}
+                            }} className="hover-animation">Войти</Link>
                         </div>
                     </div>
                 </form>

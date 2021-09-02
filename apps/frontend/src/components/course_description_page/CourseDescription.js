@@ -2,15 +2,22 @@ import React, { Component, Fragment } from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {getCourse} from "../../actions/courses";
-import {TWO_COURSE_PROMOTION_DISCOUNT_VALUE} from "../../config";
-import {getGeneralInfo} from "../../actions/general_info";
+import {getContactInfo, getGeneralInfo} from "../../actions/general_info";
+import {PopupWindow} from "../common/PopupWindow";
+import {Link} from "react-router-dom";
 
 export class CourseDescription extends Component {
+    state = {
+        isPopupShown: false,
+        popupParagraphsInfo: []
+    }
+
     static propTypes = {
         course: PropTypes.object.isRequired,
         general_info: PropTypes.object.isRequired,
         getCourse: PropTypes.func.isRequired,
-        getGeneralInfo: PropTypes.func.isRequired
+        getGeneralInfo: PropTypes.func.isRequired,
+        getContactInfo: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -18,9 +25,28 @@ export class CourseDescription extends Component {
         this.props.getGeneralInfo();
     }
 
+    showPopup = () => {this.setState({isPopupShown: true})}
+    hidePopup = () => {this.setState({isPopupShown: false})}
+
     render() {
         return (
             <Fragment>
+                {(this.state.isPopupShown) ?
+                    <PopupWindow
+                        title="Покупка курса"
+                        content={
+                            <div className="unauthorized-buy-course-popup-window-content">
+                                <p>Для того, чтобы приобрести курс, вам сначала нужно авторизоваться!</p>
+                                <div className="authorize-btn-wrapper">
+                                    <Link to={{
+                                        pathname: "/signup/",
+                                        state: {isPopupShown: true, popupParagraphsInfo: this.state.popupParagraphsInfo}
+                                    }}>Авторизоваться</Link>
+                                </div>
+                            </div>
+                        }
+                        hidePopup={this.hidePopup}
+                    /> : ""}
                 <div className="content-header"><h2 className="title">Курс «{this.props.course.name}»</h2></div>
                 <div className="editor-rendered-content course-full-description" dangerouslySetInnerHTML={{__html: this.props.course.full_description}}/>
                 {(this.props.course.name.toLowerCase() === "осознание себя") ? (
@@ -33,13 +59,31 @@ export class CourseDescription extends Component {
                             <div className="promotion-offer">
                                 <div className="promotion-offer-name">Материалы курсов «Осознание себя» и «Принятие себя»</div>
                                 <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price1 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price1 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)))} руб.</div>
-                                <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                                <button onClick={() => {
+                                    this.setState({
+                                        popupParagraphsInfo: [{
+                                            name: `курсы «Осознание себя» и «Принятие себя» без консультаций`,
+                                            price: Math.round(this.props.course.price1 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)),
+                                            comment: `Осознание себя, Принятие себя`,
+                                        }]
+                                    });
+                                    this.showPopup();
+                                }} className="promotion-offer-buy-btn hover-animation">Купить</button>
                             </div>
                             <hr/>
                             <div className="promotion-offer">
                                 <div className="promotion-offer-name">Материалы курсов + личные консультации раз в неделю</div>
                                 <div className="promotion-offer-price"><strike>{new Intl.NumberFormat('en-US').format(this.props.course.price2 * 2)}</strike> {new Intl.NumberFormat('en-US').format(Math.round(this.props.course.price2 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)))} руб.</div>
-                                <button className="promotion-offer-buy-btn hover-animation">Купить</button>
+                                <button onClick={() => {
+                                    this.setState({
+                                        popupParagraphsInfo: [{
+                                            name: `курсы «Осознание себя» и «Принятие себя» с консультациями`,
+                                            price: Math.round(this.props.course.price2 * 2 * (1 - this.props.general_info.two_course_sale_value / 100)),
+                                            comment: `Осознание себя, Принятие себя + консультации`,
+                                        }]
+                                    });
+                                    this.showPopup();
+                                }} className="promotion-offer-buy-btn hover-animation">Купить</button>
                             </div>
                         </div>
                     </div>
@@ -63,8 +107,26 @@ export class CourseDescription extends Component {
                         </tr>
                         <tr>
                             <th/>
-                            <td><button className="course-description-buy-btn hover-animation">Купить</button></td>
-                            <td><button className="course-description-buy-btn hover-animation">Купить</button></td>
+                            <td><button onClick={() => {
+                                this.setState({
+                                    popupParagraphsInfo: [{
+                                        name: `курс «${this.props.course.name}» без консультаций`,
+                                        price: this.props.course.price1,
+                                        comment: `${this.props.course.name}`,
+                                    }]
+                                });
+                                this.showPopup();
+                            }} className="course-description-buy-btn hover-animation">Купить</button></td>
+                            <td><button onClick={() => {
+                                this.setState({
+                                    popupParagraphsInfo: [{
+                                        name: `курс «${this.props.course.name}» с консультациями`,
+                                        price: this.props.course.price2,
+                                        comment: `${this.props.course.name} + консультации`,
+                                    }]
+                                });
+                                this.showPopup();
+                            }} className="course-description-buy-btn hover-animation">Купить</button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -75,7 +137,8 @@ export class CourseDescription extends Component {
 
 const mapStateToProps = (state) => ({
     course: state.courses.course,
-    general_info: state.general_info.general_info
+    general_info: state.general_info.general_info,
+    contact_info: state.general_info.contact_info
 });
 
-export default connect(mapStateToProps, { getCourse, getGeneralInfo })(CourseDescription);
+export default connect(mapStateToProps, { getCourse, getGeneralInfo, getContactInfo })(CourseDescription);

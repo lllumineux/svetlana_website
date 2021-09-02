@@ -27,7 +27,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // LOGIN USER
-export const login = (username, password) => dispatch => {
+export const login = (username, password, callback_func) => dispatch => {
     const config = {
         headers: {
             "Content-type": "application/json"
@@ -43,6 +43,7 @@ export const login = (username, password) => dispatch => {
               type: LOGIN_SUCCESS,
               payload: res.data,
           });
+          callback_func();
         })
         .catch((err) => {
           dispatch(returnErrors(err.response.data, err.response.status));
@@ -51,7 +52,7 @@ export const login = (username, password) => dispatch => {
 };
 
 // SIGNUP USER
-export const signup = ({username, password}) => dispatch => {
+export const signup = ({username, password}, callback_func) => dispatch => {
     const config = {
         headers: {
             "Content-type": "application/json"
@@ -67,6 +68,7 @@ export const signup = ({username, password}) => dispatch => {
               type: SIGNUP_SUCCESS,
               payload: res.data,
           });
+          callback_func();
         })
         .catch((err) => {
           dispatch(returnErrors(err.response.data, err.response.status));

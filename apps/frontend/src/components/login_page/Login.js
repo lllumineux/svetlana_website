@@ -21,7 +21,19 @@ export class Login extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
-        this.props.login(this.state.username, this.state.password);
+        this.props.login(
+            this.state.username,
+            this.state.password,
+            () => {
+                this.props.history.push({
+                    pathname: "/courses/",
+                    state: this.props.location.state && this.props.location.state.isPopupShown ? {
+                        isPopupShown: this.props.location.state.isPopupShown,
+                        popupParagraphsInfo: this.props.location.state.popupParagraphsInfo
+                    } : {}
+                });
+            }
+        );
     }
 
     render() {
@@ -36,7 +48,13 @@ export class Login extends Component {
                     <div className="auth-forms-controls">
                         <button type="submit" className="hover-animation">Войти</button>
                         <div className="second-btn-wrapper">
-                            <Link to="/signup/" className="hover-animation">Зарегистрироваться</Link>
+                            <Link to={{
+                                pathname: "/signup/",
+                                state: this.props.location.state && this.props.location.state.isPopupShown ? {
+                                    isPopupShown: this.props.location.state.isPopupShown,
+                                    popupParagraphsInfo: this.props.location.state.popupParagraphsInfo
+                                } : {}
+                            }} className="hover-animation">Зарегистрироваться</Link>
                         </div>
                     </div>
                 </form>
