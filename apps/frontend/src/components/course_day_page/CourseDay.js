@@ -117,35 +117,41 @@ export class CourseDay extends Component {
                         }
                     </div>
                 </div>
-                <div className="editor-rendered-content" dangerouslySetInnerHTML={{__html: this.props.course_day.content}}/>
-                <div className="report">
-                    <h4>Отчёт по занятию</h4>
-                    <div className="warning">Будьте внимательны при написании отчёта - после его отправки у вас не будет возможности изменить данные!</div>
-                    <form onSubmit={this.onSubmit} className="report-forms">
-                        {(!this.isEmpty(this.props.report)) ? (
-                            this.props.report.items.map(report_item => (
-                                <div className="report-question-form report-question-form-disabled" key={`report-question-form_${report_item.id}`}>
-                                    <h5>{report_item.question.text}</h5>
-                                    <textarea defaultValue={report_item.answer} disabled/>
-                                </div>
-                            ))
-                        ) : (
-                            this.props.report_questions.map(report_question => (
-                                <div className="report-question-form" key={`report-question-form_${report_question.id}`}>
-                                    <h5>{report_question.text}</h5>
-                                    <textarea name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
-                                </div>
-                            ))
-                        )}
-                        <div className="submit-button-wrapper">
-                            {(!this.isEmpty(this.props.report) ? (
-                                <button disabled>Отправить</button>
+                {this.props.course_day.is_locked ? (
+                    <div className="course-locked-warning">У вас пока нет доступа к этому занятию!</div>
+                ) : (
+                    <div className="editor-rendered-content" dangerouslySetInnerHTML={{__html: this.props.course_day.content}}/>
+                )}
+                {this.props.report_questions.length > 0 ? (
+                    <div className="report">
+                        <h4>Отчёт по занятию</h4>
+                        <div className="warning">Будьте внимательны при написании отчёта - после его отправки у вас не будет возможности изменить данные!</div>
+                        <form onSubmit={this.onSubmit} className="report-forms">
+                            {(!this.isEmpty(this.props.report)) ? (
+                                this.props.report.items.map(report_item => (
+                                    <div className="report-question-form report-question-form-disabled" key={`report-question-form_${report_item.id}`}>
+                                        <h5>{report_item.question.text}</h5>
+                                        <textarea defaultValue={report_item.answer} disabled/>
+                                    </div>
+                                ))
                             ) : (
-                               <button type="submit" className="hover-animation">Отправить</button>
-                            ))}
-                        </div>
-                    </form>
-                </div>
+                                this.props.report_questions.map(report_question => (
+                                    <div className="report-question-form" key={`report-question-form_${report_question.id}`}>
+                                        <h5>{report_question.text}</h5>
+                                        <textarea name={`report_question_${report_question.id}`} placeholder="Введите ответ на вопрос" onChange={this.onChange}/>
+                                    </div>
+                                ))
+                            )}
+                            <div className="submit-button-wrapper">
+                                {(!this.isEmpty(this.props.report) ? (
+                                    <button disabled>Отправить</button>
+                                ) : (
+                                   <button type="submit" className="hover-animation">Отправить</button>
+                                ))}
+                            </div>
+                        </form>
+                    </div>
+                ) : ""}
             </Fragment>
         );
     }

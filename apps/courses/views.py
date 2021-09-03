@@ -195,7 +195,10 @@ class DayViewSet(viewsets.ModelViewSet):
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
                 return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
 
-        return Response(serializers.DaySerializer(day).data)
+        user_days = accounts_models.UserDay.objects.filter(user=request.user, day=day)
+        day_serialized = serializers.DaySerializer(day).data
+        day_serialized['is_locked'] = False
+        return Response(day_serialized if user_days else {'is_locked': True})
 
     @action(methods=['GET'], detail=False)
     def report_questions_list(self, request):
@@ -208,5 +211,8 @@ class DayViewSet(viewsets.ModelViewSet):
         if not request.user.is_staff:
             if not accounts_models.UserCourse.objects.filter(user=request.user, course=day.week.course) or day.week.course.is_hidden:
                 return Response({'detail': 'У вас недостаточно прав для выполнения данного действия.'}, status=401)
+
+        user_days = accounts_models.UserDay.objects.filter(user=request.user, day=day)
         report_questions = ReportQuestion.objects.filter(day=day)
-        return Response(ReportQuestionSerializer(report_question).data for report_question in report_questions)
+        report_questions_serialized = [ReportQuestionSerializer(report_question).data for report_question in report_questions]
+        return Response(report_questions_serialized if user_days else [])
