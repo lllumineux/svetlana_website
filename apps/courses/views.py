@@ -198,7 +198,7 @@ class DayViewSet(viewsets.ModelViewSet):
         user_days = accounts_models.UserDay.objects.filter(user=request.user, day=day)
         day_serialized = serializers.DaySerializer(day).data
         day_serialized['is_locked'] = False
-        return Response(day_serialized if user_days else {'is_locked': True})
+        return Response(day_serialized if user_days or request.user.is_staff else {'is_locked': True})
 
     @action(methods=['GET'], detail=False)
     def report_questions_list(self, request):
@@ -215,4 +215,4 @@ class DayViewSet(viewsets.ModelViewSet):
         user_days = accounts_models.UserDay.objects.filter(user=request.user, day=day)
         report_questions = ReportQuestion.objects.filter(day=day)
         report_questions_serialized = [ReportQuestionSerializer(report_question).data for report_question in report_questions]
-        return Response(report_questions_serialized if user_days else [])
+        return Response(report_questions_serialized if user_days or request.user.is_staff else [])
