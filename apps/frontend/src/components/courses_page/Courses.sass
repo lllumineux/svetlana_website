@@ -63,6 +63,7 @@
         height: 20px
 
       p
+        text-align: center
         font-size: base.$p3-size
         font-weight: 700
         margin-top: 5px
@@ -117,3 +118,51 @@
 .authorized-buy-course-popup-window-content, .authorized-buy-course-popup-window-content *
   color: base.$dark-gray-color
   line-height: 19px
+
+@media (max-width: base.$tablet-l)
+  .courses
+    display: flex
+    flex-direction: column
+
+    .course:nth-child(n+2)
+      margin-top: 35px
+
+    .course
+      height: auto
+      display: block
+      width: 100%
+      margin-left: 0!important
+
+      .description
+        height: auto
+
+    .add-course-button
+      box-sizing: border-box
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 29px 43px
+
+@media (max-width: base.$tablet-m)
+  .courses .course
+    h3, .description, .action-buttons
+      padding-left: 7.5vw
+      padding-right: 7.5vw
+
+    .course-locked-warning
+      padding: 3.5vw
+      .locked-warning-controls
+        .locked-warning-controls-buy, .locked-warning-controls-description
+          padding-left: 18px
+          padding-right: 18px
+
+
+@media (max-width: 465px)
+  .courses .course .action-buttons
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+
+    *:nth-child(n+2)
+      margin-left: 0

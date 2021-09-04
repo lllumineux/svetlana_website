@@ -29,7 +29,7 @@ export class Reports extends Component {
                                 {report.items.map(report_item => (
                                     <div className="report-question-form-disabled" key={`report-question-form_${report_item.id}`}>
                                         <h5>{report_item.question.text}</h5>
-                                        <input type="text" defaultValue={report_item.answer} disabled/>
+                                        <textarea defaultValue={report_item.answer} disabled/>
                                     </div>
                                 ))}
                             </div>

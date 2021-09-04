@@ -113,3 +113,53 @@
       border-radius: 100px
       padding: 11px 72px
       margin: 17px auto 0
+
+@media (max-width: base.$tablet-l)
+  .course-description-price-table tr
+    td, th
+      padding-right: 5vw
+      padding-left: 5vw
+
+@media (max-width: 916px)
+    .course-description-price-table tr
+      td, th
+        padding-right: 1vw
+        padding-left: 1vw
+
+    .course-description-promotion-banner
+      display: flex
+      flex-direction: column
+
+      .promotion-info
+        box-sizing: border-box
+        width: 100%
+
+      .promotion-offers
+        box-sizing: border-box
+        display: flex
+        justify-content: space-between
+        width: 100%
+        padding-top: 0
+
+@media (max-width: base.$tablet-m)
+  .course-full-description
+    padding: 7.5vw
+
+  .course-description-price-table .course-description-buy-btn
+    padding-left: 18px
+    padding-right: 18px
+
+  .course-description-promotion-banner
+    .promotion-info
+      padding: 7.5vw
+
+    .promotion-offers
+      padding: 0 7.5vw 7.5vw 7.5vw
+
+@media (max-width: 430px)
+  .course-description-price-table tr
+    td, th
+      font-size: base.$p3-size
+
+  .course-description-promotion-banner .promotion-offers .promotion-offer .promotion-offer-name
+    font-size: base.$p3-size

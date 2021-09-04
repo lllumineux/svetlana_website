@@ -86,6 +86,7 @@ var alertStyle = {
   border: '2px solid #efefef',
   fontFamily: 'Montserrat',
   width: '400px',
+  maxWidth: '90vw',
   boxSizing: 'border-box'
 };
 

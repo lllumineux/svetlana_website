@@ -96,6 +96,7 @@ export class Main extends Component {
                             }
                         </ul>
                     </div>
+                    <div/>
                     <img className="scroll-down-icon" src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iMzciIGhlaWdodD0iMzciIHZpZXdCb3g9IjAgMCAzNyAzNyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik0xOC41MDk4IDI4LjE1NzFDMTguNzIzMyAyOC4xNTc1IDE4LjkyODIgMjguMDczIDE5LjA3OTMgMjcuOTIyMkwzNi43NzQyIDEwLjIyNzNDMzcuMDgyOCA5LjkwNzgzIDM3LjA3MzkgOS4zOTg2MyAzNi43NTQ1IDkuMDlDMzYuNDQyNyA4Ljc4ODk4IDM1Ljk0ODYgOC43ODg5OCAzNS42MzcgOS4wOUwxOC41MDk5IDI2LjIxNTVMMS4zODQ0NyA5LjA4ODQxQzEuMDc1ODQgOC43Njg5MiAwLjU2NjcxMSA4Ljc2MDEgMC4yNDcxNDcgOS4wNjg2NkMtMC4wNzIzNDE5IDkuMzc3MjkgLTAuMDgxMTYxNSA5Ljg4NjQyIDAuMjI3MzkgMTAuMjA2QzAuMjMzODc1IDEwLjIxMjcgMC4yNDA0MzcgMTAuMjE5MyAwLjI0NzE0NyAxMC4yMjU3TDE3Ljk0MiAyNy45MjA2QzE4LjA5MjUgMjguMDcxNiAxOC4yOTY4IDI4LjE1NjYgMTguNTA5OCAyOC4xNTcxWiIgZmlsbD0id2hpdGUiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJjbGlwMCI+CjxyZWN0IHdpZHRoPSIzNyIgaGVpZ2h0PSIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0ibWF0cml4KC0xIDAgMCAxIDM3IDApIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==" alt="Scroll down icon"/>
                 </div>
                 <div className="greeting-video-wrapper">
@@ -103,7 +104,7 @@ export class Main extends Component {
                         url={STATIC_FILES_PATH + this.props.general_info.greeting_video.split("/").pop()}
                         controls={true}
                         width="80vw"
-                        height="80vh"
+                        height="45vw"
                         light={STATIC_FILES_PATH + "greeting_video_preview.jpg"}
                         playing={true}
                         playIcon={<img src="data:image/svg+xml;base64, PHN2ZyB3aWR0aD0iNjIiIGhlaWdodD0iNjIiIHZpZXdCb3g9IjAgMCA2MiA2MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik00MC45NzA5IDI5Ljc3NjFMMjguNDE4IDIwLjY1MTFDMjcuOTU3MyAyMC4zMTcxIDI3LjM0NTggMjAuMjY2OCAyNi44NDA4IDIwLjUyNjNDMjYuMzMxOSAyMC43ODM4IDI2LjAxNCAyMS4zMDY5IDI2LjAxNCAyMS44NzIyVjQwLjExNjFDMjYuMDE0IDQwLjY4NzQgMjYuMzMxOSA0MS4yMDg1IDI2Ljg0MDggNDEuNDY2QzI3LjA1NjEgNDEuNTc0NiAyNy4yOTE1IDQxLjYyODkgMjcuNTI4OCA0MS42Mjg5QzI3LjgzODYgNDEuNjI4OSAyOC4xNTI1IDQxLjUzMDMgMjguNDE4IDQxLjMzNTJMNDAuOTcwOSAzMi4yMTgyQzQxLjM2NzIgMzEuOTI2NSA0MS41OTg2IDMxLjQ3NTkgNDEuNTk4NiAzMC45OTcxQzQxLjYwMDYgMzAuNTEwMyA0MS4zNjMyIDMwLjA2MTcgNDAuOTcwOSAyOS43NzYxWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTU5LjcyNjUgMzAuOTU4QzU5LjcyNjUgNDYuODIzMiA0Ni44NjUyIDU5LjY4NDUgMzEgNTkuNjg0NUMxNS4xMzQ4IDU5LjY4NDUgMi4yNzM0NCA0Ni44MjMyIDIuMjczNDQgMzAuOTU4QzIuMjczNDQgMTUuMDkyOCAxNS4xMzQ4IDIuMjMxNDUgMzEgMi4yMzE0NUM0Ni44NjUyIDIuMjMxNDUgNTkuNzI2NSAxNS4wOTI4IDU5LjcyNjUgMzAuOTU4WiIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDAiPgo8cmVjdCB3aWR0aD0iNjAuNDUzMSIgaGVpZ2h0PSI2MC40NTMxIiBmaWxsPSJ3aGl0ZSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC43NzM0MzggMC43MzE0NDUpIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==" alt="Play icon"/>}

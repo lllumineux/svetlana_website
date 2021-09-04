@@ -1,36 +1,107 @@
 @use "../common/base"
 
 .header
-    display: flex
-    justify-content: space-between
-    align-items: center
-    padding: 28px 69px 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 28px 69px 0
 
 .header
-    *
-        font-size: base.$p3-size
+  *
+    font-size: base.$p3-size
 
-    .admin-nav a
-        color: #000
-        text-decoration: none
-        margin-right: 53px
+  .header-menu-btn
+    display: none
 
-    .profile-nav
-        display: flex
-        align-items: center
+    img
+      width: 20px
+      height: 20px
 
-        .user-nickname
-            font-weight: 700
-            margin-right: 26px
+  .user-nav a
+    color: #000
+    text-decoration: none
+    margin-right: 53px
 
-        .logout
-            color: base.$red-color
-            background: base.$light-gray-color
-            border-radius: 100px
-            padding: 5px 26px
+  .profile-nav
+    display: flex
+    align-items: center
 
-        .login
-            color: base.$white-color
-            background: base.$black-color
-            border-radius: 100px
-            padding: 5px 26px
+    .user-nickname
+      font-weight: 700
+      margin-right: 26px
+
+    .logout
+      color: base.$red-color
+      background: base.$light-gray-color
+      border-radius: 100px
+      padding: 5px 26px
+
+    .login
+      color: base.$white-color
+      background: base.$black-color
+      border-radius: 100px
+      padding: 5px 26px
+
+.menu-wrapper
+  z-index: 999
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  background-color: base.$white-color
+  left: 0
+  top: 0
+  width: 100vw
+  height: 100vh
+
+  .menu-close-btn
+    position: fixed
+    top: 28px
+    right: 7.5vw
+    width: 20px
+    height: 20px
+
+  .menu-content
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    .user-nickname
+      font-weight: 700
+
+    .menu-user-nav
+      display: flex
+      flex-direction: column
+      align-items: center
+      overflow-y: auto
+      padding: 40px 7.5vw
+
+      a
+        color: base.$black-color
+        text-align: center
+        max-width: 300px
+
+      a:nth-child(n+2)
+        margin-top: 20px
+
+    .logout
+      color: base.$red-color
+      background: base.$light-gray-color
+      border-radius: 100px
+      padding: 5px 26px
+
+@media (max-width: base.$tablet-l)
+  .header
+    padding-left: 7.5vw
+    padding-right: 7.5vw
+
+    .header-menu-btn
+      display: block
+
+    .user-nav
+      display: none
+
+    .content
+      .content-header
+        padding-right: 7.5vw

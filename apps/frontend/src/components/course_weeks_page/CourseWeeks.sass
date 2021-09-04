@@ -56,6 +56,7 @@
         height: 20px
 
       p
+        text-align: center
         font-size: base.$p3-size
         font-weight: 700
         margin-top: 5px
@@ -66,3 +67,9 @@
   .week[data-locked="true"]
     h3, .description
       opacity: .2
+
+@media (max-width: base.$tablet-m)
+  .weeks .week
+    h3, .description, .action-buttons
+      padding-left: 7.5vw
+      padding-right: 7.5vw

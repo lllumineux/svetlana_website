@@ -175,8 +175,48 @@ html, body, #app
         img
           width: 10px
 
+      .slider-control
+        display: flex
+        align-items: center
+
 .editor-rendered-content *
   font-family: "Rubik", sans-serif
 
 .footer
   flex-shrink: 0
+
+@media (max-width: base.$tablet-l)
+  .content
+    width: 85vw
+
+    .content-header
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-start
+
+    .content-controls
+      margin-top: 20px
+
+  .content .content-header .title
+    font-size: base.$h4-size
+
+@media (max-width: base.$mobile-s)
+  .content .content-header
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    .title
+      text-align: center
+
+    .content-controls
+      display: flex
+      flex-direction: column
+
+      .addition
+        margin-right: 0!important
+
+      .slider-control
+        margin-top: 10px

@@ -33,8 +33,12 @@ export class Footer extends Component {
                                 <a href={this.props.contact_info.instagram_link} target="_blank">{this.props.contact_info.instagram_alias}</a>
                             </div>
                         </div>
-                        <div>&copy; Светлана Ганиева {new Date().getFullYear()}</div>
-                        <a href="https://suleimanoff.me/" target="_blank" className="website_developer">разработано lllumineux</a>
+                        <div className="copyright">&copy; Светлана Ганиева {new Date().getFullYear()}</div>
+                        <div className="extra-info">
+                            <div className="copyright-tablet">&copy; Светлана Ганиева {new Date().getFullYear()}</div>
+                            <a href="https://suleimanoff.me/" target="_blank" className="website_developer">разработано lllumineux</a>
+                        </div>
+
                     </footer>
                 ) : ""}
             </Fragment>

@@ -46,3 +46,23 @@
     .popup-window-content::-webkit-scrollbar-thumb
       background: base.$dark-gray-color
       border-radius: 100px
+
+@media (max-width: 810px)
+  .overlay .popup-window
+    overflow-y: auto
+    box-sizing: border-box
+    border-radius: 0
+    width: 100vw
+    height: 100vh
+
+    .popup-window-content
+      overflow-y: hidden
+      max-height: none
+
+@media (max-width: base.$tablet-m)
+  .overlay .popup-window
+    padding-left: 7.5vw
+    padding-right: 7.5vw
+
+    .popup-window-close-btn
+      right: -10px

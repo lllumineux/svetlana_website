@@ -33,12 +33,19 @@
       h5
         font-weight: 600
 
-      input:disabled
+      textarea:disabled
         background-color: base.$light-gray-color
         color: base.$dark-gray-color
         font-size: base.$p2-size
-        border-radius: 100px
+        border-radius: 10px
         box-sizing: border-box
         width: 100%
         padding: 11px 15px
         margin-top: 5px
+        min-height: 100px
+        resize: vertical
+
+@media (max-width: base.$tablet-m)
+  .reports .report
+    padding-left: 7.5vw
+    padding-right: 7.5vw
