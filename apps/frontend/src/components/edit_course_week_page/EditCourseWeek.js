@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getCourseWeek, updateCourseWeek} from "../../actions/course_weeks";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {hideLoader, showLoader, showFooter, showHeader} from "../../actions/page_management";
 
 export class EditCourseWeek extends Component {
     state = {
@@ -23,6 +23,7 @@ export class EditCourseWeek extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getCourseWeek(this.state.course_id, this.state.week_number);
@@ -34,6 +35,7 @@ export class EditCourseWeek extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
+        this.props.showLoader();
         const formData = new FormData();
         if (this.state.short_description !== "") {
             formData.append('short_description', this.state.short_description);
@@ -68,4 +70,4 @@ const mapStateToProps = (state) => ({
     course_week: state.course_weeks.course_week,
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getCourseWeek, updateCourseWeek })(EditCourseWeek);
+export default connect(mapStateToProps, { hideLoader, showLoader, showHeader, showFooter, getCourseWeek, updateCourseWeek })(EditCourseWeek);

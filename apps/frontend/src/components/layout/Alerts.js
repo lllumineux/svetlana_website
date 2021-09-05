@@ -47,6 +47,7 @@ export class Alerts extends Component {
             if (message.invertCourseVisibility) alert.success(message.invertCourseVisibility);
 
             // Articles
+            if (message.deleteArticle) alert.success(message.deleteArticle);
             if (message.invertArticleVisibility) alert.success(message.invertArticleVisibility);
 
             // Users

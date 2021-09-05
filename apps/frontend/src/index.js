@@ -3,6 +3,7 @@ import App from "./components/App";
 
 // Plugins
 import CarouselStyles from '@brainhubeu/react-carousel/lib/style.css';
+import LoaderStyles from "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 // Styles import
 import BaseStyles from "./components/common/base.sass"
@@ -12,6 +13,7 @@ import AuthFormsStyles from "./components/common/AuthForms.sass"
 
 import HeaderStyles from "./components/layout/Header.sass"
 import FooterStyles from "./components/layout/Footer.sass"
+import SpinningLoaderStyles from "./components/layout/Loader.sass"
 
 import MainStyles from "./components/main_page/Main.sass"
 import CourseDescriptionStyles from "./components/course_description_page/CourseDescription.sass"

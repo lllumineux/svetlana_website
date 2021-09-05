@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import {addCourse} from "../../actions/courses";
 import {Editor} from "@tinymce/tinymce-react";
 import {tinyEditorSettings} from "../common/tiny_editor_config"
-import {showFooter, showHeader} from "../../actions/page_management";
+import {
+    hideLoader, showLoader,
+    showFooter,
+    showHeader
+} from "../../actions/page_management";
 
 export class AddCourse extends Component {
     state = {
@@ -21,6 +25,7 @@ export class AddCourse extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
     }
@@ -36,6 +41,7 @@ export class AddCourse extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
+        this.props.showLoader();
         const formData = new FormData();
         formData.append('name', this.state.name);
         formData.append('short_description', this.state.short_description);
@@ -86,4 +92,4 @@ export class AddCourse extends Component {
     };
 }
 
-export default connect(null, { showHeader, showFooter, addCourse })(AddCourse);
+export default connect(null, { hideLoader, showLoader, showHeader, showFooter, addCourse })(AddCourse);

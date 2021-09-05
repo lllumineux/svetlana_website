@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getReports} from "../../actions/reports";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {hideLoader, showFooter, showHeader} from "../../actions/page_management";
 
 export class Reports extends Component {
     static propTypes = {
@@ -10,6 +10,7 @@ export class Reports extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getReports();
@@ -46,4 +47,4 @@ const mapStateToProps = (state) => ({
     reports: state.reports.reports
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getReports })(Reports);
+export default connect(mapStateToProps, { hideLoader, showHeader, showFooter, getReports })(Reports);

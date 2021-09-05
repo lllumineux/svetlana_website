@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../../actions/auth";
-import {hideFooter, hideHeader} from "../../actions/page_management";
+import {hideLoader, hideFooter, hideHeader} from "../../actions/page_management";
 
 export class Login extends Component {
     state = {
@@ -17,6 +17,7 @@ export class Login extends Component {
     }
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.hideHeader();
         this.props.hideFooter();
     }
@@ -73,4 +74,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { hideHeader, hideFooter, login })(Login)
+export default connect(mapStateToProps, { hideLoader, hideHeader, hideFooter, login })(Login)

@@ -5,7 +5,11 @@ import {Link} from "react-router-dom";
 import {getCourseWeeks} from "../../actions/course_weeks";
 import {getCourse} from "../../actions/courses";
 import {loadUser} from "../../actions/auth";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {
+    hideLoader,
+    showFooter,
+    showHeader
+} from "../../actions/page_management";
 
 export class CourseWeeks extends Component {
     static propTypes = {
@@ -15,6 +19,7 @@ export class CourseWeeks extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getCourseWeeks(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
@@ -67,4 +72,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getCourseWeeks })(CourseWeeks);
+export default connect(mapStateToProps, { hideLoader, showHeader, showFooter, getCourse, getCourseWeeks })(CourseWeeks);

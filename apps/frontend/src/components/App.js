@@ -43,6 +43,7 @@ import Articles from "./articles_page/Articles";
 import EditArticle from "./edit_article_page/EditArticle";
 import AddArticle from "./add_article_page/AddArticle";
 import Article from "./article_page/Article";
+import SpinningLoader from "./layout/Loader";
 
 const alertOptions = {
     timeout: 3000,
@@ -76,6 +77,7 @@ class App extends Component {
                     <Provider store={store}>
                         <Fragment>
                             {(location.pathname === "/") ? <style>{"body {background: #000;} #app .content {width: 100%!important; padding: 0!important;}"}</style> : ""}
+                            <SpinningLoader />
                             <Header settings={headerSettings}/>
                             <Alerts />
                             <div className="content">

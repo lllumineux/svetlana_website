@@ -4,7 +4,11 @@ import PropTypes from "prop-types";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
 import {addArticle} from "../../actions/articles";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {
+    hideLoader, showLoader,
+    showFooter,
+    showHeader
+} from "../../actions/page_management";
 
 export class AddArticle extends Component {
     state = {
@@ -24,6 +28,7 @@ export class AddArticle extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
     }
@@ -35,6 +40,7 @@ export class AddArticle extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
+        this.props.showLoader();
         const formData = new FormData();
         if (this.state.name !== "") {
             formData.append('name', this.state.name);
@@ -66,4 +72,4 @@ export class AddArticle extends Component {
     };
 }
 
-export default connect(null, { showHeader, showFooter, addArticle })(AddArticle);
+export default connect(null, { hideLoader, showLoader, showHeader, showFooter, addArticle })(AddArticle);

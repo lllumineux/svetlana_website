@@ -3,7 +3,7 @@ import {
     ADD_ARTICLE,
     DELETE_ARTICLE,
     GET_ARTICLE,
-    GET_ARTICLES, GET_ERRORS,
+    GET_ARTICLES, GET_ERRORS, HIDE_LOADER,
     INVERT_ARTICLE_VISIBILITY,
     UPDATE_ARTICLE
 } from "./types";
@@ -49,6 +49,10 @@ export const addArticle = (data, callback_func) => (dispatch, getState) => {
       callback_func();
     })
     .catch(err => {
+        dispatch({
+            type: HIDE_LOADER,
+            payload: false
+        });
         const errors = {
             msg: err.response.data,
             status: err.response.status
@@ -65,6 +69,7 @@ export const deleteArticle = (id) => (dispatch, getState) => {
   axios
     .delete(`/api/articles/${id}/`, tokenConfig(getState))
     .then(res => {
+      dispatch(createMessage({deleteArticle: "Статья удалена"}));
       dispatch({
         type: DELETE_ARTICLE,
         payload: id
@@ -84,7 +89,7 @@ export const updateArticle = (id, data, callback_func) => (dispatch, getState) =
       });
       callback_func();
     })
-    .catch((err) => {})
+    .catch((err) => console.log(err))
 };
 
 // INVERT_ARTICLE_VISIBILITY

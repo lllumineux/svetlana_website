@@ -5,7 +5,11 @@ import {getCourse} from "../../actions/courses";
 import {getContactInfo, getGeneralInfo} from "../../actions/general_info";
 import {PopupWindow} from "../common/PopupWindow";
 import {Link} from "react-router-dom";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {
+    hideLoader,
+    showFooter,
+    showHeader
+} from "../../actions/page_management";
 
 export class CourseDescription extends Component {
     state = {
@@ -22,6 +26,7 @@ export class CourseDescription extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
@@ -144,4 +149,4 @@ const mapStateToProps = (state) => ({
     contact_info: state.general_info.contact_info
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getGeneralInfo, getContactInfo })(CourseDescription);
+export default connect(mapStateToProps, { hideLoader, showHeader, showFooter, getCourse, getGeneralInfo, getContactInfo })(CourseDescription);

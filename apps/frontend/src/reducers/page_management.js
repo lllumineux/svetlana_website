@@ -1,13 +1,13 @@
 import {
-    ADD_NUMBER,
-    GET_NUMBERS, HIDE_FOOTER,
-    HIDE_HEADER, SHOW_FOOTER,
-    SHOW_HEADER
+  HIDE_FOOTER,
+  HIDE_HEADER, HIDE_LOADER, SHOW_FOOTER,
+  SHOW_HEADER, SHOW_LOADER
 } from "../actions/types";
 
 const initialState = {
   isHeaderShown: false,
-  isFooterShown: false
+  isFooterShown: false,
+  isLoading: true
 };
 
 export default function (state= initialState, action) {
@@ -15,22 +15,32 @@ export default function (state= initialState, action) {
     case SHOW_HEADER:
       return {
         ...state,
-        isHeaderShown: true,
+        isHeaderShown: action.payload,
       };
     case HIDE_HEADER:
       return {
         ...state,
-        isHeaderShown: false,
+        isHeaderShown: action.payload,
       };
-        case SHOW_FOOTER:
+    case SHOW_FOOTER:
       return {
         ...state,
-        isFooterShown: true,
+        isFooterShown: action.payload,
       };
     case HIDE_FOOTER:
       return {
         ...state,
-        isFooterShown: false,
+        isFooterShown: action.payload,
+      };
+    case SHOW_LOADER:
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    case HIDE_LOADER:
+      return {
+        ...state,
+        isLoading: action.payload
       };
     default:
       return state;

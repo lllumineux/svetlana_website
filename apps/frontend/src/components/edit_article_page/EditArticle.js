@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
 import {getArticle, updateArticle} from "../../actions/articles";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {hideLoader, showLoader, showFooter, showHeader} from "../../actions/page_management";
 
 export class EditArticle extends Component {
     state = {
@@ -19,6 +19,7 @@ export class EditArticle extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getArticle(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
@@ -31,6 +32,7 @@ export class EditArticle extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
+        this.props.showLoader();
         const formData = new FormData();
         if (this.state.name !== "") {
             formData.append('name', this.state.name);
@@ -65,4 +67,4 @@ const mapStateToProps = (state) => ({
     article: state.articles.article,
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getArticle, updateArticle })(EditArticle);
+export default connect(mapStateToProps, { hideLoader, showLoader, showHeader, showFooter, getArticle, updateArticle })(EditArticle);

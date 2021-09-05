@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getGeneralInfo, updateGeneralInfo} from "../../actions/general_info";
 import {getNumbers} from "../../actions/numbers";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {hideLoader, showFooter, showHeader} from "../../actions/page_management";
 
 export class Numbers extends Component {
     state = {
@@ -19,6 +19,7 @@ export class Numbers extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getNumbers();
@@ -64,4 +65,4 @@ const mapStateToProps = (state) => ({
     general_info: state.general_info.general_info
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getNumbers, getGeneralInfo, updateGeneralInfo })(Numbers);
+export default connect(mapStateToProps, { hideLoader, showHeader, showFooter, getNumbers, getGeneralInfo, updateGeneralInfo })(Numbers);

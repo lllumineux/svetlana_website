@@ -1,10 +1,16 @@
-import {HIDE_FOOTER, HIDE_HEADER, SHOW_FOOTER, SHOW_HEADER} from "./types";
+import {
+    HIDE_FOOTER,
+    HIDE_HEADER, HIDE_LOADER,
+    SHOW_FOOTER,
+    SHOW_HEADER,
+    SHOW_LOADER
+} from "./types";
 
 // SHOW HEADER
 export const showHeader = () => (dispatch) => {
     dispatch({
         type: SHOW_HEADER,
-        payload: null
+        payload: true
     });
 };
 
@@ -12,7 +18,7 @@ export const showHeader = () => (dispatch) => {
 export const hideHeader = () => (dispatch) => {
     dispatch({
         type: HIDE_HEADER,
-        payload: null
+        payload: false
     });
 };
 
@@ -20,7 +26,7 @@ export const hideHeader = () => (dispatch) => {
 export const showFooter = () => (dispatch) => {
     dispatch({
         type: SHOW_FOOTER,
-        payload: null
+        payload: true
     });
 };
 
@@ -28,6 +34,22 @@ export const showFooter = () => (dispatch) => {
 export const hideFooter = () => (dispatch) => {
     dispatch({
         type: HIDE_FOOTER,
-        payload: null
+        payload: false
+    });
+};
+
+// SHOW LOADER
+export const showLoader = () => (dispatch) => {
+    dispatch({
+        type: SHOW_LOADER,
+        payload: true
+    });
+};
+
+// HIDE LOADER
+export const hideLoader = () => (dispatch) => {
+    dispatch({
+        type: HIDE_LOADER,
+        payload: false
     });
 };

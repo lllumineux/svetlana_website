@@ -5,7 +5,7 @@ import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
 import {getGeneralInfo, updateGeneralInfo} from "../../actions/general_info";
 import {addScreenshot, deleteScreenshot, getScreenshots, updateScreenshot} from "../../actions/screenshots";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {hideLoader, showLoader, showFooter, showHeader} from "../../actions/page_management";
 
 export class EditGeneralInfo extends Component {
     state = {
@@ -27,6 +27,7 @@ export class EditGeneralInfo extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getGeneralInfo();
@@ -56,6 +57,7 @@ export class EditGeneralInfo extends Component {
     // Submit listener
     onSubmit = e => {
         e.preventDefault();
+        this.props.showLoader();
         const formData = new FormData();
         if (this.state.about_me_list !== "") {
             formData.append('about_me_list', this.state.about_me_list);
@@ -144,4 +146,4 @@ const mapStateToProps = (state) => ({
     screenshots: state.screenshots.screenshots
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getGeneralInfo, updateGeneralInfo, getScreenshots, deleteScreenshot, addScreenshot, updateScreenshot })(EditGeneralInfo);
+export default connect(mapStateToProps, { hideLoader, showLoader, showHeader, showFooter, getGeneralInfo, updateGeneralInfo, getScreenshots, deleteScreenshot, addScreenshot, updateScreenshot })(EditGeneralInfo);

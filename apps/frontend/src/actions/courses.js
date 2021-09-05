@@ -8,7 +8,7 @@ import {
     ADD_COURSE,
     GET_COURSE,
     UPDATE_COURSE,
-    GET_ERRORS
+    GET_ERRORS, HIDE_LOADER
 } from "./types";
 import {tokenConfig} from "./auth";
 
@@ -51,6 +51,10 @@ export const addCourse = (course, callback_func) => (dispatch, getState) => {
       callback_func();
     })
     .catch(err => {
+        dispatch({
+            type: HIDE_LOADER,
+            payload: false
+        });
         const errors = {
             msg: err.response.data,
             status: err.response.status

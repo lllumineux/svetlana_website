@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {signup} from "../../actions/auth";
 import {createMessage} from "../../actions/messages";
-import {hideFooter, hideHeader} from "../../actions/page_management";
+import {hideLoader, hideFooter, hideHeader} from "../../actions/page_management";
 
 export class Signup extends Component {
     state = {
@@ -19,6 +19,7 @@ export class Signup extends Component {
     }
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.hideHeader();
         this.props.hideFooter();
     }
@@ -78,4 +79,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { hideHeader, hideFooter, signup, createMessage })(Signup)
+export default connect(mapStateToProps, { hideLoader, hideHeader, hideFooter, signup, createMessage })(Signup)

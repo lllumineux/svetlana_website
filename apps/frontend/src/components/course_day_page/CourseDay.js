@@ -9,7 +9,11 @@ import {
     getReportByDay,
     getReportQuestionsByDay
 } from "../../actions/reports";
-import {showFooter, showHeader} from "../../actions/page_management";
+import {
+    hideLoader,
+    showFooter,
+    showHeader
+} from "../../actions/page_management";
 
 export class CourseDay extends Component {
     state = {
@@ -29,6 +33,7 @@ export class CourseDay extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.showHeader();
         this.props.showFooter();
         this.props.getCourse(this.state.course_id);
@@ -170,4 +175,4 @@ const mapStateToProps = (state) => ({
     report: state.reports.report
 });
 
-export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getCourseDay, getReportQuestionsByDay, createReport, getReportByDay })(CourseDay);
+export default connect(mapStateToProps, { hideLoader, showHeader, showFooter, getCourse, getCourseDay, getReportQuestionsByDay, createReport, getReportByDay })(CourseDay);

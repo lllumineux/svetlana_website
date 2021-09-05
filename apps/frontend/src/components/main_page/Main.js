@@ -10,7 +10,7 @@ import {getCourses} from "../../actions/courses";
 import {PopupWindow} from "../common/PopupWindow";
 import {getScreenshots} from "../../actions/screenshots";
 import Carousel, { arrowsPlugin, slidesToShowPlugin } from '@brainhubeu/react-carousel';
-import {hideHeader, showFooter} from "../../actions/page_management";
+import {hideLoader, hideHeader, showFooter} from "../../actions/page_management";
 
 export class Main extends Component {
     state = {
@@ -28,6 +28,7 @@ export class Main extends Component {
     };
 
     componentDidMount() {
+        (document.readyState === "complete") ? this.props.hideLoader() : window.addEventListener('load', this.props.hideLoader);
         this.props.hideHeader();
         this.props.showFooter();
         this.props.getGeneralInfo();
@@ -178,4 +179,4 @@ const mapStateToProps = (state) => ({
     screenshots: state.screenshots.screenshots
 });
 
-export default connect(mapStateToProps, { hideHeader, showFooter, addNumber, getGeneralInfo, getCourses, getScreenshots })(Main);
+export default connect(mapStateToProps, { hideLoader, hideHeader, showFooter, addNumber, getGeneralInfo, getCourses, getScreenshots })(Main);
