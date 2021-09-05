@@ -118,6 +118,7 @@ export class Header extends Component {
                                     <button className="logout hover-animation" onClick={() => {
                                         this.props.showLoader();
                                         this.props.logout();
+                                        window.location.replace("/login/");
                                     }}>Выйти</button>
                                 </Fragment>
                             ) : (
