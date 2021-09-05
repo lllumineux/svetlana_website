@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {getCourse} from "../../actions/courses";
 import {getCourseDays} from "../../actions/course_days";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class CourseDays extends Component {
     state = {
@@ -18,6 +19,8 @@ export class CourseDays extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourseDays(this.state.course_id, this.state.week_number);
         this.props.getCourse(this.state.course_id);
     }
@@ -120,4 +123,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseDays })(CourseDays);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getCourseDays })(CourseDays);

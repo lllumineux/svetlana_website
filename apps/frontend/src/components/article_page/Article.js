@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getArticle} from "../../actions/articles";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class Article extends Component {
     static propTypes = {
@@ -10,6 +11,8 @@ export class Article extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getArticle(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
 
@@ -27,4 +30,4 @@ const mapStateToProps = (state) => ({
     article: state.articles.article,
 });
 
-export default connect(mapStateToProps, { getArticle })(Article);
+export default connect(mapStateToProps, { showHeader, showFooter, getArticle })(Article);

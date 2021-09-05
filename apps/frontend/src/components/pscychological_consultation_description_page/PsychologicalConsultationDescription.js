@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getContactInfo, getGeneralInfo} from "../../actions/general_info";
 import {PopupWindow} from "../common/PopupWindow";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class PsychologicalConsultationDescription extends Component {
     state = {
@@ -22,6 +23,8 @@ export class PsychologicalConsultationDescription extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getGeneralInfo();
     }
 
@@ -55,4 +58,4 @@ const mapStateToProps = (state) => ({
     contact_info: state.general_info.contact_info
 });
 
-export default connect(mapStateToProps, { getGeneralInfo, getContactInfo })(PsychologicalConsultationDescription);
+export default connect(mapStateToProps, { showHeader, showFooter, getGeneralInfo, getContactInfo })(PsychologicalConsultationDescription);

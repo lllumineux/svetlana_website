@@ -5,6 +5,7 @@ import {getCourseDay, updateCourseDay} from "../../actions/course_days";
 import {Editor} from "@tinymce/tinymce-react";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {getReportQuestionsByDay} from "../../actions/reports";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class EditCourseDay extends Component {
     state = {
@@ -26,6 +27,8 @@ export class EditCourseDay extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourseDay(this.state.course_id, this.state.week_number, this.state.day_number);
         this.props.getReportQuestionsByDay(this.state.course_id, this.state.week_number, this.state.day_number);
     }
@@ -108,4 +111,4 @@ const mapStateToProps = (state) => ({
     course_day: state.course_days.course_day,
 });
 
-export default connect(mapStateToProps, { getCourseDay, updateCourseDay, getReportQuestionsByDay })(EditCourseDay);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourseDay, updateCourseDay, getReportQuestionsByDay })(EditCourseDay);

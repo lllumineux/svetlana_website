@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
 import {getArticle, updateArticle} from "../../actions/articles";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class EditArticle extends Component {
     state = {
@@ -18,6 +19,8 @@ export class EditArticle extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getArticle(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
 
@@ -62,4 +65,4 @@ const mapStateToProps = (state) => ({
     article: state.articles.article,
 });
 
-export default connect(mapStateToProps, { getArticle, updateArticle })(EditArticle);
+export default connect(mapStateToProps, { showHeader, showFooter, getArticle, updateArticle })(EditArticle);

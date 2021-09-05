@@ -3,6 +3,7 @@ import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {login} from "../../actions/auth";
+import {hideFooter, hideHeader} from "../../actions/page_management";
 
 export class Login extends Component {
     state = {
@@ -13,6 +14,11 @@ export class Login extends Component {
     static propTypes = {
         login: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
+    }
+
+    componentDidMount() {
+        this.props.hideHeader();
+        this.props.hideFooter();
     }
 
     // Input form changes listeners
@@ -67,4 +73,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { login })(Login)
+export default connect(mapStateToProps, { hideHeader, hideFooter, login })(Login)

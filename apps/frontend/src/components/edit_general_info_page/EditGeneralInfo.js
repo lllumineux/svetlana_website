@@ -5,6 +5,7 @@ import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
 import {getGeneralInfo, updateGeneralInfo} from "../../actions/general_info";
 import {addScreenshot, deleteScreenshot, getScreenshots, updateScreenshot} from "../../actions/screenshots";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class EditGeneralInfo extends Component {
     state = {
@@ -26,6 +27,8 @@ export class EditGeneralInfo extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getGeneralInfo();
         this.props.getScreenshots();
     }
@@ -141,4 +144,4 @@ const mapStateToProps = (state) => ({
     screenshots: state.screenshots.screenshots
 });
 
-export default connect(mapStateToProps, { getGeneralInfo, updateGeneralInfo, getScreenshots, deleteScreenshot, addScreenshot, updateScreenshot })(EditGeneralInfo);
+export default connect(mapStateToProps, { showHeader, showFooter, getGeneralInfo, updateGeneralInfo, getScreenshots, deleteScreenshot, addScreenshot, updateScreenshot })(EditGeneralInfo);

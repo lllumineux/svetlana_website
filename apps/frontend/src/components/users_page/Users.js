@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {getUsers, invertUserCourseAccess} from "../../actions/users";
 import {getCourses} from "../../actions/courses";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class Users extends Component {
     state = {
@@ -17,6 +18,8 @@ export class Users extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getUsers();
         this.props.getCourses();
     }
@@ -74,4 +77,4 @@ const mapStateToProps = (state) => ({
     courses: state.courses.courses
 });
 
-export default connect(mapStateToProps, { getUsers, getCourses, invertUserCourseAccess })(Users);
+export default connect(mapStateToProps, { showHeader, showFooter, getUsers, getCourses, invertUserCourseAccess })(Users);

@@ -11,8 +11,10 @@ import screenshots from "./screenshots";
 import articles from "./articles";
 import errors from "./errors";
 import messages from "./messages";
+import page_management from "./page_management";
 
 export default combineReducers({
+    page_management,
     auth,
     courses,
     general_info,

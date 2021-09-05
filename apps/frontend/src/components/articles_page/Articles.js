@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import {deleteArticle, getArticles, invertArticleVisibility} from "../../actions/articles";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class Articles extends Component {
     static propTypes = {
@@ -13,6 +14,8 @@ export class Articles extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getArticles();
     }
 
@@ -53,4 +56,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getArticles, deleteArticle, invertArticleVisibility })(Articles);
+export default connect(mapStateToProps, { showHeader, showFooter, getArticles, deleteArticle, invertArticleVisibility })(Articles);

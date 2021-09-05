@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {getCourseWeeks} from "../../actions/course_weeks";
 import {getCourse} from "../../actions/courses";
 import {loadUser} from "../../actions/auth";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class CourseWeeks extends Component {
     static propTypes = {
@@ -14,6 +15,8 @@ export class CourseWeeks extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourseWeeks(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
@@ -64,4 +67,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseWeeks })(CourseWeeks);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getCourseWeeks })(CourseWeeks);

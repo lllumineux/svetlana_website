@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {addCourse} from "../../actions/courses";
 import {Editor} from "@tinymce/tinymce-react";
 import {tinyEditorSettings} from "../common/tiny_editor_config"
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class AddCourse extends Component {
     state = {
@@ -18,6 +19,11 @@ export class AddCourse extends Component {
     static propTypes = {
         addCourse: PropTypes.func.isRequired
     };
+
+    componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
+    }
 
     // Input form changes listeners
     onChange = e => {this.setState({ [e.target.name]: e.target.value });}
@@ -80,4 +86,4 @@ export class AddCourse extends Component {
     };
 }
 
-export default connect(null, { addCourse })(AddCourse);
+export default connect(null, { showHeader, showFooter, addCourse })(AddCourse);

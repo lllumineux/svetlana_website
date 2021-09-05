@@ -9,6 +9,7 @@ import {
     getReportByDay,
     getReportQuestionsByDay
 } from "../../actions/reports";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class CourseDay extends Component {
     state = {
@@ -28,6 +29,8 @@ export class CourseDay extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourse(this.state.course_id);
         this.props.getCourseDay(this.state.course_id, this.state.week_number, this.state.day_number);
         this.props.getReportQuestionsByDay(this.state.course_id, this.state.week_number, this.state.day_number);
@@ -167,4 +170,4 @@ const mapStateToProps = (state) => ({
     report: state.reports.report
 });
 
-export default connect(mapStateToProps, { getCourse, getCourseDay, getReportQuestionsByDay, createReport, getReportByDay })(CourseDay);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourse, getCourseDay, getReportQuestionsByDay, createReport, getReportByDay })(CourseDay);

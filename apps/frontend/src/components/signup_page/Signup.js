@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {signup} from "../../actions/auth";
 import {createMessage} from "../../actions/messages";
+import {hideFooter, hideHeader} from "../../actions/page_management";
 
 export class Signup extends Component {
     state = {
@@ -15,6 +16,11 @@ export class Signup extends Component {
     static propTypes = {
         signup: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool
+    }
+
+    componentDidMount() {
+        this.props.hideHeader();
+        this.props.hideFooter();
     }
 
     // Input form changes listeners
@@ -41,10 +47,6 @@ export class Signup extends Component {
     }
 
     render() {
-        if (this.props.isAuthenticated) {
-            return <Redirect to="/" />
-        }
-
         return (
             <Fragment>
                 <form onSubmit={this.onSubmit} className="auth-forms">
@@ -76,4 +78,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { signup, createMessage })(Signup)
+export default connect(mapStateToProps, { hideHeader, hideFooter, signup, createMessage })(Signup)

@@ -21,7 +21,7 @@ export class Footer extends Component {
     render() {
         return (
             <Fragment>
-                {this.props.settings.noFooterPathNames.filter(pathNameRegEx => pathNameRegEx.test(location.pathname)).length === 0 ? (
+                {this.props.isFooterShown ? (
                     <footer className="footer">
                         <div className="contacts">
                             <div className="whatsapp">
@@ -48,6 +48,7 @@ export class Footer extends Component {
 
 const mapStateToProps = (state) => ({
     contact_info: state.general_info.contact_info,
+    isFooterShown: state.page_management.isFooterShown
 });
 
 export default connect(mapStateToProps, { getContactInfo })(Footer);

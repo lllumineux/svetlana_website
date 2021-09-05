@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {getGeneralInfo, updateGeneralInfo} from "../../actions/general_info";
-import {getNumbers} from "../../actions/numbers";
 import {getReports} from "../../actions/reports";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class Reports extends Component {
     static propTypes = {
@@ -11,6 +10,8 @@ export class Reports extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getReports();
     }
 
@@ -45,4 +46,4 @@ const mapStateToProps = (state) => ({
     reports: state.reports.reports
 });
 
-export default connect(mapStateToProps, { getReports })(Reports);
+export default connect(mapStateToProps, { showHeader, showFooter, getReports })(Reports);

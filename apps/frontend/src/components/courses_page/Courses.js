@@ -5,6 +5,7 @@ import { getCourses, deleteCourse, invertCourseVisibility } from "../../actions/
 import {Link} from "react-router-dom";
 import {PopupWindow} from "../common/PopupWindow";
 import {getContactInfo} from "../../actions/general_info";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class Courses extends Component {
     state = {
@@ -24,6 +25,8 @@ export class Courses extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourses();
         this.props.getContactInfo();
     }
@@ -135,4 +138,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCourses, deleteCourse, invertCourseVisibility, getContactInfo })(Courses);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourses, deleteCourse, invertCourseVisibility, getContactInfo })(Courses);

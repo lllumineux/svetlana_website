@@ -14,12 +14,13 @@ export class Alerts extends Component {
         if (error !== prevProps.error) {
             // Auth
             if (error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
-            if (error.msg.username) alert.error(error.msg.username.join());
             if (error.msg.password_validation_failed) {
                 error.msg.password_validation_failed.forEach((error_msg_content) => {
                     alert.error(error_msg_content);
                 })
             }
+            if (error.msg.username) alert.error(`Ник: ${error.msg.username.join().toLowerCase()}`);
+            if (error.msg.password) alert.error(`Пароль: ${error.msg.password.join().toLowerCase()}`);
 
 
             // Course

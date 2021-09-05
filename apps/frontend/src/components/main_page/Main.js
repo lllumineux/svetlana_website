@@ -9,8 +9,8 @@ import {STATIC_FILES_PATH} from '../../config';
 import {getCourses} from "../../actions/courses";
 import {PopupWindow} from "../common/PopupWindow";
 import {getScreenshots} from "../../actions/screenshots";
-
 import Carousel, { arrowsPlugin, slidesToShowPlugin } from '@brainhubeu/react-carousel';
+import {hideHeader, showFooter} from "../../actions/page_management";
 
 export class Main extends Component {
     state = {
@@ -28,6 +28,8 @@ export class Main extends Component {
     };
 
     componentDidMount() {
+        this.props.hideHeader();
+        this.props.showFooter();
         this.props.getGeneralInfo();
         this.props.getCourses();
         this.props.getScreenshots();
@@ -176,4 +178,4 @@ const mapStateToProps = (state) => ({
     screenshots: state.screenshots.screenshots
 });
 
-export default connect(mapStateToProps, { addNumber, getGeneralInfo, getCourses, getScreenshots })(Main);
+export default connect(mapStateToProps, { hideHeader, showFooter, addNumber, getGeneralInfo, getCourses, getScreenshots })(Main);

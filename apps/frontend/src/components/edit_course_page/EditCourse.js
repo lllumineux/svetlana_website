@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {getCourse, updateCourse} from "../../actions/courses";
 import {tinyEditorSettings} from "../common/tiny_editor_config";
 import {Editor} from "@tinymce/tinymce-react";
+import {showFooter, showHeader} from "../../actions/page_management";
 
 export class EditCourse extends Component {
     state = {
@@ -22,6 +23,8 @@ export class EditCourse extends Component {
     };
 
     componentDidMount() {
+        this.props.showHeader();
+        this.props.showFooter();
         this.props.getCourse(this.props.location.pathname.split("/").filter(obj => obj !== "").pop());
     }
 
@@ -105,4 +108,4 @@ const mapStateToProps = (state) => ({
     course: state.courses.course,
 });
 
-export default connect(mapStateToProps, { getCourse, updateCourse })(EditCourse);
+export default connect(mapStateToProps, { showHeader, showFooter, getCourse, updateCourse })(EditCourse);
