@@ -1,0 +1,54 @@
+{
+  "name": "svetlana_website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./apps/frontend/src/index.js --output-path ./apps/frontend/static/",
+    "build": "webpack --mode production ./apps/frontend/src/index.js --output-path ./apps/frontend/static/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lllumineux/svetlana_website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lllumineux/svetlana_website/issues"
+  },
+  "homepage": "https://github.com/lllumineux/svetlana_website#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-react": "^7.14.5",
+    "@tinymce/tinymce-react": "^3.12.6",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "css-loader": "^6.2.0",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.2.0",
+    "react-router-dom": "^5.2.0",
+    "sass": "^1.37.5",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.49.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "@brainhubeu/react-carousel": "^2.0.4",
+    "axios": "^0.21.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
+    "react-dom": "^17.0.2",
+    "react-loader-spinner": "^4.0.0",
+    "react-player": "^2.9.0",
+    "react-redux": "^7.2.4",
+    "react-transition-group": "^4.4.2",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0"
+  }
+}

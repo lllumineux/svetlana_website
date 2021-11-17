@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "svetlana_website"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+Django = "^3.2.6"
+django-tinymce = "^3.3.0"
+djangorestframework = "^3.12.4"
+Pillow = "^8.3.1"
+django-rest-knox = "^4.1.0"
+Jinja2 = "^3.0.1"
+boto3 = "^1.18.19"
+
+[tool.poetry.dev-dependencies]
+django-cors-headers = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

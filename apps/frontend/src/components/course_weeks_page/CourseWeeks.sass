@@ -1,0 +1,75 @@
+@use "../common/base"
+
+.weeks
+  .week:nth-child(n+1)
+    margin-top: 20px
+
+  .week
+    position: relative
+    border: 2px solid base.$light-gray-color
+    border-radius: 30px
+    vertical-align: top
+    width: 100%
+    padding: 0 0 29px
+
+    h3
+      font-weight: 700
+      font-size: base.$h4-size
+      padding: 29px 43px 0
+
+    .description
+      color: base.$dark-gray-color
+      padding: 0 43px 0
+      margin-top: 13px
+
+    hr
+      background-color: base.$light-gray-color
+      border: none
+      width: 100%
+      height: 2px
+      margin: 29px 0 29px
+
+    .action-buttons
+      padding: 0 43px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+
+    .week-locked-warning
+      z-index: 99
+      box-sizing: border-box
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      padding: 29px 43px
+
+      img
+        width: 20px
+        height: 20px
+
+      p
+        text-align: center
+        font-size: base.$p3-size
+        font-weight: 700
+        margin-top: 5px
+
+  .week[data-locked="false"]:hover
+    box-shadow: 0 0 10px #eee
+
+  .week[data-locked="true"]
+    h3, .description
+      opacity: .2
+
+@media (max-width: base.$tablet-m)
+  .weeks .week
+    h3, .description, .action-buttons
+      padding-left: 7.5vw
+      padding-right: 7.5vw

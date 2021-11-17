@@ -1,0 +1,62 @@
+@use '../common/base'
+
+.footer
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: base.$black-color
+  padding: 28px 69px
+
+  *
+    color: base.$white-color
+    font-size: base.$p3-size
+    font-weight: 400
+
+  .contacts
+    div
+      display: flex
+      align-items: center
+
+      a
+        margin-left: 7px
+
+    .instagram
+      margin-top: 4px
+
+  .website_developer
+    text-decoration: underline
+
+  .extra-info .copyright-tablet
+    display: none
+
+@media (max-width: base.$tablet-l)
+    .footer
+      padding-right: 7.5vw
+      padding-left: 7.5vw
+
+@media (max-width: base.$tablet-m)
+    .website_developer
+      margin-top: 4px
+
+    .copyright
+      display: none
+
+    .extra-info
+      display: flex
+      flex-direction: column
+      align-items: flex-end
+
+      .copyright-tablet
+        display: block!important
+
+@media (max-width: base.$mobile)
+  .footer
+    display: flex
+    flex-direction: column
+
+    .extra-info
+      margin-top: 20px
+      align-items: center
+
+      .website_developer
+        margin-top: 20px

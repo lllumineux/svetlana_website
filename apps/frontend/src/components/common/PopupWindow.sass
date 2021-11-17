@@ -1,0 +1,68 @@
+@use "base"
+
+.overlay
+  z-index: 999
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  background-color: rgba(0, 0, 0, 0.5)
+  left: 0
+  top: 0
+  width: 100vw
+  height: 100vh
+
+  .popup-window
+    background-color: base.$white-color
+    border-radius: 30px
+    width: 664px
+    padding: 50px
+
+    .popup-window-close-btn
+      float: right
+      position: relative
+      top: -28px
+      right: -28px
+      width: 20px
+      height: 20px
+
+    h2
+      font-size: base.$h3-size
+      font-weight: 800
+
+    .popup-window-content
+      overflow-y: auto
+      max-height: 60vh
+      margin-top: 17px
+
+    .popup-window-content::-webkit-scrollbar
+      width: 10px
+      border-radius: 100px
+
+    .popup-window-content::-webkit-scrollbar-track
+      border: 2px solid base.$light-gray-color
+      border-radius: 100px
+
+    .popup-window-content::-webkit-scrollbar-thumb
+      background: base.$dark-gray-color
+      border-radius: 100px
+
+@media (max-width: 810px)
+  .overlay .popup-window
+    overflow-y: auto
+    box-sizing: border-box
+    border-radius: 0
+    width: 100vw
+    height: 100vh
+
+    .popup-window-content
+      overflow-y: hidden
+      max-height: none
+
+@media (max-width: base.$tablet-m)
+  .overlay .popup-window
+    padding-left: 7.5vw
+    padding-right: 7.5vw
+
+    .popup-window-close-btn
+      right: -10px

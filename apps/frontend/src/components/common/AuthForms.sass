@@ -1,0 +1,65 @@
+@use "base"
+
+.auth-forms
+  align-self: center
+  box-sizing: border-box
+  display: flex
+  flex-direction: column
+  justify-content: center
+  border: 2px solid base.$light-gray-color
+  border-radius: 30px
+  width: 386px
+  padding: 45px
+  margin: auto
+
+  .auth-forms-header
+    font-size: base.$h3-size
+    font-weight: 700
+    margin: auto
+
+  .auth-forms-content
+    margin: 100px 0
+
+    input
+      background: base.$light-gray-color
+      font-size: base.$p2-size
+      border-radius: 100px
+      box-sizing: border-box
+      width: 100%
+      padding: 11px 15px
+      margin-top: 9px
+
+  .auth-forms-controls
+    display: flex
+    justify-content: center
+    align-items: center
+
+    .second-btn-wrapper
+      display: flex
+      justify-content: center
+      width: 100%
+
+      a
+        font-size: base.$p3-size
+
+    button[type="submit"]
+      display: block
+      background-color: base.$black-color
+      color: base.$white-color
+      font-size: base.$p3-size
+      font-weight: 400
+      border-radius: 100px
+      padding: 11px 30px
+
+@media (max-width: base.$tablet-m)
+  .auth-forms
+    border: none
+    padding: 0
+    margin: -50px 0
+    max-width: 85vw
+
+    *
+      font-size: 9px!important
+
+    .auth-forms-header
+      font-size: base.$h5-size!important

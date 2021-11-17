@@ -1,0 +1,225 @@
+@use "base"
+
+/* Fonts import */
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 300
+  src: url("../../fonts/Montserrat/Montserrat-Light.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 400
+  src: url("../../fonts/Montserrat/Montserrat-Regular.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 500
+  src: url("../../fonts/Montserrat/Montserrat-Medium.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: italic
+  font-weight: 500
+  src: url("../../fonts/Montserrat/Montserrat-MediumItalic.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 600
+  src: url("../../fonts/Montserrat/Montserrat-SemiBold.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 700
+  src: url("../../fonts/Montserrat/Montserrat-Bold.ttf")
+
+@font-face
+  font-family: "Montserrat"
+  font-style: normal
+  font-weight: 800
+  src: url("../../fonts/Montserrat/Montserrat-ExtraBold.ttf")
+
+@font-face
+  font-family: "Rubik"
+  font-style: normal
+  font-weight: 400
+  src: url("../../fonts/Rubik/Rubik-Regular.ttf")
+
+@font-face
+  font-family: "Rubik"
+  font-style: italic
+  font-weight: 400
+  src: url("../../fonts/Rubik/Rubik-Italic.ttf")
+
+@font-face
+  font-family: "Rubik"
+  font-style: normal
+  font-weight: 700
+  src: url("../../fonts/Rubik/Rubik-Bold.ttf")
+
+@font-face
+  font-family: "Rubik"
+  font-style: italic
+  font-weight: 700
+  src: url("../../fonts/Rubik/Rubik-BoldItalic.ttf")
+
+/* Common CSS */
+*
+  outline: none
+  text-decoration: none
+  border: none
+  background-color: transparent
+  padding: 0
+  margin: 0
+
+  font-family: "Montserrat", sans-serif
+  font-weight: 500
+  font-size: base.$p1-size
+  color: base.$black-color
+
+button
+  border: none
+  cursor: pointer
+
+button:disabled
+  cursor: default
+  opacity: .45
+
+strong, strong *
+  font-weight: bold
+
+strike, strike *
+  text-decoration: line-through
+
+u, u *
+  text-decoration: underline
+
+li
+  list-style-position: inside
+
+.accent-color, .accent-color *
+  color: base.$accent-color!important
+
+.hover-animation
+  cursor: pointer
+  transition: all 0.25s ease-out
+
+.hover-animation:hover
+  opacity: .65
+
+.disabled
+  opacity: .45
+
+html, body, #app
+  height: 100%
+
+#app
+  display: flex
+  flex-direction: column
+
+.content
+  display: flex
+  flex-direction: column
+  flex: 1 0 auto
+  width: 1088px
+  padding: 100px 0
+  margin: auto
+
+  .content-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 50px
+
+    .title
+      font-weight: 800
+      font-size: base.$h2-size
+
+    .content-controls
+      display: flex
+      align-items: center
+
+      .addition
+        display: flex
+        justify-content: center
+        align-items: center
+        font-size: base.$p2-size
+        color: base.$dark-gray-color
+        background-color: base.$light-gray-color
+        border-radius: 100px
+        height: 24px
+        padding: 0 31px
+        margin-right: 26px
+
+      .current_week, .current_day
+        text-align: center
+        font-size: base.$p2-size
+        margin: 0 12px
+
+      .current_week
+        width: 72px
+
+      .current_day
+        width: 53px
+
+      .control-button
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: base.$black-color
+        border-radius: 100px
+        width: 24px
+        height: 24px
+
+        img
+          width: 10px
+
+      .slider-control
+        display: flex
+        align-items: center
+
+.editor-rendered-content *
+  font-family: "Rubik", sans-serif
+
+.footer
+  flex-shrink: 0
+
+@media (max-width: base.$tablet-l)
+  .content
+    width: 85vw
+
+    .content-header
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-start
+
+    .content-controls
+      margin-top: 20px
+
+  .content .content-header .title
+    font-size: base.$h4-size
+
+@media (max-width: base.$mobile-s)
+  .content .content-header
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    .title
+      text-align: center
+
+    .content-controls
+      display: flex
+      flex-direction: column
+
+      .addition
+        margin-right: 0!important
+
+      .slider-control
+        margin-top: 10px

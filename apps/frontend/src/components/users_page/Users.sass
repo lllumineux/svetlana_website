@@ -1,0 +1,43 @@
+@use "../common/base"
+
+.username-search-form
+  background-color: base.$light-gray-color
+  font-size: 14px
+  border-radius: 100px
+  box-sizing: border-box
+  width: 100%
+  padding: 11px 15px
+
+.user-cards
+  margin-top: 50px
+
+  .user-card:nth-child(n+2)
+    margin-top: 20px
+
+  .user-card
+    box-sizing: border-box
+    background: base.$light-gray-color
+    border-radius: 30px
+    width: 100%
+    padding: 22px
+
+    h3
+      font-size: base.$p1-size
+      font-weight: 700
+
+    .user-card-courses
+      margin-top: 22px
+
+      .user-card-course:nth-child(n+2)
+        margin-top: 5px
+
+      .user-card-course
+        display: flex
+        align-items: center
+
+        .checkbox
+          cursor: pointer
+
+        h4
+          color: base.$dark-gray-color
+          margin-left: 9px

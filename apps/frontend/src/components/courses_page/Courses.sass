@@ -1,0 +1,168 @@
+@use "../common/base"
+
+.courses
+  .course:nth-child(2n)
+    margin-left: 42px
+
+  .course:nth-child(n+3)
+    margin-top: 35px
+
+  .course
+    position: relative
+    display: inline-block
+    border: 2px solid base.$light-gray-color
+    border-radius: 30px
+    vertical-align: top
+    width: 519px
+
+    h3
+      font-weight: 700
+      font-size: base.$h4-size
+      padding: 29px 43px 0
+
+    .description
+      color: base.$dark-gray-color
+      height: 171px
+      padding: 0 43px 29px
+      margin-top: 13px
+
+    hr
+      background-color: base.$light-gray-color
+      border: none
+      width: 100%
+      height: 2px
+      margin: 0 0 29px
+
+    .action-buttons
+      padding: 0 43px 29px
+
+      *:nth-child(n+2)
+        margin-left: 37px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+
+    .course-locked-warning
+      z-index: 99
+      box-sizing: border-box
+      position: absolute
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      padding: 29px 43px
+
+      img
+        width: 20px
+        height: 20px
+
+      p
+        text-align: center
+        font-size: base.$p3-size
+        font-weight: 700
+        margin-top: 5px
+
+      .locked-warning-controls
+        display: flex
+        margin-top: 20px
+
+        .locked-warning-controls-buy
+          display: block
+          background-color: base.$black-color
+          color: base.$white-color
+          font-size: base.$p3-size
+          font-weight: 400
+          border-radius: 100px
+          padding: 11px 72px
+
+        .locked-warning-controls-description
+          display: block
+          font-size: base.$p3-size
+          font-weight: 500
+          border: 2px solid base.$black-color
+          border-radius: 100px
+          padding: 11px 38px
+          margin-left: 10px
+
+
+  .course[data-locked="false"]:hover
+    box-shadow: 0 0 10px #eee
+
+  .course[data-locked="true"]
+    h3, .description
+      opacity: .2
+
+  .add-course-button
+    border: 2px dashed base.$light-gray-color
+    border-spacing: 100px
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 352.4px
+    padding: 0
+
+    img
+      width: 51px
+
+    div
+      color: base.$dark-gray-color
+      margin-top: 10px
+
+.authorized-buy-course-popup-window-content, .authorized-buy-course-popup-window-content *
+  color: base.$dark-gray-color
+  line-height: 19px
+
+@media (max-width: base.$tablet-l)
+  .courses
+    display: flex
+    flex-direction: column
+
+    .course:nth-child(n+2)
+      margin-top: 35px
+
+    .course
+      height: auto
+      display: block
+      width: 100%
+      margin-left: 0!important
+
+      .description
+        height: auto
+
+    .add-course-button
+      box-sizing: border-box
+      display: flex
+      justify-content: center
+      align-items: center
+      padding: 29px 43px
+
+@media (max-width: base.$tablet-m)
+  .courses .course
+    h3, .description, .action-buttons
+      padding-left: 7.5vw
+      padding-right: 7.5vw
+
+    .course-locked-warning
+      padding: 3.5vw
+      .locked-warning-controls
+        .locked-warning-controls-buy, .locked-warning-controls-description
+          padding-left: 18px
+          padding-right: 18px
+
+
+@media (max-width: 465px)
+  .courses .course .action-buttons
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+
+    *:nth-child(n+2)
+      margin-left: 0

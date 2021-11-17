@@ -1,0 +1,58 @@
+@use "../common/base"
+
+.articles
+  .article-promotion-text
+    font-size: base.$h5-5-size
+    font-weight: 600
+
+  .article:nth-child(n+2)
+    margin-top: 10px
+
+  .article
+    h3
+      display: inline-block
+      color: base.$dark-gray-color
+      font-size: base.$h6-size
+      text-decoration: underline
+
+    .action-buttons
+      display: inline-block
+
+      *:nth-child(n+2)
+        margin-left: 37px
+
+      *
+        background-color: transparent
+        color: base.$dark-gray-color
+        font-size: base.$p2-size
+
+    hr
+      background-color: base.$light-gray-color
+      border: none
+      height: 2px
+      margin: 6px 0
+
+  .add-article-button
+    color: base.$white-color
+    font-size: base.$p3-size
+    font-weight: 400
+    background-color: base.$black-color
+    border-radius: 100px
+    padding: 11px 72px
+    margin: 50px auto 0
+
+@media (max-width: base.$mobile)
+  .articles
+    .article .action-buttons
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-start
+
+      *:nth-child(n+2)
+        margin-left: 0
+
+    .add-article-button
+      width: 100%
+      padding-left: 36px
+      padding-right: 36px
