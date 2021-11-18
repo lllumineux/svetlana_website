@@ -138,11 +138,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 # Files upload path
-FILE_UPLOAD_PATH = BASE_DIR / 'apps' / 'frontend' / 'src' / 'uploads'
+MEDIA_ROOT = BASE_DIR / 'apps' / 'frontend' / 'src' / 'uploads'
+FRONTEND_STATIC_PATH = BASE_DIR / 'apps' / 'frontend' / 'src' / 'static'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (FILE_UPLOAD_PATH,)
+STATICFILES_DIRS = (MEDIA_ROOT, FRONTEND_STATIC_PATH)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

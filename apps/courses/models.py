@@ -2,7 +2,6 @@ from django.db import models
 from tinymce import models as tinymce_models
 
 from apps.courses.helpers.functions import UploadToPathAndRename
-from svetlana_website.settings import FILE_UPLOAD_PATH
 
 
 class Course(models.Model):
@@ -11,7 +10,7 @@ class Course(models.Model):
     full_description = tinymce_models.HTMLField()
     price1 = models.IntegerField()
     price2 = models.IntegerField()
-    background_img = models.ImageField(upload_to=UploadToPathAndRename(FILE_UPLOAD_PATH))
+    background_img = models.ImageField()
     is_hidden = models.BooleanField(default=True)
 
 
@@ -28,7 +27,7 @@ class Day(models.Model):
     number = models.IntegerField()
     name = models.CharField(max_length=256, default='Название занятия')
     short_description = models.TextField(default='Краткое описание занятия')
-    content = tinymce_models.HTMLField()
+    content = tinymce_models.HTMLField(blank=True, null=True)
     week = models.ForeignKey(Week, on_delete=models.CASCADE)
 
     class Meta:
